@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/spuxx1701/spuxx-dev-mono/compare/spuxx-astro-v1.1.0...spuxx-astro-v1.2.0) (2024-10-06)
+
+
+### Features
+
+* Update header titles uwu ([3cddf36](https://github.com/spuxx1701/spuxx-dev-mono/commit/3cddf36b07b480b76a3e9dc1cffecb5e22770c99))
+
 ## [1.1.0](https://github.com/spuxx1701/spuxx-dev-mono/compare/spuxx-astro-v1.0.0...spuxx-astro-v1.1.0) (2024-10-06)
 
 
