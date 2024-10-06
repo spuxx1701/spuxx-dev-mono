@@ -33,3 +33,6 @@ tsconfig.tsbuildinfo
 # Local files
 *.local
 .env
+
+# Framework-specific files
+.astro/
