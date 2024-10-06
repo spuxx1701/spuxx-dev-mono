@@ -1,7 +1,5 @@
 {
   "packages": {
-    "apps/spuxx-backend": {},
-    "apps/spuxx-dev": {},
-    "apps/toledo-client": {}
+    "apps/spuxx-astro": {}
   }
 }
