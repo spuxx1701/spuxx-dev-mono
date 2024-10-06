@@ -7,8 +7,6 @@ export interface Props extends HTMLAttributes<'a'> {
 }
 
 const { href, class: className, icon, ...props } = Astro.props;
-
-const { pathname, hash } = Astro.url;
 ---
 
 <a href={href} class:list={[className]} {...props}>
