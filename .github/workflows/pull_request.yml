@@ -1,0 +1,13 @@
+name: pull_request
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  run_checks:
+    name: Run code checks
+    uses: spuxx1701/ci-cd/.github/workflows/pnpm_run_checks.yml@v4.1.0
+    with:
+      PNPM_BUILD: true
