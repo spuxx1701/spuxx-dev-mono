@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<'img'> {
+  src: string;
+  title: string;
+  alt?: string;
+  width?: number;
+}
+
+const { src, title, width, ...props } = Astro.props;
+let { alt } = Astro.props;
+
+if (!alt) alt = title;
+---
+
+<img src={src} title={title} alt={alt} width={width} {...props} />
+<div class="subtitle">
+  <slot />
+</div>
+
+<style>
+  img {
+    box-shadow: var(--box-shadow);
+  }
+
+  p {
+    text-align: center;
+    font-size: medium;
+    font-style: italic;
+    color: var(--color-text-subtle);
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+import BaseHead from '../components/app/BaseHead.astro';
+import Header from '../components/app/Header.astro';
+import Footer from '../components/app/Footer.astro';
+import ProgressIndicator from '../components/app/ProgressIndicator.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import '../styles/global.css';
+
+const { pathname } = Astro.url;
+console.log(pathname);
+
+const showProgressIndicator = pathname.includes('blog/');
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    {showProgressIndicator && <ProgressIndicator />}
+  </body>
+</html>

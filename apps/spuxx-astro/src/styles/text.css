@@ -1,0 +1,22 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text-highlight);
+}
+
+strong,
+b {
+  color: var(--color-text-highlight);
+}
+
+a,
+a:visited {
+  color: var(--color-text-link);
+}
+
+a:hover {
+  color: var(--color-text-link-hover);
+}

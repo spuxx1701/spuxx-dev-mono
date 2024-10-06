@@ -1,0 +1,41 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { Icon } from 'astro-icon';
+
+export interface Props extends HTMLAttributes<'a'> {
+  iconPack?: string;
+  iconName?: string;
+}
+
+const { href, class: className, iconPack, iconName, ...props } = Astro.props;
+
+const { pathname, hash } = Astro.url;
+const isActive =
+  hash === pathname ||
+  href === pathname ||
+  href === pathname.replace(/\/$/, '') ||
+  (href !== '/' && pathname.includes(href));
+---
+
+<a href={href} class:list={[className, { active: isActive }]} {...props}>
+  {iconName && iconPack && <Icon pack={iconPack} name={iconName} />}
+  <slot />
+</a>
+<style>
+  a {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 2px solid var(--color-header-background);
+  }
+  a.active {
+    color: var(--color-text-link-hover) !important;
+    border-color: var(--color-text-link-hover) !important;
+  }
+  svg {
+    margin-right: 5px;
+    height: 25px;
+    max-width: 25px;
+  }
+</style>

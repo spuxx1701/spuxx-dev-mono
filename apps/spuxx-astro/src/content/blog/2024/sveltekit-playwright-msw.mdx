@@ -1,0 +1,96 @@
+---
+title: 'Test your SvelteKit app end-to-end with Playwright and MSW'
+description: 'This article will teach you how to test your SvelteKit app end-to-end with Playwright and MSW. It targets usecases where your SvelteKit app is consuming data from upstream APIs and you want to test the app in isolation, but both server- and client-side components in an end-to-end fashion.'
+pubDate: '2024-03-11'
+heroImage: '/blog/2024/sveltekit-playwright-msw/banner.png'
+---
+
+import Image from '/src/components/common/Image.astro';
+
+## The Usecase
+
+I recently built a small OAuth provider with [SvelteKit](https://kit.svelte.dev/) that provides clients (and their users) with a simple, UI-driven workflow to authenticate against an upstream server. Since the application was so simple, I wanted to test it with only [Playwright](https://playwright.dev) and use [MSW](https://github.com/mswjs/msw) to mock the upstream server. Considering the integrated nature of both server- and client-side components in SSR frameworks like SvelteKit, I felt that using an integrated approach to testing was a real good fit.
+
+## The Problem
+
+However, I quickly ran into issues. When using Playwright, the process that runs your tests is not the same process that runs the application. Instead, Playwright starts two processes concurrently - one for the tests and browser, and one for the actual application.
+
+Usually, integrating MSW into tests (e.g. when using [jest(https://github.com/jestjs/jest)] or [vitest](https://vitest.dev/)) is rather straightforward. A common approach is start the MSW server in a `beforeAll` hook. Since the application is being started in another process when using Playwright, however, this approach is not feasible. When starting the MSW server in the test process, it will will not be avaible to the application process. Some folk over at MSW have acknowledged this shortcoming and are [working on a solution](https://github.com/mswjs/msw/pull/1617), but at the time of writing, that PR is still work in progress.
+
+Now, there is [playwright-msw](https://github.com/valendres/playwright-msw), but it focuses on single-page applications or client-side components where requests are performed by the browser. What it effectively does is replace Playwright's API to intercept and mock requests in the browser by MSW, which wasn't what I was looking for. I wanted to mock requests sent by the **server**, not the client.
+
+## The Solution
+
+After some trial and error, I came up with a solution that I'm happy with. It's not perfect, but it works well for my usecase. For the following steps, I'll assume that you already have `SvelteKit`, `Playwright` and `MSW` installed.
+
+### Step 1: Create a custom server to run SvelteKit during tests
+
+SvelteKit offers a way to run the application on a [custom server](https://kit.svelte.dev/docs/adapter-node#custom-server) like [express](https://github.com/expressjs/express), which is what we'll be utilizing for our tests.
+
+```bash
+npm i --save-dev express
+```
+
+Create a file called `server.js` (I put mine into my `tests` folder).
+
+```js
+// tests/server.js
+import { handler } from '../build/handler.js';
+import { mswServer } from './msw/index.js';
+import express from 'express';
+
+// Set up the express server. We'll use it to host both MSW and our SvelteKit application.
+const app = express();
+
+// Start MSW. If you're unsure on how to configure and set up MSW,
+// best check out their docs: https://mswjs.io/docs/getting-started
+mswServer.listen({ onUnhandledRequest: 'error' });
+
+// Bind the SvelteKit handler to the express server. This'll make express host the SvelteKit application.
+app.use(handler);
+
+// Start the express server on a port of your choice..
+app.listen(4173);
+console.log('Test Server is listening on port 4173.');
+```
+
+Let's break this down. We start by importing and setting up `express`. Afterwards, we import and start our MSW server on the same process. Then, we bind the SvelteKit handler to the express server, making the process not only host the MSW server, but also the SvelteKit application. **This is crucial** since it'll allow MSW to intercept requests sent by SvelteKit's server-side components. Finally, we start the express server on a port of our choice.
+
+### Step 2: Create a command to start the server
+
+For ease of use, let's add a command to start our test server. Add the following to your `package.json`:
+
+```json
+// package.json
+{
+  "scripts": {
+    "serve-tests": "vite build && ORIGIN=http://localhost:4173 node tests/server.js"
+  }
+}
+```
+
+As you can see, that command will build the SvelteKit application and then start the server we created in step 1. While doing so, it will set the `ORIGIN` environment variable to `http://localhost:4173`. This is important, as it'll configure the server's CORS settings to allow incoming requests made by the browser. There are other ways to achieve this, like configuring [CORS](https://www.npmjs.com/package/cors) in `tests/server.js`, but I found this to be the most straightforward approach.
+
+> **Note**: You can also use `vite build --mode test` to build the application in a different [mode](https://vitejs.dev/guide/env-and-mode), which can be useful if you need to further customize the build process for testing.
+
+Go ahead and try out your test server. You should be able to use your app like usual, but any outgoing server-side requests should trigger corresponding handlers you've configured in MSW. I prefer MSW blocking any requests I forgot to handle, which is why I usually go with `onUnhandledRequest: 'error'`.
+
+### Step 3: Make Playright use our test server
+
+Finally, we need to tell Playwright to start our test server instead of the development or preview server which it is likely configured to do right now (if you've installed Playwright through SvelteKit's CLI, it'll use `svelte build && vite preview` by default). To do so, we need to modify our Playwright configuration:
+
+```js
+// playwright.config.js
+const config = {
+  webServer: {
+    // Tell Playwright to use our test server
+    command: 'npm run serve-tests',
+    port: 4173,
+  },
+  // ... other config
+};
+
+export default config;
+```
+
+And that's it! Playwright will now start our test server, which will host both our SvelteKit application and MSW. You can now write your tests as usual, and MSW will intercept any requests made by the server-side components of your SvelteKit application. Have fun testing! 🎉

@@ -1,0 +1,46 @@
+---
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header>
+  <nav>
+    <HeaderLink href="/" iconPack="mdi" iconName="home">Home</HeaderLink>
+    <HeaderLink href="/#blog" iconPack="mdi" iconName="blog">Blog</HeaderLink>
+    <HeaderLink
+      href="https://chaos.social/@spuxx"
+      target="_blank"
+      iconPack="mdi"
+      iconName="mastodon"
+    />
+    <HeaderLink
+      href="https://github.com/spuxx1701"
+      target="_blank"
+      iconPack="mdi"
+      iconName="github"
+    />
+  </nav>
+</header>
+<style>
+  :root {
+    --header-height: 40px;
+  }
+
+  header {
+    position: fixed;
+    height: var(--header-height);
+    width: 100vw;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-header-background);
+    box-shadow: 0px 2px 5px var(--color-header-background);
+    overflow: auto;
+    z-index: 19;
+  }
+  nav {
+    display: flex;
+    height: 100%;
+    width: var(--body-width);
+    margin: auto;
+  }
+</style>

@@ -1,0 +1,65 @@
+article {
+  display: flex;
+  flex-direction: column;
+}
+
+article > * {
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+hr {
+  width: 100%;
+  color: transparent;
+  height: 1px;
+  border: none;
+  background: linear-gradient(to right, var(--color-gradient-1), var(--color-gradient-2), var(--color-gradient-3));
+}
+
+.astro-code {
+  border-radius: 5px;
+}
+
+code {
+  padding: 2px 5px;
+  background-color: var(--color-code-background);
+  border-radius: 5px;
+}
+
+pre {
+  padding: 1rem;
+}
+
+article pre > code {
+  all: unset;
+}
+
+blockquote {
+  background: var(--gradient-quote-background);
+  color: var(--color-text-subtle);
+  padding: 0px 1.25rem;
+  margin: 0px;
+  border-radius: 5px;
+  font-style: italic;
+}
+
+table {
+  width: 100%;
+}
+
+img {
+  box-sizing: border-box;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--border-radius);
+}
+
+.subtitle {
+  margin: 0.5rem;
+  font-size: medium;
+  font-style: italic;
+  text-align: center;
+  color: var(--color-text-subtle);
+}

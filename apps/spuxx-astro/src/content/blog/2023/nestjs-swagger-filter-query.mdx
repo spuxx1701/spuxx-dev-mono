@@ -1,0 +1,348 @@
+---
+title: 'Implementing, documenting and validating filter query parameters in Nest'
+description: "If you like exposing filter query parameters on your API routes, you might have struggled with documenting them in Nest's SwaggerUI and validating the input with class-validator. Here's you can do it."
+heroImage: '/technologies/nest.svg'
+pubDate: '2023-06-19'
+---
+
+import Image from '/src/components/common/Image.astro';
+
+## Introduction
+
+[Nest](https://nestjs.com/) is an awesome web server framework for countless reason, one of them being how easy it makes both documenting and validating inputs like query parameters. However, implementing dynamic parameters like property filters as well as documenting and validating them is not so straight-forward. In this guide I'll show you a way to do it.
+
+## Exposing a `findMany` endpoint to return a list of cats
+
+Let's start with (almost) the basics. In thise guide we'll assume that you know how to build and expose an HTTP API with Nest, so if you've never done that before, best check our their [awesome tutorials](https://docs.nestjs.com/first-steps) and come back later.
+
+Let's assume we have a `CatResource` that looks like this:
+
+```ts
+// cat.resource.ts
+export class CatResource {
+  name: string;
+  age: number;
+  color: 'red' | 'brown' | 'black';
+}
+```
+
+On a corresponding `CatsController`, we want to expose that resource via a simple `findMany` endpoint. The actual logic for retrieving resource(s) depends on the usecase and does not matter for this guide, so we'll just assume it happens in some provider called `CatsService`.
+
+```ts
+// cats.controller.ts
+import { Controller, Get } from '@nestjs/common';
+import { CatsService } from './cats.service.ts';
+import { CatResource } from './cat.resource.ts';
+
+@Controller('cats')
+export class Catscontroller {
+  constructor(private service: CatsService) {}
+
+  @Get()
+  findMany(): CatResource[] {
+    return this.service.findMany();
+  }
+}
+```
+
+## Documenting the API endpoint with `@nestjs/swagger`
+
+Let's continue with documentation. For that purpose, Nest comes with a [dedicated module](https://docs.nestjs.com/openapi/introduction) for integrating [OpenAPI](https://swagger.io/specification/) and Swagger. If you're not using it yet, I highly recommend doing so. OpenAPI and Swagger are essential for both documenting and testing HTTP APIs, and they can help you enforce best practices in your project. If you're having trouble setting up OpenAPI/Swagger, refer to the [docs](https://docs.nestjs.com/openapi/introduction) - they document each and every step very well.
+
+Now, let's add some [decorators](https://docs.nestjs.com/openapi/decorators) to document our `CatsController`.
+
+```ts
+// cats.controller.ts
+import { Controller, Get } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { CatsService } from './cats.service';
+import { CatResource } from './cat.resource';
+
+@Controller('cats')
+@ApiTags('Cats')
+export class Catscontroller {
+  constructor(private service: CatsService) {}
+
+  @Get()
+  @ApiOperation({ summary: 'Returns a list of cats.' })
+  findMany(): CatResource[] {
+    return this.service.findMany();
+  }
+}
+```
+
+Voilà! Your route is now documented in the OpenAPI document and can be viewed in Swagger.
+
+<Image
+  src="/blog/2023/nest-swagger-filter-query/cats-route.png"
+  alt="A screenshot of Swagger UI containing the now documented /cats endpoint."
+/>
+
+## Implementing a dynamic filter query parameter
+
+Now let's assume that you want to allow filtering for specific cats on that route, which is a very common usecase when exposing `findMany` endpoints. When doing so, I suggest you not trying to reinvent the wheel and instead sticking to common practices and existing specifications. I'm a big fan of the [JSON:API](https://jsonapi.org/) specification and that specification recommends exposing a `filter` query parameter (see [here](https://jsonapi.org/recommendations/#filtering)) like so:
+
+```
+GET /cats?filter[name]=Garfield
+```
+
+```
+GET /cats?filter[color]=red,brown
+```
+
+Let's implement query parameter support in our `findMany` method. For this purpose, we will be defining a class for both the entire query and the filter (which will later make validating our query parameters much easier). This might seem a bit redundant, but remember that our endpoint might also expose different query parameters besides `filter`.
+
+```ts
+// queries/cats.filter.query.ts
+export class CatsFilterQuery {
+  name?: string;
+  age?: number;
+  color?: string;
+}
+```
+
+```ts
+// queries/cats.find-many.query.ts
+import { CatsFilterQuery } from './cats.filter.query';
+
+export class CatsFindManyQuery {
+  filter?: CatsFilterQuery;
+}
+```
+
+In `CatsController`, we will then define a query parameter using `CatsFindManyQuery`.
+
+```ts
+// cats.controller.ts
+import { Controller, Get, Query } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { CatsService } from './cats.service';
+import { CatResource } from './cat.resource';
+import { CatsFindManyQuery } from './queries/cats.find-many.query';
+
+@Controller('cats')
+@ApiTags('Cats')
+export class Catscontroller {
+  constructor(private service: CatsService) {}
+
+  @Get()
+  @ApiOperation({ summary: 'Returns a list of cats.' })
+  findMany(@Query() query: CatsFindManyQuery): CatResource[] {
+    console.log(query);
+    return this.service.findMany();
+  }
+}
+```
+
+> ⚠ Note that we will not go into details of how the query can be processed. For example, when using `TypeORM`, you might want to hand over the filter right over to that module, and I will write another post on how to do that. Instead, we will simply hand over the `query` object to our provider `CatsService` and assume that it'll deal with it.
+
+You can now test a couple of requests to see how `query` will behave. For example:
+
+```
+GET /cats?filter[name]=Garfield
+```
+
+will result in:
+
+```ts
+{
+  filter: {
+    name: 'Garfield';
+  }
+}
+```
+
+```
+GET /cats?filter[color]=red,brown
+```
+
+will result in:
+
+```ts
+{
+  filter: {
+    color: 'red,brown';
+  }
+}
+```
+
+Yay! The filter query parameter gets properly passed to the `query` object and we can use it in our code. However, there's a slight issue:
+
+```
+GET /cats?filter[foo]=bar
+```
+
+will result in:
+
+```
+{ filter: { foo: 'bar' } }
+```
+
+That's not good. Especially if we'll be handing over the filter values directly to our ORM, we absolutely want to make sure they cannot be polluted with things we don't expect.
+
+## Validating query parameters
+
+And this is where [class-validator](https://github.com/typestack/class-validator) comes in, a very powerful library that is also being natively supported by Nest. If you've never used it before, I recommend you hop on over to the [docs](https://docs.nestjs.com/techniques/validation) and find out more about it. I'll be waiting.
+
+We'll start by adding a couple of decorators to our `CatsFindManyQuery` and `CatsFilterQuery` classes so that `class-validator` knows what to do in the first place.
+
+```ts
+// query/cats.find-many.query.ts
+import { ValidateNested, IsOptional } from 'class-validator';
+import { CatsFilterQuery } from './cats.filter.query';
+
+export class CatsFindManyQuery {
+  @ValidateNested()
+  @IsOptional()
+  filter?: CatsFilterQuery;
+}
+```
+
+```ts
+// query/cats.filter.query.ts
+import { IsString, IsNumber, IsOptional } from 'class-validator';
+
+export class CatsFilterQuery {
+  @IsString()
+  @IsOptional()
+  name?: string;
+
+  @IsNumber()
+  @IsOptional()
+  age?: number;
+
+  @IsString()
+  @IsOptional()
+  color?: string;
+}
+```
+
+Now we need to include the `ValidationPipe` into the `@Query` decorator in our controller like so:
+
+```ts
+// cats.controller.ts
+import { Controller, Get, Query, ValidationPipe } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { CatsService } from './cats.service';
+import { CatResource } from './cat.resource';
+import { CatsFindManyQuery } from './queries/cats.find-many.query';
+
+@Controller('cats')
+@ApiTags('Cats')
+export class Catscontroller {
+  constructor(private service: CatsService) {}
+
+  @Get()
+  @ApiOperation({ summary: 'Returns a list of cats.' })
+  findMany(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      }),
+    )
+    query: CatsFindManyQuery,
+  ): CatResource[] {
+    console.log(query);
+    return this.service.findMany();
+  }
+}
+```
+
+You'll notice that we're handing a couple of options to `ValidationPipe`. Let's see what they do.
+
+- `transform` - If enabled, values will be transformed according to the validation decorators.
+- `transformOptions.enableImplicitConversion` - If enabled, implicit casts will be done automatically wherever possible when transforming.
+- `whitelist` - If enabled, any properties that do not have a corresponding `class-validator` validation decorator will be stripped from the object.
+- `forbidNonWhitelisted` - If enabled, instead of stripping invalid properties, the request will be canceled and a [Bad Request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400) error will be returned. This not only improves security, but also makes it easier for clients to understand and consume our API.
+
+Now let's test again. Do:
+
+```
+GET /cats?filter[name]=Garfield
+```
+
+```
+GET /cats?foo=bar
+```
+
+```
+GET /cats?filter[foo]=bar
+```
+
+Feel free to test other filter properties and combinations of valid and invalid keys and values. As expected, the first requests work, while the second and third requests are being canceled by `class-validator`. Great!
+
+## Documenting the filter query parameter
+
+Since validating our query parameters works very well, all that's missing is proper documentation. As of yet, nothing in our documentation tells consumers that they may supply a `filter` query parameter or how to use it.
+
+Before working on our controller's documentation we will add some documentation decorators to the `CatsFilterQuery`. This will increase readability of the query parameter in Swagger by allowing clients to understand what each property means.
+
+```ts
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsString, IsNumber, IsOptional } from 'class-validator';
+
+export class CatsFilterQuery {
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({ type: String, description: "The cat's name." })
+  name?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiPropertyOptional({ type: Number, description: "The cat's age in years." })
+  age?: number;
+
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({ type: Number, description: "The cat's color." })
+  color?: string;
+}
+```
+
+Since the `filter` query parameter is a very generic option that we might want to add to other endpoints as well, it makes sense to define it somewhere else and import it whenever needed. Of course, we'll want it to be able to deal with different `FilterQuery` objects so we don't need to document every endpoint's filters again and again.
+
+This is where it gets slightly more complicated, so bear with me. We will implement a decorator that will take a class (or more precisely: a constructor) as an argument.
+
+```ts
+import { applyDecorators } from '@nestjs/common';
+import { ApiExtraModels, ApiQuery, ApiQueryOptions, getSchemaPath } from '@nestjs/swagger';
+
+/**
+ * Use this decorator to document the 'filter' query parameter on an endpoint.
+ * @param filterQuery The filter query class that needs to be documented.
+ * @param options (optional) Use this to overwrite any of the default options.
+ * @returns
+ */
+export function ApiFilterQuery(filterQuery: new () => object, options?: ApiQueryOptions) {
+  return applyDecorators(
+    ApiExtraModels(filterQuery),
+    ApiQuery({
+      name: 'filter',
+      description:
+        "Can be used to filter for the resource's properties. Filter syntax follows the JSON:API specification: https://jsonapi.org/recommendations/#filtering",
+      required: false,
+      style: 'deepObject',
+      schema: {
+        $ref: getSchemaPath(filterQuery),
+      },
+      ...options,
+    }),
+  );
+}
+```
+
+That decorator simply wraps two other decorators that will be applied: `@ApiExtraModels` and `@ApiQuery`. In `@ApiQuery` we define things like `name`, `description` as well as telling OpenAPI that we're working with a `deepObject`. When doing so, we need to supply a path to the object's `schema` - and for that to work, we require the `@ApiExtraModels` decorator to be there as well. As a final touch, we allow overwriting our default `options` as well.
+
+And this is how it'll look like in Swagger:
+
+<Image
+  src="/blog/2023/nest-swagger-filter-query/cats-filter-documented.png"
+  alt="A screenshot of Swagger UI containing the /cats endpoint. The 'filter' query parameter is now also documented and can be used when sending requests via Swagger."
+/>
+
+And that's about it! 🎉 Go ahead and do some tests with both Swagger and direct calls to the endpoint. There's loads more you can do with all this, like adding support for complex filter operators and improve validation, but those'll be topics for another time. 😊

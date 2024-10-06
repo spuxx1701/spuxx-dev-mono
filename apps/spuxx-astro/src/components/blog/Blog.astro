@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Card from './Card.astro';
+import Heading from '../common/Heading.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+);
+---
+
+<section>
+  <Heading level={2} hash="blog">Blog</Heading>
+  <div class="article-grid">
+    {
+      posts
+        .sort((a, b) => {
+          return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+        })
+        .map((post) => <Card post={post} />)
+    }
+  </div>
+</section>
+
+<style>
+  .article-grid {
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+</style>

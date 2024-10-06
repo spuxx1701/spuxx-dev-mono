@@ -1,0 +1,54 @@
+@import './theme.css';
+@import './text.css';
+@import './markdown.css';
+
+:root * {
+  transition:
+    transform 200ms,
+    box-shadow 200ms,
+    background 200ms,
+    background-color 200ms,
+    border-color 200ms,
+    padding 200ms;
+
+  --body-width: max(1000px, 100vh);
+}
+
+html {
+  background-color: var(--color-app-background);
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: var(--body-width);
+  background-color: var(--color-body-background);
+  color: var(--color-text-default);
+  font-family: Verdana, sans-serif;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+  font-size: 18px;
+}
+
+main {
+  box-sizing: border-box;
+  margin: 54px 10px;
+}
+
+main > h1:first-child {
+  margin-top: 1rem;
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+}
+input {
+  font-size: 16px;
+}
+content {
+  line-height: 1.6;
+}

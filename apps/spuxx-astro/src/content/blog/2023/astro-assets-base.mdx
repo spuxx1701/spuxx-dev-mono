@@ -1,0 +1,73 @@
+---
+title: 'How to access static assets in Astro when using the `base` config option'
+description: 'If you ever tried to access static assets in environments where your page is hosted on a subpath (like GitHub or GitLab pages), you might have run into an issue with Astro linking to the root path instead. Here is how to fix it.'
+pubDate: '2023-06-17'
+---
+
+## Accessing static assets in Astro
+
+I love [Astro](https://astro.build/)! It's great for achieving results really quickly and it's a pleasure to work with in general. In our team we often use it to deploy static pages on our corporate GitLab instance, usually for documentation purposes.
+
+If you've ever tried to do the same, you might have ran into an issue with accessing static assets like images.
+
+By default, Astro encourages accessing static assets via an absolute URL like so:
+
+```html
+<img src="/some-image.png" alt="some image" />
+```
+
+## Configuring `site` and `base`
+
+At the same time, you might have come across the `site` and `base` [configuration properties](https://docs.astro.build/en/reference/configuration-reference/). Astro recommends setting those properties to match the URL of your production environment to avoid issues. This is very handy to reflect scenarios like GitLab or GitHub pages where you don't have full control over the final URL and your site will usually be using some kind of sub path. For example, if hosting a page on GitLab, you will get a URL that looks somewhat like this:
+
+```
+https://username.gitlab.io/project/
+```
+
+If the project is located in a group or sub-group, the path can be nested even more:
+
+```
+https://username.gitlab.io/group/project/
+```
+
+In such a scenario, you would need to set your `site` and `base` properties like so:
+
+```js
+site: "https://username.gitlab.io",
+base: "/project"
+// or "/group/project"
+```
+
+## The issue with subpaths and absolute URLs
+
+Now you might think that when accessing static assets for example in `<img>` tags like shown above that Astro would manipulate your URLs and add the `base` property as a prefix, [but that is actually not the case](https://github.com/withastro/astro/issues/5107#issuecomment-1295431707).
+
+While this appears to be working when running the development server via `astro dev`, it'll break in the build output (which you can test by running `astro build && astro preview`) where using absolute paths will lead to Astro attempting to fetch the asset from root. In the case of GitLab pages this would be `https://username.gitlab.io/some-image.png`:
+
+```html
+<!-- This will ignore 'base' and resolve to
+'https://username.gitlab.io/some-image.png' -->
+<img src="/some-image.png" alt="some image" />
+```
+
+Obviously, this is not the correct location. Instead, the asset can be found at `https://username.gitlab.io/project/some-image.png`.
+
+## How to fix it
+
+There's a couple of ways to fix this, but unfortunately, the official docs don't mention any of them. I've tried to discuss this on the [Astro Discord](https://github.com/withastro/astro) a couple of times, but never received a satisfying response on how to deal with this either.
+
+So, here we go - this is the workaround I've found the most convenient.
+
+First, add a `<base>` tag within your HTML's `<head>` element. I like to use a global [Layout](https://docs.astro.build/en/core-concepts/layouts/) for this purpose so the `<head>` gets applied anywhere on my page. For the `href` attribute we will be using the `base` config option. You can get its value by accessing `import.meta.env.BASE_URL` as documented [here](https://docs.astro.build/en/guides/environment-variables/#default-environment-variables).
+
+```html
+<base href="{import.meta.env.BASE_URL}" />
+```
+
+Now simply replace your absolute paths with relative paths:
+
+```html
+<!-- <img src="/some-image.png" alt="some image" />  -->' <img src="some-image.png" alt="some image" />
+```
+
+Et voilà - your asset references now resolve to the proper locations. 🥳

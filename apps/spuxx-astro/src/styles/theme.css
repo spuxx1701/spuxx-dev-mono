@@ -1,0 +1,25 @@
+:root {
+  --color-accent: #498082;
+
+  --color-app-background: #181818;
+  --color-header-background: #0c0c0c;
+  --color-body-background: transparent;
+
+  --color-code-background: #202020;
+  --gradient-quote-background: linear-gradient(135deg, rgb(103, 82, 219, 0.3), rgb(231, 94, 255, 0.1));
+
+  --color-text-default: #f1f1f1;
+  --color-text-highlight: white;
+  --color-text-link: #498082;
+  --color-text-link-hover: #64c8c8;
+  --color-text-subtle: #c5c5c5;
+  --color-text-heading: rgb(255, 255, 255, 0.8);
+
+  --color-gradient-0: rgb(73, 128, 130, 0.1);
+  --color-gradient-1: #498082;
+  --color-gradient-2: #6752db;
+  --color-gradient-3: #e75eff;
+
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  --border-radius: 4px;
+}
