@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    /* Compilation */
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+    /* Resolution */
+    "resolveJsonModule": true,
+    "types": ["vite/client", "vitest/globals", "@modyfi/vite-plugin-yaml/modules"],
+    "baseUrl": ".",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
