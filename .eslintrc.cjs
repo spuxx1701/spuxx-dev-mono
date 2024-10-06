@@ -14,5 +14,6 @@ module.exports = {
     // Miscellanous
     'no-console': ['error'],
     'no-debugger': ['error'],
+    '@typescript-eslint/triple-slash-reference': 'off',
   },
 };
