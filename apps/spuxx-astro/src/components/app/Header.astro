@@ -4,23 +4,25 @@ import HeaderLink from './HeaderLink.astro';
 
 <header>
   <nav>
-    <HeaderLink href="/" icon="mdi:home">Home</HeaderLink>
-    <HeaderLink href="/#blog" icon="mdi:blog">Blog</HeaderLink>
+    <HeaderLink href="/" icon="mdi:home" title="Home"/>
+    <HeaderLink href="/#blog" icon="mdi:post" title="Home"/>
     <HeaderLink
       href="https://chaos.social/@spuxx"
       target="_blank"
       icon="mdi:mastodon"
+      title="Mastodon"
     />
     <HeaderLink
       href="https://github.com/spuxx1701"
       target="_blank"
       icon="mdi:github"
+      title="GitHub"
     />
   </nav>
 </header>
 <style>
   :root {
-    --header-height: 40px;
+    --header-height: 50px;
   }
 
   header {
