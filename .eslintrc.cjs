@@ -1,22 +1,18 @@
 module.exports = {
   root: true,
   env: { browser: true, es2021: true },
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-  ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
-  parser: "@typescript-eslint/parser",
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: "tsconfig.json",
+    project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
-    sourceType: "module",
+    sourceType: 'module',
   },
-  plugins: ["prettier", "@typescript-eslint"],
+  plugins: ['prettier', '@typescript-eslint'],
   rules: {
     // Miscellanous
-    "no-console": ["error"],
-    "no-debugger": ["error"],
+    'no-console': ['error'],
+    'no-debugger': ['error'],
   },
 };

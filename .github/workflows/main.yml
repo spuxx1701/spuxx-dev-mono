@@ -6,8 +6,16 @@ on:
     - main
 
 jobs:
+  run_checks:
+    name: Run code checks
+    uses: spuxx1701/ci-cd/.github/workflows/pnpm_run_checks.yml@v4.1.0
+    with:
+      PNPM_BUILD: true
+
   run_release_please:
     name: Run release-please
     uses: spuxx1701/ci-cd/.github/workflows/pnpm_release-please.yml@v4.1.0
+    needs:
+    - run_checks
     secrets:
       TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
