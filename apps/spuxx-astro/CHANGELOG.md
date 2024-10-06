@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/spuxx1701/spuxx-dev-mono/compare/spuxx-astro-v1.2.0...spuxx-astro-v1.3.0) (2024-10-06)
+
+
+### Features
+
+* Rephrased a heading ([595934c](https://github.com/spuxx1701/spuxx-dev-mono/commit/595934cfb43ac2141303be48003654539e8e2703))
+* Rephrased a title ([6afe3b6](https://github.com/spuxx1701/spuxx-dev-mono/commit/6afe3b6e939e3a0da10c003ca5c6e9e7a259a69a))
+
+
+### Bug Fixes
+
+* Improved rust tech card readability ([18980a3](https://github.com/spuxx1701/spuxx-dev-mono/commit/18980a3cc78dd1d0f1f11d4cab4445726bdda5c2))
+
 ## [1.2.0](https://github.com/spuxx1701/spuxx-dev-mono/compare/spuxx-astro-v1.1.0...spuxx-astro-v1.2.0) (2024-10-06)
 
 
