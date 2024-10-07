@@ -1,4 +1,4 @@
-name: Release Pipeline (spuxx-astro)
+name: Releases (spuxx-astro)
 
 on:
   workflow_dispatch:
