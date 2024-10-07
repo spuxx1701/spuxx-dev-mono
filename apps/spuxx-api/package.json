@@ -1,6 +1,6 @@
 {
   "name": "spuxx-api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "rimraf dist && concurrently \"vite build --mode development --watch\" \"node scripts/wait-for-build.mjs && nodemon dist/main.mjs\"",
