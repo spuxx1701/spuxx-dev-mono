@@ -4,6 +4,7 @@ import { CustomLogger, AuthModule } from '@spuxx/nest-utils';
 import { AppModule } from './app.module';
 import { authConfig } from './auth/auth.config';
 import { EnvModule } from './env/env.module';
+import { bootstrapOpenApi } from './docs/open-api.bootstrap';
 
 async function bootstrap() {
   const logger = new CustomLogger({
@@ -12,6 +13,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger,
   });
+
+  bootstrapOpenApi(app);
 
   await AuthModule.bootstrap(app, authConfig);
 

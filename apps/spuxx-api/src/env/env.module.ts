@@ -10,7 +10,7 @@ class Env {
   APP_BASE_URL: string = 'https://api.spuxx.dev';
 
   @IsUrl()
-  AUTH_ISSUER_URL: string = 'https://auth.spuxx.dev/realms/spuxx';
+  AUTH_ISSUER_URL: string = 'https://auth.spuxx.dev/realms/main';
 
   @IsString()
   AUTH_CLIENT_ID: string = 'spuxx-api';

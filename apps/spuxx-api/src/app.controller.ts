@@ -1,34 +1,54 @@
-import { Controller, ForbiddenException, Get, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Header, Req } from '@nestjs/common';
 import { EnvModule } from './env/env.module';
 import type { Request } from 'express';
-import { AuthGuard, Roles } from '@spuxx/nest-utils';
-import { AuthRole } from './auth/auth.config';
-import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
+import { ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { appConfig } from './config/app.config';
 
 @Controller()
+@ApiTags('General')
 export class AppController {
   @Get()
+  @ApiOperation({
+    summary: "The application's root route.",
+    description: 'Returns general information on the application.',
+  })
   getHello(@Req() request: Request): object {
     const response = {
-      message: 'Hello there!',
-      time: new Date().toLocaleTimeString(),
-      session: request.oidc.user ? `Logged in as ${request.oidc.user.name}` : 'Not logged in',
-      routes: {
-        auth: {
-          login: `${EnvModule.get('APP_BASE_URL')}/auth/login`,
-          logout: `${EnvModule.get('APP_BASE_URL')}/auth/logout`,
-          session: `${EnvModule.get('APP_BASE_URL')}/auth/session`,
-        },
+      application: process.env.npm_package_name,
+      version: process.env.npm_package_version,
+      rootUrl: EnvModule.get('APP_BASE_URL'),
+      session: request.oidc.user ? `Logged in as ${request.oidc.user.name}.` : 'Not logged in.',
+      author: appConfig.author,
+      repository: 'https://github.com/spuxx1701/spuxx-dev-mono',
+      auth: {
+        login: `${EnvModule.get('APP_BASE_URL')}/auth/login`,
+        logout: `${EnvModule.get('APP_BASE_URL')}/auth/logout`,
+        session: `${EnvModule.get('APP_BASE_URL')}/auth/session`,
+        account: `${EnvModule.get('AUTH_ISSUER_URL')}/account`,
+      },
+      docs: {
+        'swagger-ui': `${EnvModule.get('APP_BASE_URL')}/${appConfig.openApi.routesPrefix}`,
+        'openapi-json': `${EnvModule.get('APP_BASE_URL')}/${appConfig.openApi.routesPrefix}-json`,
+      },
+      other: {
+        'robots.txt': `${EnvModule.get('APP_BASE_URL')}/robots.txt`,
+        'security.txt': `${EnvModule.get('APP_BASE_URL')}/security.txt`,
       },
     };
     return response;
   }
 
-  @Get('/protected')
-  @UseGuards(AuthGuard)
-  @Roles(AuthRole.user)
-  @ApiException(() => [UnauthorizedException, ForbiddenException])
-  getProtectedHello(@Req() request: Request) {
-    return `Oh hello there, ${request.oidc.user.name}! This route is protected, but you can see it! Not bad!`;
+  @Get('/robots.txt')
+  @Header('Content-Type', 'text/plain')
+  @ApiExcludeEndpoint()
+  getRobotsTxt() {
+    return 'User-agent: *\n' + 'Disallow: /';
+  }
+
+  @Get('/security.txt')
+  @Header('Content-Type', 'text/plain')
+  @ApiExcludeEndpoint()
+  getSecurityTxt() {
+    return `Contact: ${appConfig.author.email}`;
   }
 }

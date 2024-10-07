@@ -1,6 +1,16 @@
 {
   "name": "spuxx-api",
   "version": "0.0.0",
+  "author": {
+    "name": "spuxx",
+    "email": "hi@spuxx.dev",
+    "url": "https://spuxx.dev"
+  },
+  "repository": {
+    "url": "https://github.com/spuxx1701/spuxx-dev-mono",
+    "directory": "apps/spuxx-api",
+    "type": "git"
+  },
   "private": true,
   "scripts": {
     "dev": "rimraf dist && concurrently \"vite build --mode development --watch\" \"node scripts/wait-for-build.mjs && nodemon dist/main.mjs\"",
