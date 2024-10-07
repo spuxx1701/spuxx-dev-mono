@@ -13,6 +13,7 @@
   "packageManager": "pnpm@9.6.0",
   "scripts": {
     "dev:astro": "cd apps/spuxx-astro && pnpm dev",
+    "dev:api": "cd apps/spuxx-api && pnpm dev",
     "test": "pnpm test:vitest",
     "test:vitest": "vitest run --coverage",
     "test:playwright": "vitest run --coverage",
