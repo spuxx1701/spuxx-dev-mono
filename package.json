@@ -13,7 +13,10 @@
   "packageManager": "pnpm@9.6.0",
   "scripts": {
     "dev:astro": "cd apps/spuxx-astro && pnpm dev",
-    "dev:api": "cd apps/spuxx-api && pnpm dev",
+    "dev:api": "pnpm db:start && cd apps/spuxx-api && pnpm dev",
+    "db:start": "cd ./local-services/database && mkdir -p .data && docker compose down && docker compose up -d --wait --remove-orphans",
+    "db:stop": "cd ./local-services/database && docker compose down",
+    "db:reset": "cd ./local-services/database && docker compose down && rm -rf .data",
     "test": "pnpm test:vitest",
     "test:vitest": "vitest run --coverage",
     "test:playwright": "vitest run --coverage",
