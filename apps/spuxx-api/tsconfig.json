@@ -1,4 +1,9 @@
 {
   "extends": "../../tsconfig.nest.json",
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "paths": {
+      "@src/*": ["apps/spuxx-api/src/*"]
+    }
+  }
 }
