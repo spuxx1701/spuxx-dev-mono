@@ -13,7 +13,9 @@
   },
   "private": true,
   "scripts": {
-    "dev": "rimraf dist && concurrently \"vite build --mode development --watch\" \"node scripts/wait-for-build.mjs && nodemon dist/main.mjs\"",
+    "dev": "nest start --watch",
+    "debug": "nest start --debug",
+    "dev:vite": "rimraf dist && concurrently \"vite build --mode development --watch\" \"node scripts/wait-for-build.mjs && nodemon dist/main.mjs\"",
     "preview": "node dist/main.mjs",
     "build": "vite build",
     "types": "tsc --noEmit"
