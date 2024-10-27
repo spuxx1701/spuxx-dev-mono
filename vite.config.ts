@@ -34,6 +34,9 @@ export default defineConfig({
     globals: true,
     reporters: ['default', 'junit'],
     outputFile: 'reports/vitest/junit/junit.xml',
+    include: ['**/*.test.ts'],
+    exclude: ['**/node_modules/**'],
+    watch: false,
     coverage: {
       provider: 'v8',
       all: true,

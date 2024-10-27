@@ -11,6 +11,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@spuxx-api/*": ["apps/spuxx-api/*"],
+      "@mock-data/*": ["mock-data/*"]
+    }
   }
 }

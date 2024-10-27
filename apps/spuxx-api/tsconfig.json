@@ -1,9 +1,10 @@
 {
   "extends": "../../tsconfig.nest.json",
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./tests/**/*", "../../mock-data"],
   "compilerOptions": {
     "paths": {
-      "@src/*": ["apps/spuxx-api/src/*"]
+      "@src/*": ["apps/spuxx-api/src/*"],
+      "@tests/*": ["apps/spuxx-api/tests/*"]
     }
   }
 }

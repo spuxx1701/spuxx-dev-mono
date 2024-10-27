@@ -2,7 +2,8 @@ import { AuthOptions } from '@spuxx/nest-utils';
 import { EnvModule } from '../env/env.module';
 
 export const AuthRole = {
-  user: 'test_user',
+  toledoParent: 'toledo_parent',
+  toledoUser: 'toledo_user',
 } as const;
 export type AuthRole = (typeof AuthRole)[keyof typeof AuthRole];
 export const authRoles = Object.values(AuthRole);

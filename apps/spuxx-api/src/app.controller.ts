@@ -3,6 +3,7 @@ import { EnvModule } from './env/env.module';
 import type { Request } from 'express';
 import { ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { appConfig } from './config/app.config';
+import { isAuthenticated, getSession } from '@spuxx/nest-utils';
 
 @Controller()
 @ApiTags('General')
@@ -17,7 +18,7 @@ export class AppController {
       application: process.env.npm_package_name,
       version: process.env.npm_package_version,
       rootUrl: EnvModule.get('APP_BASE_URL'),
-      session: request.oidc.user ? `Logged in as ${request.oidc.user.name}.` : 'Not logged in.',
+      session: isAuthenticated(request) ? `Logged in as ${getSession(request).preferred_username}.` : 'Not logged in.',
       author: appConfig.author,
       repository: 'https://github.com/spuxx1701/spuxx-dev-mono',
       auth: {
