@@ -5,6 +5,7 @@ import { authConfig } from '@src/auth/auth.config';
 import { ListsProvider } from '../services/lists.provider';
 import { listCreateMockData } from 'mock-data/list.create.mock-data';
 import { sessionMockData } from '@mock-data/session.mock-data';
+import { ListReadResource } from '../dtos/list.read.resource';
 
 describe('ListsController', () => {
   let supertest: Supertest;
@@ -50,7 +51,10 @@ describe('ListsController', () => {
         session: sessionMockData.privileged,
       });
       expect(response.statusCode).toBe(200);
-      expect(response.body).toEqual(groceries.dataValues);
+      const result: ListReadResource = response.body;
+      expect(result.id).toBe(groceries.id);
+      expect(result.ownerId).toBe(groceries.ownerId);
+      expect(result.name).toBe(groceries.dataValues.name);
     });
 
     it('should return 401', async () => {

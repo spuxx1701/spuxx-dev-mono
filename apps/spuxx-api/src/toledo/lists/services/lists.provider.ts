@@ -50,7 +50,7 @@ export class ListsProvider {
       ...resource,
       ownerId: sub,
     };
-    const createdList = await this.model.create<List>(newList);
+    const createdList = await this.model.build<List>(newList).save();
     return createdList;
   }
 }
