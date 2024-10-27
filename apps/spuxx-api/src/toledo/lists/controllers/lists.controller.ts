@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { defaultValidationPipe } from '@src/validation/default-validation.pipe';
-import { AuthGuard, HttpLoggingInterceptor, Mapper, Roles, SessionResource } from '@spuxx/nest-utils';
+import { AuthGuard, HttpLoggingInterceptor, Mapper, Roles } from '@spuxx/nest-utils';
 import { AuthRole } from '@src/auth/auth.config';
 import type { Request } from 'express';
 import { ListReadResource } from '../dtos/list.read.resource';
@@ -55,8 +55,8 @@ export class ListsController {
     type: ListReadResource,
   })
   @ApiException(() => Object.values(listsExceptions.findById))
-  async findById(@Param('id') id: string, @Req() request: Request): Promise<ListReadResource> {
-    const list = await this.provider.findById(id, request);
+  async findById(@Param('id') id: string): Promise<ListReadResource> {
+    const list = await this.provider.findById(id);
     return this.mapper.map(list, List, ListReadResource);
   }
 

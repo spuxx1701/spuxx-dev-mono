@@ -23,8 +23,8 @@
     "check": "pnpm prettier-check && pnpm types && pnpm lint && pnpm -r check",
     "types": "pnpm -r types",
     "lint": "eslint . --ext ts,tsx",
-    "prettier-check": "prettier --check .",
-    "format": "prettier --write ."
+    "prettier-check": "prettier --check ./apps",
+    "format": "prettier --write ./apps"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "1.1.0",

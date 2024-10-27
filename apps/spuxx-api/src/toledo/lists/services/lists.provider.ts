@@ -29,10 +29,10 @@ export class ListsProvider {
    * Returns a specific list by id. Doubles as an invite link: When called by a user
    * that not never visited this list before, the user will be added to the list as a guest.
    * @param id The id of the list.
-   * @param request The request.
+   * @param _request The request.
    * @returns All of the user's lists.
    */
-  async findById(id: string, request: Request): Promise<List> {
+  async findById(id: string): Promise<List> {
     const list = await this.model.findByPk(id);
     if (!list) throw listsExceptions.findById.notFound;
     return list;

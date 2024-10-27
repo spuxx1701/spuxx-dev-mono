@@ -5,3 +5,4 @@ dist/
 .github/
 .release-please/manifest.json
 CHANGELOG.md
+local-services/

@@ -4,7 +4,7 @@ import { TestOrmModule } from '@tests/database/test-orm-module';
 import { authConfig } from '@src/auth/auth.config';
 import { ListsProvider } from '../services/lists.provider';
 import { listCreateMockData } from 'mock-data/list.create.mock-data';
-import { sessionMockData } from 'mock-data/session.mock-data';
+import { sessionMockData } from '@mock-data/session.mock-data';
 
 describe('ListsController', () => {
   let supertest: Supertest;
