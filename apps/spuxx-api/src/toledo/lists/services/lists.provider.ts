@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { List } from '../models/list.model';
+import { IncompleteList, List } from '../models/list.model';
 import { Request } from 'express';
 import { getSession } from '@spuxx/nest-utils';
 import { ListCreateResource } from '../dtos/list.create.resource';
@@ -22,6 +22,7 @@ export class ListsProvider {
       where: {
         ownerId: sub,
       },
+      include: ['owner'],
     });
   }
 
@@ -33,7 +34,9 @@ export class ListsProvider {
    * @returns All of the user's lists.
    */
   async findById(id: string): Promise<List> {
-    const list = await this.model.findByPk(id);
+    const list = await this.model.findByPk(id, {
+      include: ['owner'],
+    });
     if (!list) throw listsExceptions.findById.notFound;
     return list;
   }
@@ -46,11 +49,12 @@ export class ListsProvider {
    */
   async create(resource: ListCreateResource, request: Request): Promise<List> {
     const { sub } = getSession(request);
-    const newList: IncompleteModel<List> = {
+    const newList: IncompleteList = {
       ...resource,
       ownerId: sub,
     };
     const createdList = await this.model.build<List>(newList).save();
-    return createdList;
+    const persistedList = this.findById(createdList.id);
+    return persistedList;
   }
 }

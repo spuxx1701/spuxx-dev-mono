@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { listPropertyDocs } from '../config/list.property-docs';
 import { Map } from '@spuxx/nest-utils';
+import { UserReadResource } from '@spuxx-api/src/users/dtos/user.read.resource';
 
 export class ListReadResource {
   @ApiProperty(listPropertyDocs.id)
@@ -17,7 +18,7 @@ export class ListReadResource {
 
   @ApiProperty(listPropertyDocs.owner)
   @Map()
-  ownerId: string;
+  owner: UserReadResource;
 
   @Map()
   createdAt: Date;

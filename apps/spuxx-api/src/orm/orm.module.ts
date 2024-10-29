@@ -15,6 +15,7 @@ import { EnvModule } from '@src/env/env.module';
       password: EnvModule.get('DATABASE_PASSWORD'),
       database: EnvModule.get('DATABASE_DB'),
       synchronize: EnvModule.get('DATABASE_SYNCHRONIZE'),
+      logging: EnvModule.get('APP_LOG_LEVEL') === 'verbose',
       sync: {
         alter: true,
       },

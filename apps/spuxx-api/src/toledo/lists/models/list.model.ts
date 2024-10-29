@@ -1,6 +1,6 @@
 import { Map } from '@spuxx/nest-utils';
 import { User } from '@src/users/models/user.model';
-import { Table, Column, Model, DataType, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 
 @Table({
   tableName: 'Toledo_Lists',
@@ -19,8 +19,12 @@ export class List extends Model {
   icon?: string;
 
   @ForeignKey(() => User)
-  @Column
+  @Column({ type: DataType.UUID })
   ownerId: string;
+
+  @BelongsTo(() => User)
+  @Map()
+  owner: User;
 
   @Map()
   declare createdAt: Date;
@@ -28,3 +32,5 @@ export class List extends Model {
   @Map()
   declare updatedAt: Date;
 }
+
+export type IncompleteList = Omit<IncompleteModel<List>, 'owner'>;
