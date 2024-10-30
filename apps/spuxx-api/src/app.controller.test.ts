@@ -15,7 +15,7 @@ describe('AppController', () => {
     supertest = container.supertest;
   });
 
-  describe('root', () => {
+  describe('getIndex', () => {
     it('should return 200', async () => {
       const response = await supertest.get('/');
       expect(response.statusCode).toBe(200);
@@ -27,6 +27,27 @@ describe('AppController', () => {
       });
       expect(response.statusCode).toBe(200);
       expect(response.body.session).toBe(`Logged in as ${sessionMockData.privileged.preferred_username}.`);
+    });
+  });
+
+  describe('alive', () => {
+    it('should return 200', async () => {
+      const response = await supertest.get('/alive');
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
+  describe('robotsTxt', () => {
+    it('should return 200', async () => {
+      const response = await supertest.get('/robots.txt');
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
+  describe('securityTxt', () => {
+    it('should return 200', async () => {
+      const response = await supertest.get('/security.txt');
+      expect(response.statusCode).toBe(200);
     });
   });
 });

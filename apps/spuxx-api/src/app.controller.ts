@@ -10,10 +10,10 @@ import { isAuthenticated, getSession } from '@spuxx/nest-utils';
 export class AppController {
   @Get()
   @ApiOperation({
-    summary: "The application's root route.",
+    summary: "The application's index route.",
     description: 'Returns general information on the application.',
   })
-  getHello(@Req() request: Request): object {
+  getIndex(@Req() request: Request): object {
     const response = {
       application: process.env.npm_package_name,
       version: process.env.npm_package_version,
@@ -32,11 +32,18 @@ export class AppController {
         'openapi-json': `${EnvModule.get('APP_BASE_URL')}/${appConfig.openApi.routesPrefix}-json`,
       },
       other: {
+        alive: `${EnvModule.get('APP_BASE_URL')}/alive`,
         'robots.txt': `${EnvModule.get('APP_BASE_URL')}/robots.txt`,
         'security.txt': `${EnvModule.get('APP_BASE_URL')}/security.txt`,
       },
     };
     return response;
+  }
+
+  @Get('/alive')
+  @ApiExcludeEndpoint()
+  getAlive() {
+    return { status: 'OK' };
   }
 
   @Get('/robots.txt')

@@ -44,6 +44,7 @@ export default defineConfig({
       exclude: [
         '**/src/main.ts',
         '**/*.bootstrap.ts',
+        '**/src/orm/**',
         '**/*types.ts',
         '**/*.d.ts',
         '**/*test.ts',
