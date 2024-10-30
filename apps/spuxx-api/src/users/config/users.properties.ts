@@ -1,6 +1,6 @@
 import { ApiParamOptions, ApiPropertyOptions } from '@nestjs/swagger';
 
-export const userPropertyDocs = {
+export const userProperties = {
   id: {
     name: 'id',
     description: 'The id of the user.',

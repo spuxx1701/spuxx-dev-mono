@@ -16,7 +16,7 @@ export class UsersRegistrar {
    * Registers a new login.
    * @param request The request.
    */
-  async registerLogin(request: Request): Promise<void> {
+  async registerUserVisit(request: Request): Promise<void> {
     if (!isAuthenticated(request)) return;
     const session = getSession(request);
     try {

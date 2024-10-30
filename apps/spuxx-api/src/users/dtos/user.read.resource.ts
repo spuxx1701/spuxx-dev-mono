@@ -1,25 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { userPropertyDocs } from '../config/users.property-docs';
+import { userProperties } from '../config/users.properties';
 import { Map } from '@spuxx/nest-utils';
 
 export class UserReadResource {
-  @ApiProperty(userPropertyDocs.id)
+  @ApiProperty(userProperties.id)
   @Map()
   id: string;
 
-  @ApiProperty(userPropertyDocs.username)
+  @ApiProperty(userProperties.username)
   @Map()
   username: string;
 
-  @ApiProperty(userPropertyDocs.firstName)
+  @ApiProperty(userProperties.firstName)
   @Map()
   firstName: string;
 
-  @ApiProperty(userPropertyDocs.familyName)
+  @ApiProperty(userProperties.familyName)
   @Map()
   familyName: string;
 
-  @ApiProperty(userPropertyDocs.lastSeen)
+  @ApiProperty(userProperties.lastSeen)
   @Map()
   lastSeen: Date;
 }

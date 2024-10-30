@@ -8,7 +8,7 @@ export class UserRegistrationMiddleware implements NestMiddleware {
 
   use(req: Request, _res: Response, next: NextFunction) {
     if (req.originalUrl === '/auth/session') {
-      this.registrar.registerLogin(req);
+      this.registrar.registerUserVisit(req);
     }
     next();
   }

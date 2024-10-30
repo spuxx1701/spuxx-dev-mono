@@ -8,6 +8,15 @@ export class UsersProvider {
   constructor(@InjectModel(User) private model: typeof User) {}
 
   /**
+   * Returns the list of all users.
+   * @returns The list of users.
+   */
+  async findAll(): Promise<User[]> {
+    const users = await this.model.findAll();
+    return users;
+  }
+
+  /**
    * Finds and returns a user by their id.
    * @param id The id of the user to find.
    * @returns The user.
