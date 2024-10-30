@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { appExceptions } from '@src/config/app.exceptions';
 
 export const listsExceptions = {
@@ -10,6 +10,16 @@ export const listsExceptions = {
     ...appExceptions.protected,
   },
   create: {
+    ...appExceptions.protected,
+  },
+  update: {
+    notFound: new NotFoundException(),
+    notOwner: new ForbiddenException(),
+    ...appExceptions.protected,
+  },
+  delete: {
+    notFound: new NotFoundException(),
+    notOwner: new ForbiddenException(),
     ...appExceptions.protected,
   },
 };

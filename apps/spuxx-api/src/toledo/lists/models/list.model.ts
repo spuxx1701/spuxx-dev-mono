@@ -26,6 +26,18 @@ export class List extends Model {
   @Map()
   owner: User;
 
+  @Column
+  @Map()
+  usesCheckboxes: boolean;
+
+  @Column
+  @Map()
+  requiresDeleteConfirmation: boolean;
+
+  @Column
+  @Map()
+  usesQuantities: boolean;
+
   @Map()
   declare createdAt: Date;
 

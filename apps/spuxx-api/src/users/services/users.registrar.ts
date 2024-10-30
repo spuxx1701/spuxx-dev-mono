@@ -26,7 +26,7 @@ export class UsersRegistrar {
       existingUser.username = session.preferred_username;
       existingUser.lastSeen = new Date();
       existingUser.save();
-      Logger.log(`User '${session.preferred_username}' (sub: '${session.sub}') has been seen.`);
+      Logger.log(`User '${session.preferred_username}' (sub: '${session.sub}') has been seen.`, UsersRegistrar.name);
     } catch (error) {
       const newUser: IncompleteModel<User> & { id: string } = {
         id: session.sub,
@@ -36,7 +36,10 @@ export class UsersRegistrar {
         lastSeen: new Date(),
       };
       this.model.create(newUser);
-      Logger.log(`User '${session.preferred_username}' (sub: '${session.sub}') has been registered.`);
+      Logger.log(
+        `User '${session.preferred_username}' (sub: '${session.sub}') has been registered.`,
+        UsersRegistrar.name,
+      );
     }
   }
 }

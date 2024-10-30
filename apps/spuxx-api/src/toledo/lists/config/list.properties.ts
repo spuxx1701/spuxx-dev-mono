@@ -1,6 +1,6 @@
 import { ApiParamOptions, ApiPropertyOptions } from '@nestjs/swagger';
 
-export const listPropertyDocs = {
+export const listProperties = {
   id: {
     name: 'id',
     description: 'The id of the list.',
@@ -14,8 +14,27 @@ export const listPropertyDocs = {
 
   icon: {
     description: 'The icon of the list. Supports icons from https://fonts.google.com/icons.',
-    example: 'shopping_cart',
+    default: 'shopping_cart',
     required: false,
+  } as ApiPropertyOptions,
+
+  usesCheckboxes: {
+    description:
+      'When enabled, instructs clients to show interactive checkboxes that control \
+    the checked state of items in the list.',
+    default: true,
+  } as ApiPropertyOptions,
+
+  requiresDeleteConfirmation: {
+    description:
+      'When enabled, instructs clients to ask the user for confirmation before deleting items \
+      from the list.',
+    default: false,
+  } as ApiPropertyOptions,
+
+  usesQuantities: {
+    description: 'When enabled, instructs clients to display the quantity input for items in the list.',
+    default: false,
   } as ApiPropertyOptions,
 
   owner: {
