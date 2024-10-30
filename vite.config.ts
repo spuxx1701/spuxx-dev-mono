@@ -40,8 +40,16 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       all: true,
-      include: ['packages/**/src/**/*.ts', 'apps/**/src/**/*.ts'],
-      exclude: ['**/src/main.ts', '**/*types.ts', '**/*.d.ts', '**/*test.ts', '**/index.ts', '**/private/**'],
+      include: ['**/src/**/*.ts'],
+      exclude: [
+        '**/src/main.ts',
+        '**/*.bootstrap.ts',
+        '**/*types.ts',
+        '**/*.d.ts',
+        '**/*test.ts',
+        '**/index.ts',
+        '**/private/**',
+      ],
       reportsDirectory: 'reports/vitest/coverage',
       reporter: ['text', 'cobertura'],
     },
