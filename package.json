@@ -13,6 +13,7 @@
   "packageManager": "pnpm@9.6.0",
   "scripts": {
     "dev:astro": "cd apps/spuxx-astro && pnpm dev",
+    "dev:toledo": "cd apps/toledo && pnpm dev",
     "dev:api": "pnpm db:start && cd apps/spuxx-api && pnpm dev",
     "debug:api": "pnpm db:start && cd apps/spuxx-api && pnpm debug",
     "db:start": "cd ./local-services/database && mkdir -p .data && docker compose down && docker compose up -d --wait --remove-orphans",

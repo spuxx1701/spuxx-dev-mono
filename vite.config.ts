@@ -3,7 +3,7 @@ import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import swc from 'unplugin-swc';
 
-// https://vitejs.dev/config/
+/// <reference types="vitest" />
 export default defineConfig({
   plugins: [
     dts({
