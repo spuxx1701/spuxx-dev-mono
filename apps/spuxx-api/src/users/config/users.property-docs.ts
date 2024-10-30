@@ -17,8 +17,8 @@ export const userPropertyDocs = {
     example: 'John',
   } as ApiPropertyOptions,
 
-  lastName: {
-    description: 'The last name of the user.',
+  familyName: {
+    description: 'The family name of the user.',
     example: 'Doe',
   } as ApiPropertyOptions,
 

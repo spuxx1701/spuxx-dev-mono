@@ -17,7 +17,7 @@ export class User extends Model {
 
   @Column
   @Map()
-  lastName: string;
+  familyName: string;
 
   @Column
   @Map()

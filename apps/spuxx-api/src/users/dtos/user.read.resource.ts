@@ -15,9 +15,9 @@ export class UserReadResource {
   @Map()
   firstName: string;
 
-  @ApiProperty(userPropertyDocs.lastName)
+  @ApiProperty(userPropertyDocs.familyName)
   @Map()
-  lastName: string;
+  familyName: string;
 
   @ApiProperty(userPropertyDocs.lastSeen)
   @Map()

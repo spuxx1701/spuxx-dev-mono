@@ -22,7 +22,7 @@ export class UsersRegistrar {
     try {
       const existingUser = await this.provider.findById(session.sub);
       existingUser.firstName = session.given_name;
-      existingUser.lastName = session.last_name;
+      existingUser.familyName = session.family_name;
       existingUser.username = session.preferred_username;
       existingUser.lastSeen = new Date();
       existingUser.save();
@@ -31,7 +31,7 @@ export class UsersRegistrar {
       const newUser: IncompleteModel<User> & { id: string } = {
         id: session.sub,
         firstName: session.given_name,
-        lastName: session.last_name,
+        familyName: session.family_name,
         username: session.preferred_username,
         lastSeen: new Date(),
       };

@@ -31,7 +31,7 @@
     "@nestjs/sequelize": "10.0.1",
     "@nestjs/swagger": "7.4.0",
     "@spuxx/js-utils": "1.0.0",
-    "@spuxx/nest-utils": "2.3.1",
+    "@spuxx/nest-utils": "2.3.2",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.1",
     "mariadb": "^3.3.2",

@@ -105,8 +105,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.24.0)(vite@5.4.8(@types/node@22.7.4)(terser@5.34.1)))
       '@spuxx/nest-utils':
-        specifier: 2.3.1
-        version: 2.3.1(zf74eay6amoinltpbsgcwbxvzq)
+        specifier: 2.3.2
+        version: 2.3.2(zf74eay6amoinltpbsgcwbxvzq)
       class-transformer:
         specifier: 0.5.1
         version: 0.5.1
@@ -1234,8 +1234,8 @@ packages:
       '@modyfi/vite-plugin-yaml':
         optional: true
 
-  '@spuxx/nest-utils@2.3.1':
-    resolution: {integrity: sha512-LxmdfL/d7F1txAsF5+G3WoELtAyg8SCXR9RRttwGFK4n67kSoarYpUpaaFStXrC9uFj4Ku5VdEEsBYFuWeQf8Q==}
+  '@spuxx/nest-utils@2.3.2':
+    resolution: {integrity: sha512-kN7eA4Y5uuRG6LeOU3JYGHtt+1aNheHZH3cYJQL7o4gcD19J60O/sQcQ3DZs1KBYBZ3qM1BeQhmlLUyKWExivQ==}
     peerDependencies:
       '@nanogiants/nestjs-swagger-api-exception-decorator': ^1.6.0
       '@nestjs/common': ^10.0.0
@@ -6947,7 +6947,7 @@ snapshots:
     optionalDependencies:
       '@modyfi/vite-plugin-yaml': 1.1.0(rollup@4.24.0)(vite@5.4.8(@types/node@22.7.4)(terser@5.34.1))
 
-  '@spuxx/nest-utils@2.3.1(zf74eay6amoinltpbsgcwbxvzq)':
+  '@spuxx/nest-utils@2.3.2(zf74eay6amoinltpbsgcwbxvzq)':
     dependencies:
       '@nanogiants/nestjs-swagger-api-exception-decorator': 1.6.11(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/swagger@7.4.0(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.1)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2))
       '@nestjs/common': 10.4.1(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
