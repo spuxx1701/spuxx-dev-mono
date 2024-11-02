@@ -12,6 +12,18 @@ jobs:
     with:
       PNPM_BUILD: true
 
+  staging_spuxx_astro:
+    name: Release artifact (spuxx-astro)
+    uses: spuxx1701/ci-cd/.github/workflows/pnpm_build_and_push.yml@v4.1.0
+    needs:
+    - run_checks
+    with:
+      path: ./apps/spuxx-astro
+      tag: branch
+      dockerhub_repository: spuxx-astro
+    secrets:
+      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+
   run_release_please:
     name: Run release-please
     uses: spuxx1701/ci-cd/.github/workflows/pnpm_release-please.yml@v4.1.0
