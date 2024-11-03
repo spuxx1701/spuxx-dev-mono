@@ -9,6 +9,9 @@ class Env {
   @IsString()
   APP_BASE_URL: string = 'https://api.spuxx.dev';
 
+  @IsString()
+  ALLOWED_CORS_ORIGINS: string;
+
   @IsUrl()
   AUTH_ISSUER_URL: string = 'https://auth.spuxx.dev/realms/main';
 

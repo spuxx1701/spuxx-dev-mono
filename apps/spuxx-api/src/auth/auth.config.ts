@@ -11,6 +11,7 @@ export const authRoles = Object.values(AuthRole);
 export const authConfig: AuthOptions = {
   disable: false,
   roles: AuthRole,
+  allowedRedirectHostnames: ['localhost:5173'],
   oidc: {
     baseURL: EnvModule.get('APP_BASE_URL'),
     issuerBaseURL: EnvModule.get('AUTH_ISSUER_URL'),

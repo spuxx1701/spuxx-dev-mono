@@ -14,6 +14,12 @@ async function bootstrap() {
     logger,
   });
 
+  app.enableCors({
+    methods: ['OPTIONS', 'GET', 'POST', 'PATCH', 'PUT', 'UPDATE', 'DELETE'],
+    origin: EnvModule.get('ALLOWED_CORS_ORIGINS').split(','),
+    credentials: true,
+  });
+
   bootstrapOpenApi(app);
 
   await AuthModule.bootstrap(app, authConfig);
