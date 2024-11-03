@@ -10,7 +10,7 @@ const { toggleSidebar } = Interface;
 const { session } = SessionManager;
 </script>
 <template>
-  <VAppBar v-if="session" class="header" height="60">
+  <VAppBar v-if="session" class="header" height="60" color="background">
     <template v-slot:prepend>
       <VBtn class="sidebar" icon variant="text" :title="intl('app.header.sidebar')" :onclick="toggleSidebar">
         <Icon icon="mdi:menu" />
@@ -28,7 +28,7 @@ const { session } = SessionManager;
 
 <style scoped>
 .header {
-  background-color: var(--bg-color-container);
+  background-color: var(--bg-color-container) !important;
 }
 
 .brand {

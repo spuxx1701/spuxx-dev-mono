@@ -5,7 +5,13 @@ import { Interface } from '@/services/interface';
 </script>
 
 <template>
-  <VNavigationDrawer id="sidebar" v-model="Interface.sidebarExpanded.value" width="350" :disable-resize-watcher="true">
+  <VNavigationDrawer
+    id="sidebar"
+    v-model="Interface.sidebarExpanded.value"
+    width="350"
+    :disable-resize-watcher="true"
+    color="background"
+  >
     <!-- <div v-if="mobile"> -->
     <!-- <AppNavigation /> -->
     <!-- <VDivider /> -->
@@ -17,7 +23,7 @@ import { Interface } from '@/services/interface';
 <style>
 #sidebar {
   z-index: var(--z-index-sidebar);
-  background-color: var(--bg-color-container);
+  background-color: var(--bg-color-container) !important;
   max-width: 90vw;
 
   .v-list-item {

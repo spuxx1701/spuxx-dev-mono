@@ -3,24 +3,37 @@ app:
   header:
     sidebar: Sidebar
 
+misc:
+  yes: Ja
+  no: Nein
+  ok: OK
+  cancel: Abbrechen
+  back: Zurück
+  loading: Lade...
+
 main:
   route:
     index:
       title: Startseite
       greeting: Hallo {name}!
     login:
-      title: Login
-      oneMoment: Einen Moment...
-      redirecting: Du wirst zu auth.spuxx.dev weitergeleitet. Dort kannst Du Dich anmelden.
+      title: Toledo
+      login: Anmelden via auth.spuxx.dev
     settings:
       title: Einstellungen
-      loggedInAs: "Du bist angemeldet als:"
+      signed-in-as: "Du bist angemeldet als:"
       logout: Abmelden
 
 lists:
   route:
     index:
       title: Listen
+      create: Neue Liste
+      collection:
+        owned: Deine Listen
+        shared: Fremde Listen
+  create:
+    default-name: Neue Liste
 
 recipes:
   route:

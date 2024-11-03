@@ -32,7 +32,6 @@ const route = useRoute();
 .content {
   box-sizing: border-box;
   width: 100%;
-  max-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;

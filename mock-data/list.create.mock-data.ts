@@ -3,7 +3,7 @@ import { ListCreateResource } from 'apps/spuxx-api/src/toledo/lists/dtos/list.cr
 export const listCreateMockData = {
   groceries: {
     name: 'Groceries',
-    icon: 'shopping_cart',
+    icon: 'list-box',
   } as ListCreateResource,
   toDos: {
     name: 'To dos',

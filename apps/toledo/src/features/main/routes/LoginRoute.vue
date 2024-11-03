@@ -1,32 +1,30 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { intl, sleep } from '@spuxx/js-utils';
-import { VProgressCircular } from 'vuetify/components';
+import { intl } from '@spuxx/js-utils';
+import { VBtn } from 'vuetify/components';
 import PageContent from '@/components/app/PageContent.vue';
 import { SessionManager } from '@/services/session';
+import { Config } from '@spuxx/browser-utils';
+import type { AppConfig } from '@/config/app.config';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const route = useRoute();
 const { session } = SessionManager;
 
-onMounted(async () => {
-  const returnTo: string | string[] = route.params.returnTo ?? '/';
-  if (session) {
-    window.location.href = Array.isArray(returnTo) ? returnTo.join('') : returnTo;
-  }
-  // else {
-  //   await sleep(3000);
-  //   window.location.href = Array.isArray(returnTo) ? returnTo.join('') : returnTo;
-  // }
-});
+const handleLogin = () => {
+  const { API_URL } = Config.getConfig<AppConfig>();
+  const url = `${API_URL}/auth/login?returnTo=${window.location.origin}`;
+  window.location.href = url;
+};
 </script>
 
 <template>
-  <!-- <MainSidebar /> -->
   <PageContent align="center">
-    <h1 class="magelove">{{ intl('main.route.login.oneMoment') }}</h1>
-    <p class="text-center my-2">{{ intl('main.route.login.redirecting') }}</p>
-    <VProgressCircular class="my-2" indeterminate />
+    <h1 class="magelove">{{ intl('main.route.login.title') }}</h1>
+    <VBtn variant="elevated" color="primary" class="my-4" :title="intl('main.route.login.login')" @click="handleLogin">
+      <Icon icon="mdi:login" />
+      <p>{{ intl('main.route.login.login') }}</p>
+    </VBtn>
   </PageContent>
 </template>
 

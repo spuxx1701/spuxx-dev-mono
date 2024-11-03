@@ -10,7 +10,3 @@
 html {
   overflow-y: auto;
 }
-
-html * {
-  color: rgb(var(--v-theme-on-background));
-}

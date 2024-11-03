@@ -17,10 +17,11 @@ export class SessionManager extends ServiceMixin<SessionManager>() {
     return !SessionManager.getSession();
   }
 
-  static async getSession(force?: boolean) {
-    if (force || !this.session.value) {
-      const session: Session = await Api.getSession();
-      Logger.debug(`Logged in as ${session.preferred_username}.`);
+  static async getSession() {
+    if (!this.session.value) {
+      const session: Session | undefined = await Api.getSession();
+      if (!session) return;
+      Logger.debug(`Logged in as ${session.preferred_username}.`, SessionManager.name);
       SessionManager.session.value = session;
     }
     return SessionManager.instance._session;

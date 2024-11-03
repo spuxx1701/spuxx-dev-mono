@@ -6,6 +6,7 @@ export const toledoTheme: ThemeDefinition = {
     content: colors.grey.lighten5,
     background: colors.grey.darken4,
     accent: colors.teal.accent4,
-    primary: colors.purple.darken1,
+    primary: colors.teal.darken1,
+    secondary: colors.grey.darken3,
   },
 };
