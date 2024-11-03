@@ -30,8 +30,8 @@ export class UsersController {
     isArray: true,
   })
   @ApiException(() => Object.values(usersExceptions.findMany))
-  async findAll(): Promise<UserReadResource[]> {
-    const users = await this.provider.findAll();
+  async findMany(): Promise<UserReadResource[]> {
+    const users = await this.provider.findMany();
     return users.map((user) => this.mapper.map(user, User, UserReadResource));
   }
 

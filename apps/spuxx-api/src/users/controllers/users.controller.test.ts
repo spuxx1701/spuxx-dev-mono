@@ -17,7 +17,7 @@ describe('UsersController', () => {
     supertest = container.supertest;
   });
 
-  describe('findAll', () => {
+  describe('findMany', () => {
     it('should return 200', async () => {
       const response = await supertest.get('/users', {
         session: sessionMockData.privileged,

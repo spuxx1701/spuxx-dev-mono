@@ -11,7 +11,7 @@ export class UsersProvider {
    * Returns the list of all users.
    * @returns The list of users.
    */
-  async findAll(): Promise<User[]> {
+  async findMany(): Promise<User[]> {
     const users = await this.model.findAll();
     return users;
   }
