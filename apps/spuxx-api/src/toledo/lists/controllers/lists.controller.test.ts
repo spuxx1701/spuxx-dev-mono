@@ -97,7 +97,7 @@ describe('ListsController', () => {
       const result: ListReadResource = response.body;
       expect(result).toMatchObject({
         name: 'groceries',
-        icon: 'shopping_cart',
+        icon: 'list-box',
         requiresDeleteConfirmation: false,
         usesQuantities: false,
       });

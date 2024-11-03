@@ -51,8 +51,8 @@ export class ListsController {
     isArray: true,
   })
   @ApiException(() => Object.values(listsExceptions.findMany))
-  async findAll(@Req() request: Request): Promise<ListReadResource[]> {
-    const lists = await this.provider.findAll(request);
+  async findMany(@Req() request: Request): Promise<ListReadResource[]> {
+    const lists = await this.provider.findMany(request);
     return lists.map((list) => this.mapper.map(list, List, ListReadResource));
   }
 

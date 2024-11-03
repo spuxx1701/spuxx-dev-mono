@@ -21,7 +21,7 @@ export class ListsProvider {
    * @param request The request.
    * @returns All of the user's lists.
    */
-  async findAll(request: Request): Promise<List[]> {
+  async findMany(request: Request): Promise<List[]> {
     const { sub } = getSession(request);
     return this.model.findAll({
       where: {
