@@ -4,39 +4,31 @@ import { Icon } from '@iconify/vue';
 import { RouterLink } from 'vue-router';
 import { intl } from '@spuxx/js-utils';
 import { Interface } from '@/services/interface';
+import { SessionManager } from '@/services/session';
 
 const { toggleSidebar } = Interface;
+const { session } = SessionManager;
 </script>
 <template>
-  <VAppBar class="header">
+  <VAppBar v-if="session" class="header" height="60">
     <template v-slot:prepend>
       <VBtn class="sidebar" icon variant="text" :title="intl('app.header.sidebar')" :onclick="toggleSidebar">
         <Icon icon="mdi:menu" />
       </VBtn>
       <RouterLink class="brand" to="/">
-        <AppLogo class="logo" :size="40" />
+        <!-- <AppLogo class="logo" :size="40" /> -->
         <p class="title">{{ intl('app.title') }}</p>
       </RouterLink>
     </template>
     <template v-slot:title>
-      <AppNavigation />
-    </template>
-    <template v-slot:append>
-      <VBtn class="account" icon variant="text" :title="intl('app.header.account')">
-        <Icon icon="mdi:account" />
-      </VBtn>
+      <!-- <AppNavigation /> -->
     </template>
   </VAppBar>
 </template>
 
 <style scoped>
-.header :global(.v-toolbar__prepend .v-divider) {
-  margin-left: 16px;
-}
-
-.header :global(.v-divider) {
-  height: 60%;
-  margin: auto 0.25rem;
+.header {
+  background-color: var(--bg-color-container);
 }
 
 .brand {
@@ -49,16 +41,10 @@ const { toggleSidebar } = Interface;
 .title {
   margin-left: 0.5rem;
   font-family: Magelove;
-  font-size: xx-large;
+  font-size: x-large;
 }
 
 .sidebar {
   margin-left: 0.5rem;
-  font-size: xx-large;
-}
-
-.account {
-  margin-right: 0.5rem;
-  font-size: xx-large;
 }
 </style>

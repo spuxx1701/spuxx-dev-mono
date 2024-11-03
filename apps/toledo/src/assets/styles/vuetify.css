@@ -1,0 +1,54 @@
+@import 'vuetify/styles';
+
+:root {
+  --v-toolbar-image-opacity: 0.5;
+}
+
+.v-app-bar {
+  height: var(--header-height);
+  box-sizing: content-box;
+}
+
+.v-container {
+  max-width: 1440px;
+}
+
+.v-btn {
+  text-transform: unset;
+}
+
+.v-btn .iconify--mdi {
+  font-size: x-large;
+}
+
+.v-btn .iconify--mdi:not(:last-child) {
+  margin-right: 0.4rem;
+}
+
+.v-btn .iconify--fa {
+  font-size: larger;
+}
+
+.v-skeleton-loader {
+  opacity: 0.3;
+}
+
+.v-skeleton-loader__bone {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.v-btn--active > .v-btn__overlay,
+.v-field__overlay:not(:hover) {
+  opacity: 0;
+}
+
+.v-field__input::-webkit-outer-spin-button,
+.v-field__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.v-field__input[type='number'] {
+  -moz-appearance: textfield;
+}

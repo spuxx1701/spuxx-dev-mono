@@ -31,7 +31,6 @@ pnpm-publish-summary.json
 tsconfig.tsbuildinfo
 
 # Local files
-*.local
 .env
 .data/
 

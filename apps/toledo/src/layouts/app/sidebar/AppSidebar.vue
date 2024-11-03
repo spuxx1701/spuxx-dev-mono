@@ -16,6 +16,19 @@ import { Interface } from '@/services/interface';
 
 <style>
 #sidebar {
+  z-index: var(--z-index-sidebar);
+  background-color: var(--bg-color-container);
+  max-width: 90vw;
+
+  .v-list-item {
+    color: var(--v-theme-content);
+    font-size: larger;
+  }
+
+  .v-list-item--active {
+    color: var(--v-theme-accent) !important;
+  }
+
   .v-list-item__prepend {
     margin-right: 0.5rem;
   }

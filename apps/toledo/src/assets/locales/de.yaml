@@ -2,4 +2,32 @@ app:
   title: Toledo
   header:
     sidebar: Sidebar
-    account: Profileinstellungen
+
+main:
+  route:
+    index:
+      title: Startseite
+      greeting: Hallo {name}!
+    login:
+      title: Login
+      oneMoment: Einen Moment...
+      redirecting: Du wirst zu auth.spuxx.dev weitergeleitet. Dort kannst Du Dich anmelden.
+    settings:
+      title: Einstellungen
+      loggedInAs: "Du bist angemeldet als:"
+      logout: Abmelden
+
+lists:
+  route:
+    index:
+      title: Listen
+
+recipes:
+  route:
+    index:
+      title: Rezepte
+
+chatbot:
+  route:
+    index:
+      title: Chatbot
