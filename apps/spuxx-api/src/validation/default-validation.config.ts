@@ -5,6 +5,5 @@ export const defaultValidationOptions: ValidationPipeOptions = {
   transformOptions: {
     enableImplicitConversion: true, // When properties are transformed, implicit type conversions should be done automatically
   },
-  whitelist: true, // Properties that haven't been declared via class-validator decorators will be stripped from the object and...
-  forbidNonWhitelisted: true, // Properties that haven't been declared via class-validators will result in an error
+  whitelist: true, // Properties that haven't been declared via class-validator decorators will be stripped from the object
 };

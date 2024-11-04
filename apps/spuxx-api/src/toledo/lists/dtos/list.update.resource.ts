@@ -1,16 +1,18 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { listProperties } from '../config/list.properties';
-import { IsBoolean, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsBoolean, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { TransformBooleanString } from '@spuxx/nest-utils';
 
 export class ListUpdateResource {
   @IsString()
+  @MinLength(3)
   @MaxLength(100)
   @IsOptional()
   @ApiPropertyOptional(listProperties.name)
   name?: string;
 
   @IsString()
+  @MinLength(3)
   @MaxLength(100)
   @IsOptional()
   @ApiPropertyOptional(listProperties.icon)

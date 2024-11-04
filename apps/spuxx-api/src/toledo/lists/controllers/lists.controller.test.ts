@@ -75,6 +75,7 @@ describe('ListsController', () => {
         icon: 'shopping-cart',
         requiresDeleteConfirmation: false,
         usesQuantities: true,
+        usesCheckboxes: false,
       };
       const response = await supertest.post('/toledo/lists', {
         body,

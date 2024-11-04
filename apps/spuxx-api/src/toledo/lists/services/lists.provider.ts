@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { IncompleteList, List } from '../models/list.model';
+import { List } from '../models/list.model';
 import { Request } from 'express';
-import { getSession } from '@spuxx/nest-utils';
+import { getSession, Mapper } from '@spuxx/nest-utils';
 import { ListCreateResource } from '../dtos/list.create.resource';
 import { listsExceptions } from '../config/lists.exceptions';
 import { UsersRegistrar } from '@spuxx-api/src/users/services/users.registrar';
@@ -13,6 +13,7 @@ export class ListsProvider {
   constructor(
     @InjectModel(List) private model: typeof List,
     private readonly usersRegistrar: UsersRegistrar,
+    private readonly mapper: Mapper,
   ) {}
 
   /**
@@ -55,12 +56,14 @@ export class ListsProvider {
   async create(resource: ListCreateResource, request: Request): Promise<List> {
     await this.usersRegistrar.registerUserVisit(request);
     const { sub, preferred_username } = getSession(request);
-    const newList: IncompleteList = {
-      ...resource,
-      ownerId: sub,
-    };
-    const createdList = await this.model.build<List>(newList).save();
-    Logger.log(`User '${preferred_username}' has created list '${createdList.id}'.`, ListsProvider.name);
+    const newList: List = this.mapper.map(resource, ListCreateResource, List);
+    newList.set('ownerId', sub);
+    const { id } = await newList.save();
+    const createdList = await this.findById(id);
+    Logger.log(
+      `User '${preferred_username}' has created list '${createdList.id}'.`,
+      ListsProvider.name,
+    );
     return createdList;
   }
 
@@ -79,7 +82,10 @@ export class ListsProvider {
       list.set(key, resource[key as keyof typeof resource]);
     }
     const updatedList = await list.save();
-    Logger.log(`User '${preferred_username}' has updated list '${updatedList.id}'.`, ListsProvider.name);
+    Logger.log(
+      `User '${preferred_username}' has updated list '${updatedList.id}'.`,
+      ListsProvider.name,
+    );
     return updatedList;
   }
 
