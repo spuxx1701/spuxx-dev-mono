@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UseGuards,
   UseInterceptors,
@@ -24,6 +25,8 @@ import { List } from '../models/list.model';
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 import { listsExceptions } from '../config/lists.exceptions';
 import { ListUpdateResource } from '../dtos/list.update.resource';
+import { ListsFindManyQuery } from './queries/lists.find-many.query';
+import { transformQueryToFindOptions } from '@spuxx-api/src/orm/orm.utils';
 
 const requiredRoles = [AuthRole.toledoUser];
 
@@ -41,7 +44,7 @@ export class ListsController {
 
   @Get()
   @ApiOperation({
-    summary: "Returns the user's lists.",
+    summary: "Get all of the user's lists.",
     description: `Returns all lists accessibly by the currently authenticated user.
     
     🔒 Role access (${requiredRoles})`,
@@ -51,14 +54,17 @@ export class ListsController {
     isArray: true,
   })
   @ApiException(() => Object.values(listsExceptions.findMany))
-  async findMany(@Req() request: Request): Promise<ListReadResource[]> {
-    const lists = await this.provider.findMany(request);
+  async findMany(
+    @Query() query: ListsFindManyQuery,
+    @Req() request: Request,
+  ): Promise<ListReadResource[]> {
+    const lists = await this.provider.findMany(request, transformQueryToFindOptions(query));
     return lists.map((list) => this.mapper.map(list, List, ListReadResource));
   }
 
   @Post()
   @ApiOperation({
-    summary: 'Creates a new list.',
+    summary: 'Create a new list.',
     description: `Creates a new list owned by the currently authenticated user.
     
     🔒 Role access (${requiredRoles})`,
@@ -68,15 +74,18 @@ export class ListsController {
     type: ListReadResource,
   })
   @ApiException(() => Object.values(listsExceptions.create))
-  async create(@Body() resource: ListCreateResource, @Req() request: Request): Promise<ListReadResource> {
+  async create(
+    @Body() resource: ListCreateResource,
+    @Req() request: Request,
+  ): Promise<ListReadResource> {
     const list = await this.provider.create(resource, request);
     return this.mapper.map(list, List, ListReadResource);
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: "Returns the user's lists.",
-    description: `Returns all lists accessibly by the currently authenticated user.
+    summary: 'Get a list by id.',
+    description: `Finds and returns a specific list by the given id.
     
     🔒 Role access (${requiredRoles})`,
   })
@@ -85,14 +94,17 @@ export class ListsController {
     type: ListReadResource,
   })
   @ApiException(() => Object.values(listsExceptions.findById))
-  async findById(@Param('id') id: string): Promise<ListReadResource> {
-    const list = await this.provider.findById(id);
+  async findById(
+    @Param('id') id: string,
+    @Query() query: ListsFindManyQuery,
+  ): Promise<ListReadResource> {
+    const list = await this.provider.findById(id, transformQueryToFindOptions(query));
     return this.mapper.map(list, List, ListReadResource);
   }
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Updates a list.',
+    summary: 'Update a list.',
     description: `Updates a list. Can only be done by the list's owner.
     
     🔒 Role access (${requiredRoles})`,
@@ -113,7 +125,7 @@ export class ListsController {
 
   @Delete(':id')
   @ApiOperation({
-    summary: 'Deletes a list.',
+    summary: 'Delete a list.',
     description: `Deletes a list. Can only be done by the list's owner.
     
     🔒 Role access (${requiredRoles})`,

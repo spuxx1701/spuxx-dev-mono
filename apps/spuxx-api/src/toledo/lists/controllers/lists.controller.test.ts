@@ -20,6 +20,48 @@ describe('ListsController', () => {
   });
 
   describe('findMany', () => {
+    it('should return all lists', async () => {
+      await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.privileged,
+      });
+      await supertest.post('/toledo/lists', {
+        body: listCreateMockData.toDos,
+        session: sessionMockData.privileged,
+      });
+      const response = await supertest.get(`/toledo/lists`, {
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBe(2);
+      expect(response.body[0].owner).toBeUndefined();
+    });
+
+    it('should include the owners', async () => {
+      await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.privileged,
+      });
+      await supertest.post('/toledo/lists', {
+        body: listCreateMockData.toDos,
+        session: sessionMockData.privileged,
+      });
+      const response = await supertest.get(`/toledo/lists?include=owner`, {
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBe(2);
+      expect(response.body[0].owner).toBeDefined();
+      expect(response.body[1].owner).toBeDefined();
+    });
+
+    it("should fail validation due to invalid 'include' parameter", async () => {
+      const response = await supertest.get(`/toledo/lists?include=foo`, {
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(400);
+    });
+
     it('should return 401', async () => {
       const response = await supertest.get('/toledo/lists');
       expect(response.statusCode).toBe(401);
@@ -49,7 +91,33 @@ describe('ListsController', () => {
       });
       expect(response.statusCode).toBe(200);
       const actual: ListReadResource = response.body;
-      expect(actual).toEqual(expected);
+      expect(expected).toMatchObject(actual);
+    });
+
+    it('should include the owner', async () => {
+      const createResponse = await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.privileged,
+      });
+      const response = await supertest.get(
+        `/toledo/lists/${createResponse.body.id}?include=owner`,
+        {
+          session: sessionMockData.privileged,
+        },
+      );
+      expect(response.statusCode).toBe(200);
+      expect(response.body.owner).toBeDefined();
+    });
+
+    it("should fail validation due to invalid 'include' parameter", async () => {
+      const createResponse = await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.privileged,
+      });
+      const response = await supertest.get(`/toledo/lists/${createResponse.body.id}?include=foo`, {
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(400);
     });
 
     it('should return 401', async () => {
@@ -65,6 +133,13 @@ describe('ListsController', () => {
         },
       });
       expect(response.statusCode).toBe(403);
+    });
+
+    it('should return 404', async () => {
+      const response = await supertest.get(`/toledo/lists/123`, {
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(404);
     });
   });
 
