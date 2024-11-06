@@ -16,6 +16,17 @@ export const listsEndpoints = {
       return lists;
     },
   }),
+  findListById: defineEndpoint({
+    function: async (id: string): Promise<Response> => {
+      const { API_URL } = Config.getConfig<AppConfig>();
+      return fetch(`${API_URL}/toledo/lists/${id}?include=owner`, Api.requestOptions);
+    },
+    transformer: async (response): Promise<List> => {
+      const json = await response.json();
+      const list: List = { ...json };
+      return list;
+    },
+  }),
   createList: defineEndpoint({
     function: async (list: NewList): Promise<Response> => {
       const body = JSON.stringify(list);
@@ -23,6 +34,22 @@ export const listsEndpoints = {
       return fetch(`${API_URL}/toledo/lists`, {
         ...Api.requestOptions,
         method: 'POST',
+        body,
+      });
+    },
+    transformer: async (response): Promise<List> => {
+      const json = await response.json();
+      const list: List = { ...json };
+      return list;
+    },
+  }),
+  updateList: defineEndpoint({
+    function: async (list: List): Promise<Response> => {
+      const body = JSON.stringify(list);
+      const { API_URL } = Config.getConfig<AppConfig>();
+      return fetch(`${API_URL}/toledo/lists/${list.id}`, {
+        ...Api.requestOptions,
+        method: 'PATCH',
         body,
       });
     },

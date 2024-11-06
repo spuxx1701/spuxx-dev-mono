@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { useRoute } from 'vue-router';
 import { VScrollXTransition } from 'vuetify/components';
+import ContentHeader from './ContentHeader.vue';
 
 const props = defineProps<{
   icon?: string;
@@ -15,13 +16,11 @@ const route = useRoute();
 <template>
   <Teleport to="#main-content">
     <VScrollXTransition appear hide-on-leave>
-      <div :key="route.path" :class="`content pa-2 pa-sm-4 pa-md-8 justify-${props.align ?? 'start'}`">
-        <header v-if="title" class="header">
-          <h1 class="magelove">
-            <Icon v-if="icon" :icon />
-            {{ title }}
-          </h1>
-        </header>
+      <div
+        :key="route.path"
+        :class="`content pa-2 pa-sm-4 pa-md-8 justify-${props.align ?? 'start'}`"
+      >
+        <ContentHeader v-if="title" :icon :title />
         <slot></slot>
       </div>
     </VScrollXTransition>
@@ -35,19 +34,5 @@ const route = useRoute();
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.header {
-  h1 {
-    display: flex;
-    align-items: center;
-    margin: 0.5rem;
-    text-align: center;
-    position: relative;
-
-    svg {
-      margin-right: 0.75rem;
-    }
-  }
 }
 </style>

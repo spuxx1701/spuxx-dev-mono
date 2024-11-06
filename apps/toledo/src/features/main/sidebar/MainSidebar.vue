@@ -19,7 +19,7 @@ import SidebarTeleport from '@/components/sidebar/SidebarTeleport.vue';
       </template>
       {{ intl('lists.route.index.title') }}
     </VListItem>
-    <VListItem link to="/recipes">
+    <!-- <VListItem link to="/recipes">
       <template v-slot:prepend>
         <Icon icon="mdi:chef-hat" />
       </template>
@@ -36,6 +36,6 @@ import SidebarTeleport from '@/components/sidebar/SidebarTeleport.vue';
         <Icon icon="mdi:gear" />
       </template>
       {{ intl('main.route.settings.title') }}
-    </VListItem>
+    </VListItem> -->
   </SidebarTeleport>
 </template>

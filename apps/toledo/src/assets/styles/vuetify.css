@@ -17,16 +17,12 @@
   text-transform: unset;
 }
 
+.v-btn__content {
+  gap: 4px;
+}
+
 .v-btn .iconify--mdi {
   font-size: x-large;
-}
-
-.v-btn .iconify--mdi:not(:last-child) {
-  margin-right: 0.4rem;
-}
-
-.v-btn .iconify--fa {
-  font-size: larger;
 }
 
 .v-skeleton-loader {

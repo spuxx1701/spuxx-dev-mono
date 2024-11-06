@@ -33,7 +33,8 @@ const props = defineProps<{
 }
 
 .card {
-  width: 200px;
+  width: 300px;
+  max-width: 90vw;
 
   :global(.v-skeleton-loader__image) {
     display: none;

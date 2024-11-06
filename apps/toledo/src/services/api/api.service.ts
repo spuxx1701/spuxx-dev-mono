@@ -2,10 +2,12 @@ import { HttpClientMixin, type HttpClientOptions } from '@spuxx/js-utils';
 import { sessionEndpoints } from './auth/session.endpoints';
 import { globalErrorHandlers } from './global.error-handlers';
 import { listsEndpoints } from './lists/lists.endpoints';
+import { iconsEndpoints } from './icons/icons.endpoints';
 
 const endpoints = {
   ...sessionEndpoints,
   ...listsEndpoints,
+  ...iconsEndpoints,
 };
 
 const options: HttpClientOptions<typeof endpoints> = {

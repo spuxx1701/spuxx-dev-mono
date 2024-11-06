@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageContent from '@/components/app/PageContent.vue';
+import PageContent from '@/components/content/PageContent.vue';
 import { useProtection } from '@/router';
 import { SessionManager } from '@/services/session';
 import { Icon } from '@iconify/vue/dist/iconify.js';

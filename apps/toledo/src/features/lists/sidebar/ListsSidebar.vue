@@ -12,9 +12,15 @@ import ListsSidebarItems from './ListsSidebarItems.vue';
       <template v-slot:prepend>
         <Icon icon="mdi:arrow-left" />
       </template>
-      {{ intl('misc.back') }}
+      {{ intl('lists.sidebar.home') }}
     </VListItem>
     <VDivider />
+    <VListItem link to="/lists">
+      <template v-slot:prepend>
+        <Icon icon="mdi:format-list-bulleted" />
+      </template>
+      {{ intl('lists.sidebar.lists') }}
+    </VListItem>
     <ListsSidebarItems />
   </SidebarTeleport>
 </template>

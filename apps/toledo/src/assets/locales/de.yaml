@@ -32,8 +32,23 @@ lists:
       collection:
         owned: Deine Listen
         shared: Fremde Listen
+    list:
+      share: Liste teilen
+      settings:
+        title: Listeneinstellungen
+        name:
+          label: Name
+        icon:
+          label: Icon
+        delete:
+          label: Löschen
+          confirm: Löschen
+          cancel: Abbrechen
   create:
     default-name: Neue Liste
+  sidebar:
+    home: Startseite
+    lists: Alle Listen
 
 recipes:
   route:
@@ -44,3 +59,8 @@ chatbot:
   route:
     index:
       title: Chatbot
+
+validation:
+  required: Bitte fülle dieses Feld aus.
+  min-length: Bitte gib mindestens {min} Zeichen ein.
+  max-length: Bitte gib höchstens {max} Zeichen ein.

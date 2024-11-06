@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { type Ref } from 'vue';
 import { ListsProvider } from '../services/lists-provider.service';
 import { Resource, ResourceState } from '@/reactivity/resource';
 import type { List, NewList } from '@/services/api/lists/lists.types';
@@ -12,10 +11,9 @@ const props = defineProps<{
   collection: 'owned' | 'shared';
 }>();
 
-const lists = new Resource<Ref<List[]>>(async () => {
+const lists = new Resource<List[]>(async () => {
   return ListsProvider.findMany();
 }, 'lists');
-
 lists.load();
 
 const handleCreate = async () => {
@@ -30,7 +28,11 @@ const handleCreate = async () => {
   <h1 class="magelove mb-4">{{ intl(`lists.route.index.collection.${collection}`) }}</h1>
   <VRow class="row" dense v-if="lists.state.value === ResourceState.pending">
     <ListsGridItem :state="lists.state" />
-    <ListsGridItemCreate v-if="props.collection === 'owned'" variant="outlined" @click.stop="handleCreate" />
+    <ListsGridItemCreate
+      v-if="props.collection === 'owned'"
+      variant="outlined"
+      @click.stop="handleCreate"
+    />
   </VRow>
   <VRow class="row" dense v-if="lists.data">
     <ListsGridItem
@@ -40,7 +42,11 @@ const handleCreate = async () => {
       :to="`/lists/${list.id}`"
       variant="flat"
     />
-    <ListsGridItemCreate v-if="props.collection === 'owned'" variant="outlined" @click.stop="handleCreate" />
+    <ListsGridItemCreate
+      v-if="props.collection === 'owned'"
+      variant="outlined"
+      @click.stop="handleCreate"
+    />
   </VRow>
 </template>
 

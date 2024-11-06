@@ -7,7 +7,7 @@ import { VMain } from 'vuetify/components';
 
 <style>
 #main-content {
-  max-width: 1000px;
+  max-width: 1440px;
   width: calc(100% - var(--v-layout-left));
   margin: auto;
   z-index: var(--z-index-main-content);
