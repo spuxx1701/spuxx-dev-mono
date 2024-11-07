@@ -20,7 +20,7 @@
     "db:stop": "cd ./local-services/database && docker compose down",
     "db:reset": "cd ./local-services/database && docker compose down && rm -rf .data",
     "test": "pnpm -r test",
-    "test:api": "cd apps/spuxx-api && pnpm test",
+    "test:vitest": "pnpm -r test:vitest",
     "check": "pnpm prettier-check && pnpm types && pnpm lint && pnpm -r check",
     "types": "pnpm -r types",
     "lint": "eslint . --ext ts,tsx",
