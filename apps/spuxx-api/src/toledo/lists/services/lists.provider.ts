@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { List } from '../models/list.model';
-import { Request } from 'express';
+import { type Request } from 'express';
 import { getSession, Mapper } from '@spuxx/nest-utils';
 import { ListCreateResource } from '../dtos/list.create.resource';
 import { listsExceptions } from '../config/lists.exceptions';

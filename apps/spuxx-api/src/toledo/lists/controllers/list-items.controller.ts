@@ -20,7 +20,7 @@ import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator
 import { listItemsExceptions } from '../config/list-items.exceptions';
 import { ListItemsProvider } from '../services/list-items.provider';
 import { ListItem } from '../models/list-item.model';
-import { Request } from 'express';
+import { type Request } from 'express';
 import { listItemProperties } from '../config/list-item.properties';
 import { ListItemUpdateResource } from '../dtos/list-item.update.resource';
 

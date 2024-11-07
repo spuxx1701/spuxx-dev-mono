@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ListItem } from '../models/list-item.model';
 import { ListItemCreateResource } from '../dtos/list-item.create.resource';
 import { ListsProvider } from './lists.provider';
-import { Request } from 'express';
+import { type Request } from 'express';
 import { ListsAccessManager } from './lists.access-manager';
 import { getSession, Mapper } from '@spuxx/nest-utils';
 import { ListItemUpdateResource } from '../dtos/list-item.update.resource';

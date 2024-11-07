@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { getSession, isAuthenticated } from '@spuxx/nest-utils';
-import { Request } from 'express';
+import { type Request } from 'express';
 import { UsersProvider } from './users.provider';
 import { User } from '../models/user.model';
 import { InjectModel } from '@nestjs/sequelize';

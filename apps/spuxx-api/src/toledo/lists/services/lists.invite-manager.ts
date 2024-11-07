@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Request } from 'express';
+import { type Request } from 'express';
 import { getSession } from '@spuxx/nest-utils';
 import { listsExceptions } from '../config/lists.exceptions';
 import { EnvModule } from '@spuxx-api/src/env/env.module';

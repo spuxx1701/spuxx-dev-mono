@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { List } from '../models/list.model';
-import { Request } from 'express';
+import { type Request } from 'express';
 import { getSession } from '@spuxx/nest-utils';
 import { InjectModel } from '@nestjs/sequelize';
 @Injectable()

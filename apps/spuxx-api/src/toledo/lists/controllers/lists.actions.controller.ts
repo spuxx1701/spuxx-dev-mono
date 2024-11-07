@@ -15,7 +15,7 @@ import { AuthRole } from '@spuxx-api/src/auth/auth.config';
 import { InviteLinkResource } from '@spuxx-api/src/utils/invite-links/invite-link.resource';
 import { defaultValidationPipe } from '@spuxx-api/src/validation/default-validation.pipe';
 import { AuthGuard, HttpLoggingInterceptor, Roles } from '@spuxx/nest-utils';
-import { Request } from 'express';
+import { type Request } from 'express';
 import { listProperties } from '../config/list.properties';
 import { listsExceptions } from '../config/lists.exceptions';
 import { ListsInviteManager } from '../services/lists.invite-manager';
