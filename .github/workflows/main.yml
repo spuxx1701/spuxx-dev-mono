@@ -24,6 +24,7 @@ jobs:
     - run_unit_tests
     with:
       tag: branch
+      path: ./apps/spuxx-api
       dockerfile: ./apps/spuxx-api/Dockerfile
       dockerhub_repository: spuxx-api
     secrets:
