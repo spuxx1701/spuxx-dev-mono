@@ -1,0 +1,7 @@
+.github/
+.release-please/
+.vscode/
+local-services/
+reports/
+.env
+node_modules/

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import swc from 'unplugin-swc';
+import { externalizeDeps } from 'vite-plugin-externalize-deps';
 
 /// <reference types="vitest" />
 export default defineConfig({
@@ -29,6 +30,7 @@ export default defineConfig({
       },
       sourceMaps: true,
     }),
+    externalizeDeps(),
   ],
   test: {
     globals: true,
@@ -41,9 +43,10 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       all: true,
-      include: [`${__dirname}/apps/**/src/**/*.ts`],
+      include: [`**/src/**/*.ts`],
       exclude: [
         '**/src/main.ts',
+        '**/*.toledo.module.ts',
         '**/*.bootstrap.ts',
         '**/src/orm/**',
         '**/*types.ts',
