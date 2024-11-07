@@ -6,7 +6,6 @@
   "packageManager": "pnpm@9.6.0",
   "scripts": {
     "dev": "astro dev",
-    "check": "astro build",
     "build": "astro build",
     "preview": "astro preview"
   },
