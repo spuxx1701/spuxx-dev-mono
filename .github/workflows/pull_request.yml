@@ -13,3 +13,4 @@ jobs:
   run_unit_tests:
     name: Run tests (vitest)
     uses: spuxx1701/ci-cd/.github/workflows/pnpm_run_tests_vitest.yml@v4.1.0
+    COVERAGE_DISABLE: true
