@@ -1,3 +1,4 @@
+# Build stage
 FROM node:22 AS build-env
 RUN npm install -g pnpm
 
