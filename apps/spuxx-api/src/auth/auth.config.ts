@@ -17,6 +17,6 @@ export const authConfig: AuthOptions = {
     issuerBaseURL: EnvModule.get('AUTH_ISSUER_URL'),
     clientID: EnvModule.get('AUTH_CLIENT_ID'),
     clientSecret: EnvModule.get('AUTH_CLIENT_SECRET'),
-    secret: EnvModule.get('AUTH_CLIENT_SECRET'),
+    secret: EnvModule.get('AUTH_COOKIE_SECRET'),
   },
 };

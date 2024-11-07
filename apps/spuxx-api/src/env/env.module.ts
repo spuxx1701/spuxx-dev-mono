@@ -22,6 +22,9 @@ class Env {
   AUTH_CLIENT_SECRET: string;
 
   @IsString()
+  AUTH_COOKIE_SECRET: string;
+
+  @IsString()
   DATABASE_HOST: string;
 
   @IsNumber()

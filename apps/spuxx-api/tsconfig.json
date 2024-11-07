@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.nest.json",
-  "include": ["./src/**/*", "./tests/**/*"],
+  "include": ["./src/**/*", "./tests/**/*", "../../tests/vitest"],
   "compilerOptions": {
     "sourceMap": true,
     "paths": {

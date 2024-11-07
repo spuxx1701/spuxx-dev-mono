@@ -1,8 +1,8 @@
-/// <reference types="vitest" />
 import baseConfig from '../../vite.config.nest';
 import { mergeConfig, defineConfig } from 'vite';
 import { builtinModules } from 'module';
 
+/// <reference types="vitest" />
 export default mergeConfig(
   baseConfig,
   defineConfig({

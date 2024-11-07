@@ -33,14 +33,15 @@ export default defineConfig({
   test: {
     globals: true,
     reporters: ['default', 'junit'],
-    outputFile: 'reports/vitest/junit/junit.xml',
-    include: ['**/*.test.ts'],
-    exclude: ['**/node_modules/**, "**/local-services/**'],
+    outputFile: `${__dirname}/reports/vitest/junit/junit.xml`,
+    include: [`${__dirname}/apps/**/src/**/*.test.ts`],
+    exclude: ['**/node_modules/**'],
     watch: false,
+    setupFiles: [`${__dirname}/tests/vitest/vitest.setup.ts`],
     coverage: {
       provider: 'v8',
       all: true,
-      include: ['**/src/**/*.ts'],
+      include: [`${__dirname}/apps/**/src/**/*.ts`],
       exclude: [
         '**/src/main.ts',
         '**/*.bootstrap.ts',
