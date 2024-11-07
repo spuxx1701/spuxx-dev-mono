@@ -29,18 +29,18 @@ jobs:
     secrets:
       dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  staging_toledo:
-    name: Release artifact (spuxx-api)
-    uses: spuxx1701/ci-cd/.github/workflows/pnpm_build_and_push.yml@v4.1.0
-    needs:
-    - run_checks
-    - run_unit_tests
-    with:
-      tag: branch
-      dockerfile: ./apps/toledo/Dockerfile
-      dockerhub_repository: toledo
-    secrets:
-      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+  # staging_toledo:
+  #   name: Release artifact (toledo)
+  #   uses: spuxx1701/ci-cd/.github/workflows/pnpm_build_and_push.yml@v4.1.0
+  #   needs:
+  #   - run_checks
+  #   - run_unit_tests
+  #   with:
+  #     tag: branch
+  #     dockerfile: ./apps/toledo/Dockerfile
+  #     dockerhub_repository: toledo
+  #   secrets:
+  #     dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
 
   run_release_please:
     name: Run release-please
