@@ -35,7 +35,7 @@ export default defineConfig({
     reporters: ['default', 'junit'],
     outputFile: 'reports/vitest/junit/junit.xml',
     include: ['**/*.test.ts'],
-    exclude: ['**/node_modules/**'],
+    exclude: ['**/node_modules/**, "**/local-services/**'],
     watch: false,
     coverage: {
       provider: 'v8',

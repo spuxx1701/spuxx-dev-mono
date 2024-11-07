@@ -10,6 +10,7 @@ export default mergeConfig(
       target: 'node',
       outDir: 'dist',
       ssr: true,
+      sourcemap: true,
       rollupOptions: {
         input: {
           main: './src/main.ts',
