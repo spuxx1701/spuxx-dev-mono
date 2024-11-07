@@ -1,6 +1,6 @@
 import { IncludeQueryParam } from '@spuxx/nest-utils';
 
 export class ListsFindManyQuery {
-  @IncludeQueryParam('owner', 'items')
+  @IncludeQueryParam('guests', 'items')
   include?: string[];
 }

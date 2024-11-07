@@ -1,7 +1,23 @@
 import { Map } from '@spuxx/nest-utils';
 import { User } from '@src/users/models/user.model';
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany,
+  HasMany,
+  DefaultScope,
+  BeforeCreate,
+} from 'sequelize-typescript';
+import { ListItem } from './list-item.model';
+import { ListGuest } from './list-guest.model';
 
+@DefaultScope(() => ({
+  include: ['owner'],
+}))
 @Table({
   tableName: 'Toledo_Lists',
 })
@@ -12,31 +28,42 @@ export class List extends Model {
 
   @Column
   @Map()
-  name: string;
+  declare name: string;
 
   @Column
   @Map()
-  icon?: string;
+  declare icon?: string;
 
   @ForeignKey(() => User)
   @Column({ type: DataType.UUID })
-  ownerId: string;
+  declare ownerId: string;
 
   @BelongsTo(() => User)
   @Map()
-  owner: User;
+  declare owner: User;
+
+  @BelongsToMany(() => User, () => ListGuest)
+  @Map()
+  declare guests?: User[];
 
   @Column
   @Map()
-  usesCheckboxes: boolean;
+  declare usesCheckboxes: boolean;
 
   @Column
   @Map()
-  requiresDeleteConfirmation: boolean;
+  declare requiresDeleteConfirmation: boolean;
 
   @Column
   @Map()
-  usesQuantities: boolean;
+  declare usesQuantities: boolean;
+
+  @HasMany(() => ListItem)
+  @Map()
+  declare items?: ListItem[];
+
+  @Column
+  declare inviteCode: string;
 
   @Map()
   declare createdAt: Date;
@@ -44,5 +71,3 @@ export class List extends Model {
   @Map()
   declare updatedAt: Date;
 }
-
-export type IncompleteList = Omit<IncompleteModel<List>, 'owner'>;

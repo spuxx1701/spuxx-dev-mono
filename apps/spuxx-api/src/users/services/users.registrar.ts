@@ -14,7 +14,7 @@ export class UsersRegistrar {
 
   /**
    * Registers a new login.
-   * @param request The request.
+   * @param request {@link Request}
    */
   async registerUserVisit(request: Request): Promise<void> {
     if (!isAuthenticated(request)) return;
@@ -25,7 +25,7 @@ export class UsersRegistrar {
       existingUser.familyName = session.family_name;
       existingUser.username = session.preferred_username;
       existingUser.lastSeen = new Date();
-      existingUser.save();
+      await existingUser.save();
       Logger.verbose(
         `User '${session.preferred_username}' (sub: '${session.sub}') has been seen.`,
         UsersRegistrar.name,
@@ -38,7 +38,7 @@ export class UsersRegistrar {
         username: session.preferred_username,
         lastSeen: new Date(),
       };
-      this.model.create(newUser);
+      await this.model.create(newUser);
       Logger.log(
         `User '${session.preferred_username}' (sub: '${session.sub}') has been registered.`,
         UsersRegistrar.name,

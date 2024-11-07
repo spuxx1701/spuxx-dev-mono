@@ -7,7 +7,7 @@ import { sessionMockData } from '@mock-data/session.mock-data';
 import { ListReadResource } from '../dtos/list.read.resource';
 import { ListCreateResource } from '../dtos/list.create.resource';
 
-describe('ListsController', () => {
+describe('ListsCrudController', () => {
   let supertest: Supertest;
 
   beforeEach(async () => {
@@ -34,10 +34,12 @@ describe('ListsController', () => {
       });
       expect(response.statusCode).toBe(200);
       expect(response.body.length).toBe(2);
-      expect(response.body[0].owner).toBeUndefined();
+      expect(response.body[0].owner).toBeDefined();
+      expect(response.body[0].items).toBeUndefined();
+      expect(response.body[0].guests).toBeUndefined();
     });
 
-    it('should include the owners', async () => {
+    it('should include the specified relationships', async () => {
       await supertest.post('/toledo/lists', {
         body: listCreateMockData.groceries,
         session: sessionMockData.privileged,
@@ -46,13 +48,15 @@ describe('ListsController', () => {
         body: listCreateMockData.toDos,
         session: sessionMockData.privileged,
       });
-      const response = await supertest.get(`/toledo/lists?include=owner`, {
+      const response = await supertest.get(`/toledo/lists?include=items,guests`, {
         session: sessionMockData.privileged,
       });
       expect(response.statusCode).toBe(200);
       expect(response.body.length).toBe(2);
-      expect(response.body[0].owner).toBeDefined();
-      expect(response.body[1].owner).toBeDefined();
+      expect(response.body[0].guests).toBeDefined();
+      expect(response.body[0].items).toBeDefined();
+      expect(response.body[1].guests).toBeDefined();
+      expect(response.body[1].items).toBeDefined();
     });
 
     it("should fail validation due to invalid 'include' parameter", async () => {
@@ -91,22 +95,28 @@ describe('ListsController', () => {
       });
       expect(response.statusCode).toBe(200);
       const actual: ListReadResource = response.body;
-      expect(expected).toMatchObject(actual);
+      expect(expected.id).toBe(actual.id);
+      expect(expected.name).toBe(actual.name);
+      expect(expected.icon).toBe(actual.icon);
+      expect(expected.owner.id).toBe(actual.owner.id);
+      expect(actual.guests).toBeUndefined();
+      expect(actual.items).toBeUndefined();
     });
 
-    it('should include the owner', async () => {
+    it('should include the specified relationships', async () => {
       const createResponse = await supertest.post('/toledo/lists', {
         body: listCreateMockData.groceries,
         session: sessionMockData.privileged,
       });
       const response = await supertest.get(
-        `/toledo/lists/${createResponse.body.id}?include=owner`,
+        `/toledo/lists/${createResponse.body.id}?include=guests,items`,
         {
           session: sessionMockData.privileged,
         },
       );
       expect(response.statusCode).toBe(200);
-      expect(response.body.owner).toBeDefined();
+      expect(response.body.guests).toBeDefined();
+      expect(response.body.items).toBeDefined();
     });
 
     it("should fail validation due to invalid 'include' parameter", async () => {
@@ -135,8 +145,20 @@ describe('ListsController', () => {
       expect(response.statusCode).toBe(403);
     });
 
-    it('should return 404', async () => {
+    it('should return 404 because the resource does not exist', async () => {
       const response = await supertest.get(`/toledo/lists/123`, {
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(404);
+    });
+
+    it('should return 404 because the user does not have access to the list', async () => {
+      const createResponse = await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.toledoUser,
+      });
+      const id = createResponse.body.id;
+      const response = await supertest.get(`/toledo/lists/${id}`, {
         session: sessionMockData.privileged,
       });
       expect(response.statusCode).toBe(404);

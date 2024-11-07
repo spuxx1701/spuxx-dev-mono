@@ -36,7 +36,7 @@ const requiredRoles = [AuthRole.toledoUser];
 @UseInterceptors(HttpLoggingInterceptor)
 @UseGuards(AuthGuard)
 @Roles(...requiredRoles)
-export class ListsController {
+export class ListsCrudController {
   constructor(
     private readonly provider: ListsProvider,
     private mapper: Mapper,
@@ -97,8 +97,9 @@ export class ListsController {
   async findById(
     @Param('id') id: string,
     @Query() query: ListsFindManyQuery,
+    @Req() request: Request,
   ): Promise<ListReadResource> {
-    const list = await this.provider.findById(id, transformQueryToFindOptions(query));
+    const list = await this.provider.findById(id, request, transformQueryToFindOptions(query));
     return this.mapper.map(list, List, ListReadResource);
   }
 

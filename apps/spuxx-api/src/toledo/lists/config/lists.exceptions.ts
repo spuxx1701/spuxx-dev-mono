@@ -1,4 +1,4 @@
-import { ForbiddenException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { appExceptions } from '@src/config/app.exceptions';
 
 export const listsExceptions = {
@@ -14,12 +14,19 @@ export const listsExceptions = {
   },
   update: {
     notFound: new NotFoundException(),
-    notOwner: new ForbiddenException(),
     ...appExceptions.protected,
   },
   delete: {
     notFound: new NotFoundException(),
-    notOwner: new ForbiddenException(),
+    ...appExceptions.protected,
+  },
+  generateInvite: {
+    notFound: new NotFoundException(),
+    ...appExceptions.protected,
+  },
+  acceptInvite: {
+    badRequest: new BadRequestException(),
+    notFound: new NotFoundException(),
     ...appExceptions.protected,
   },
 };

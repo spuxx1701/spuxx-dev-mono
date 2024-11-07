@@ -1,4 +1,6 @@
 import { ApiParamOptions, ApiPropertyOptions } from '@nestjs/swagger';
+import { UserReadResource } from '@spuxx-api/src/users/dtos/user.read.resource';
+import { ListItemReadResource } from '../dtos/list-item.read.resource';
 
 export const listProperties = {
   id: {
@@ -33,13 +35,26 @@ export const listProperties = {
   } as ApiPropertyOptions,
 
   usesQuantities: {
-    description: 'When enabled, instructs clients to display the quantity input for items in the list.',
+    description:
+      'When enabled, instructs clients to display the quantity input for items in the list.',
     default: false,
   } as ApiPropertyOptions,
 
   owner: {
     description: 'The user who owns the list.',
-    example: crypto.randomUUID(),
+    type: UserReadResource,
+  } as ApiPropertyOptions,
+
+  guests: {
+    description: 'The users that have guest access to the list.',
+    type: UserReadResource,
+    isArray: true,
+  } as ApiPropertyOptions,
+
+  items: {
+    description: 'The items in this list.',
+    type: ListItemReadResource,
+    isArray: true,
   } as ApiPropertyOptions,
 
   createdAt: {

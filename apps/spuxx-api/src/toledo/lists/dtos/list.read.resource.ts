@@ -1,7 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { listProperties } from '../config/list.properties';
 import { Map } from '@spuxx/nest-utils';
 import { UserReadResource } from '@spuxx-api/src/users/dtos/user.read.resource';
+import { ListItemReadResource } from './list-item.read.resource';
 
 export class ListReadResource {
   @ApiProperty(listProperties.id)
@@ -20,6 +21,10 @@ export class ListReadResource {
   @Map()
   owner: UserReadResource;
 
+  @ApiPropertyOptional(listProperties.guests)
+  @Map()
+  guests?: UserReadResource[];
+
   @ApiProperty(listProperties.usesCheckboxes)
   @Map()
   usesCheckboxes: boolean;
@@ -31,6 +36,10 @@ export class ListReadResource {
   @ApiProperty(listProperties.usesQuantities)
   @Map()
   usesQuantities: boolean;
+
+  @ApiPropertyOptional(listProperties.items)
+  @Map()
+  items: ListItemReadResource[];
 
   @ApiProperty(listProperties.createdAt)
   @Map()

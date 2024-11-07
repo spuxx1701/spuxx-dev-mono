@@ -9,19 +9,19 @@ export class User extends Model {
 
   @Column
   @Map()
-  username: string;
+  declare username: string;
 
   @Column
   @Map()
-  firstName: string;
+  declare firstName: string;
 
   @Column
   @Map()
-  familyName: string;
+  declare familyName: string;
 
   @Column
   @Map()
-  lastSeen: Date;
+  declare lastSeen: Date;
 
   declare createdAt: Date;
 
