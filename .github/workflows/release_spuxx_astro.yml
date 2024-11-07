@@ -11,9 +11,11 @@ jobs:
     name: Release artifact (spuxx-astro)
     uses: spuxx1701/ci-cd/.github/workflows/pnpm_build_and_push.yml@v4.1.0
     with:
-      path: ./apps/spuxx-astro
       tag: version
       latest: true
+      path: ./apps/spuxx-astro
+      context: ./apps/spuxx-astro
+      dockerfile: ./apps/spuxx-astro/Dockerfile
       dockerhub_repository: spuxx-astro
     secrets:
       dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
