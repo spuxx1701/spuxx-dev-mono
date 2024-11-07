@@ -13,6 +13,7 @@ export class ListItem extends Model {
 
   @ForeignKey(() => List)
   @Column({ type: DataType.UUID })
+  @Map()
   declare listId: string;
 
   @Column

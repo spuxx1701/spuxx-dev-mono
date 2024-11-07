@@ -10,10 +10,11 @@ import { ListGuest } from './models/list-guest.model';
 import { ListsAccessManager } from './services/lists.access-manager';
 import { ListsActionsController } from './controllers/lists.actions.controller';
 import { ListsInviteManager } from './services/lists.invite-manager';
+import { ListItemsProvider } from './services/list-items.provider';
 
 @Module({
   imports: [SequelizeModule.forFeature([List, ListItem, ListGuest]), UsersModule],
   controllers: [ListsCrudController, ListsActionsController, ListItemsController],
-  providers: [ListsProvider, ListsInviteManager, ListsAccessManager],
+  providers: [ListsProvider, ListsInviteManager, ListsAccessManager, ListItemsProvider],
 })
 export class ListsModule {}

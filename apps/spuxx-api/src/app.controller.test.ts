@@ -26,7 +26,9 @@ describe('AppController', () => {
         session: sessionMockData.privileged,
       });
       expect(response.statusCode).toBe(200);
-      expect(response.body.session).toBe(`Logged in as ${sessionMockData.privileged.preferred_username}.`);
+      expect(response.body.session).toBe(
+        `Logged in as ${sessionMockData.privileged.preferred_username}.`,
+      );
     });
   });
 

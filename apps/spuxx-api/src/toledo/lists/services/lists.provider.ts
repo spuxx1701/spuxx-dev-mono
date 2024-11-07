@@ -48,7 +48,7 @@ export class ListsProvider {
   async findById(id: string, request: Request, options?: FindOptions<List>): Promise<List> {
     const list = await this.model.findByPk(id, options);
     if (!list) throw listsExceptions.findById.notFound;
-    await this.accessManager.checkAccess(list.id, request);
+    await this.accessManager.checkAccess(list, request);
     return list;
   }
 

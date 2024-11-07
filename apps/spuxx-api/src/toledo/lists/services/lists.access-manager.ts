@@ -10,13 +10,15 @@ export class ListsAccessManager {
   /**
    * Checks whether the signed in user has access to the given list. Throws a `NotFoundException`
    * in case the user does not have access.
-   * @param listId The list id to check access for.
+   * @param list The list to check access for.
    * @param request {@link Request}
    */
-  async checkAccess(listId: string, request: Request): Promise<true> {
-    const list = await this.model.findByPk(listId, {
-      include: ['guests', 'owner'],
-    });
+  async checkAccess(list: List, request: Request): Promise<true> {
+    if (!list.guests || !list.owner) {
+      list = await this.model.findByPk(list.id, {
+        include: ['guests', 'owner'],
+      });
+    }
     const usersWithAccess = [list.owner, ...list.guests];
     const hasAccess = usersWithAccess.some((user) => user.id === getSession(request).sub);
     if (!hasAccess) {

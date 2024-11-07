@@ -6,6 +6,12 @@ export const listItemProperties = {
     example: crypto.randomUUID(),
   } as ApiParamOptions & ApiPropertyOptions,
 
+  listId: {
+    name: 'listId',
+    description: 'The id of the list that the item belongs to.',
+    example: crypto.randomUUID(),
+  } as ApiParamOptions & ApiPropertyOptions,
+
   text: {
     description: 'The text content of the list item.',
     example: 'Apples',

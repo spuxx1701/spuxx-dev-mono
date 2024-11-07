@@ -70,7 +70,7 @@ export class ListsCrudController {
     🔒 Role access (${requiredRoles})`,
   })
   @ApiOkResponse({
-    status: 200,
+    status: 201,
     type: ListReadResource,
   })
   @ApiException(() => Object.values(listsExceptions.create))

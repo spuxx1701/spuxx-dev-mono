@@ -2,7 +2,7 @@ import { Supertest, TestContainer } from '@spuxx/nest-utils';
 import { ListsModule } from '../lists.module';
 import { TestOrmModule } from '@tests/database/test-orm-module';
 import { authConfig } from '@src/auth/auth.config';
-import { listCreateMockData } from 'mock-data/list.create.mock-data';
+import { listCreateMockData } from '@mock-data/list.mock-data';
 import { sessionMockData } from '@mock-data/session.mock-data';
 import { ListReadResource } from '../dtos/list.read.resource';
 import { ListCreateResource } from '../dtos/list.create.resource';
@@ -166,14 +166,8 @@ describe('ListsCrudController', () => {
   });
 
   describe('create', () => {
-    it('should return 201', async () => {
-      const body: ListCreateResource = {
-        name: 'groceries',
-        icon: 'shopping-cart',
-        requiresDeleteConfirmation: false,
-        usesQuantities: true,
-        usesCheckboxes: false,
-      };
+    it('should successfully create a new list', async () => {
+      const body = listCreateMockData.groceries;
       const response = await supertest.post('/toledo/lists', {
         body,
         session: sessionMockData.privileged,

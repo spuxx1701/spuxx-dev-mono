@@ -7,6 +7,10 @@ export class ListItemReadResource {
   @Map()
   id: string;
 
+  @ApiProperty(listItemProperties.listId)
+  @Map()
+  listId: string;
+
   @ApiProperty(listItemProperties.text)
   @Map()
   text: string;

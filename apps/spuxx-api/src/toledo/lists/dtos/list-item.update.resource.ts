@@ -1,26 +1,38 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Map, TransformBooleanString } from '@spuxx/nest-utils';
 import { listItemProperties } from '../config/list-item.properties';
-import { IsBoolean, IsNumber, IsString, Max, MaxLength, Min, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
+} from 'class-validator';
 
-export class ListItemCreateResource {
+export class ListItemUpdateResource {
   @IsString()
   @MinLength(1)
   @MaxLength(255)
-  @ApiProperty(listItemProperties.text)
+  @IsOptional()
+  @ApiPropertyOptional(listItemProperties.text)
   @Map()
-  text: string;
+  text?: string;
 
   @IsNumber()
   @Min(1)
   @Max(99)
+  @IsOptional()
   @ApiPropertyOptional(listItemProperties.quantity)
   @Map()
-  quantity: number = listItemProperties.quantity.default;
+  quantity?: number;
 
   @TransformBooleanString()
   @IsBoolean()
+  @IsOptional()
   @ApiPropertyOptional(listItemProperties.checked)
   @Map()
-  checked: boolean = listItemProperties.checked.default;
+  checked?: boolean;
 }
