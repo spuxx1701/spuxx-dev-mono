@@ -9,8 +9,10 @@ jobs:
   run_checks:
     name: Run code checks
     uses: spuxx1701/ci-cd/.github/workflows/pnpm_run_checks.yml@v4.1.0
-    with:
-      PNPM_BUILD: true
+
+  run_unit_tests:
+    name: Run tests (vitest)
+    uses: spuxx1701/ci-cd/.github/workflows/pnpm_run_tests_vitest.yml@v4.1.0
 
   staging_spuxx_astro:
     name: Release artifact (spuxx-api)
