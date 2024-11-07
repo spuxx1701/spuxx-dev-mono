@@ -45,5 +45,6 @@ jobs:
     uses: spuxx1701/ci-cd/.github/workflows/pnpm_release-please.yml@v4.1.0
     needs:
     - run_checks
+    - run_unit_tests
     secrets:
       TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
