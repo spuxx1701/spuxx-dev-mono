@@ -64,7 +64,7 @@ describe('ListsActionsController', () => {
       expect(createResponse.statusCode).toBe(201);
       const id = createResponse.body.id;
       const response = await supertest.post(`/toledo/lists/${id}/generate-invite`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(404);
     });
@@ -84,41 +84,41 @@ describe('ListsActionsController', () => {
       expect(generateInviteResponse.statusCode).toBe(201);
       const { code }: { code: string } = generateInviteResponse.body;
       const response = await supertest.put(`/toledo/lists/${id}/accept-invite?code=${code}`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
       // Check that the user was added to the list as a guest
       let getResponse = await supertest.get(`/toledo/lists/${id}?include=guests`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(getResponse.statusCode).toBe(200);
       let list: ListReadResource = getResponse.body;
       expect(list.owner.id).toBe(sessionMockData.privileged.sub);
       expect(list.guests.length).toBe(1);
-      expect(list.guests[0].id).toBe(sessionMockData.toledoUser.sub);
+      expect(list.guests[0].id).toBe(sessionMockData.toledo.sub);
       // Should not turn up twice
       await supertest.put(`/toledo/lists/${id}/accept-invite?code=${code}`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       getResponse = await supertest.get(`/toledo/lists/${id}?include=guests`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(getResponse.statusCode).toBe(200);
       list = getResponse.body;
       expect(list.guests.length).toBe(1);
-      expect(list.guests[0].id).toBe(sessionMockData.toledoUser.sub);
+      expect(list.guests[0].id).toBe(sessionMockData.toledo.sub);
     });
 
     it('should return 400 due to missing code', async () => {
       const response = await supertest.put('/toledo/lists/123/accept-invite', {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(400);
     });
 
     it('should return 400 due to invalid code', async () => {
       const response = await supertest.put('/toledo/lists/123/accept-invite?code=', {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(400);
     });

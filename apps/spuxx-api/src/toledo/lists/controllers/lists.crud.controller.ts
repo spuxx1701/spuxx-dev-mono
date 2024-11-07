@@ -28,7 +28,7 @@ import { ListUpdateResource } from '../dtos/list.update.resource';
 import { ListsFindManyQuery } from './queries/lists.find-many.query';
 import { transformQueryToFindOptions } from '@spuxx-api/src/orm/orm.utils';
 
-const requiredRoles = [AuthRole.toledoUser];
+const requiredRoles = [AuthRole.toledo];
 
 @Controller('toledo/lists')
 @ApiTags('Toledo - Lists')

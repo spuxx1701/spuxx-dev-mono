@@ -11,10 +11,10 @@ export const sessionMockData = {
     email: 'john.shepard@spectres.gov',
     preferred_username: 'Commander Shepard',
     email_verified: true,
-    groups: [AuthRole.toledoUser, AuthRole.toledoParent],
+    groups: [AuthRole.toledo, AuthRole.toledoParent],
     locale: 'en',
   } as SessionResource,
-  toledoUser: {
+  toledo: {
     sub: '2387ff8f-91bb-4fe7-80da-bb6cdd460183',
     sid: 'aec187cb-47dc-477b-bf06-9da1b34947bd',
     name: 'Mario Mario',
@@ -23,7 +23,7 @@ export const sessionMockData = {
     email: 'mario@nintendo.com',
     preferred_username: 'Super Mario',
     email_verified: true,
-    groups: [AuthRole.toledoUser],
+    groups: [AuthRole.toledo],
     locale: 'en',
   },
   unprivileged: {

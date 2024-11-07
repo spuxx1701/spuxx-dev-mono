@@ -67,7 +67,6 @@ export class ListItemsProvider {
       item.set(key, value);
     }
     const updatedItem = await item.save();
-    console.log(updatedItem.dataValues);
     Logger.log(
       `User '${preferred_username}' has updated list item '${updatedItem.id}'.`,
       ListsProvider.name,

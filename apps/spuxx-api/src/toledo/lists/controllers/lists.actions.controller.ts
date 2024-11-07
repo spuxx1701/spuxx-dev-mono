@@ -21,7 +21,7 @@ import { listsExceptions } from '../config/lists.exceptions';
 import { ListsInviteManager } from '../services/lists.invite-manager';
 import { AcceptInviteQuery } from '@spuxx-api/src/utils/invite-links/accept-invite.query';
 
-const requiredRoles = [AuthRole.toledoUser];
+const requiredRoles = [AuthRole.toledo];
 
 @Controller('toledo/lists')
 @ApiTags('Toledo - Lists')

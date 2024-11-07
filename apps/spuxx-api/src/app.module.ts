@@ -8,7 +8,14 @@ import { OrmModule } from './orm/orm.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [MappingModule, EnvModule, AuthModule.forRoot(authConfig), OrmModule, UsersModule, ToledoModule],
+  imports: [
+    MappingModule,
+    EnvModule,
+    AuthModule.forRoot(authConfig),
+    OrmModule,
+    UsersModule,
+    ToledoModule,
+  ],
   controllers: [AppController],
 })
 export class AppModule {}

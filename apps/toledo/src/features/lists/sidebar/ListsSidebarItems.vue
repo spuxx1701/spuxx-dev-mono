@@ -16,7 +16,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <VListItem v-if="lists.data" v-for="list in lists.data.value" :key="list.id" link :to="`/lists/${list.id}`">
+  <VListItem
+    v-if="lists.data"
+    v-for="list in lists.data.value"
+    :key="list.id"
+    link
+    :to="`/lists/${list.id}`"
+  >
     <template v-slot:prepend>
       <Icon :icon="`mdi:${list.icon}`" />
     </template>

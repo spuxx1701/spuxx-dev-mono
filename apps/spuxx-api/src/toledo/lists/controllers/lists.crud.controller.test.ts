@@ -6,6 +6,7 @@ import { listCreateMockData } from '@mock-data/list.mock-data';
 import { sessionMockData } from '@mock-data/session.mock-data';
 import { ListReadResource } from '../dtos/list.read.resource';
 import { ListCreateResource } from '../dtos/list.create.resource';
+import { ListUpdateResource } from '../dtos/list.update.resource';
 
 describe('ListsCrudController', () => {
   let supertest: Supertest;
@@ -137,10 +138,7 @@ describe('ListsCrudController', () => {
 
     it('should return 403', async () => {
       const response = await supertest.get('/toledo/lists/123', {
-        session: {
-          sub: '123',
-          groups: [],
-        },
+        session: sessionMockData.unprivileged,
       });
       expect(response.statusCode).toBe(403);
     });
@@ -155,7 +153,7 @@ describe('ListsCrudController', () => {
     it('should return 404 because the user does not have access to the list', async () => {
       const createResponse = await supertest.post('/toledo/lists', {
         body: listCreateMockData.groceries,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       const id = createResponse.body.id;
       const response = await supertest.get(`/toledo/lists/${id}`, {
@@ -214,6 +212,42 @@ describe('ListsCrudController', () => {
       expect(response.body[0].id).toBe(sessionMockData.privileged.sub);
     });
 
+    it('should fail input validation', async () => {
+      let response = await supertest.post('/toledo/lists', {
+        body: {
+          name: '',
+        } as ListCreateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+
+      response = await supertest.post('/toledo/lists', {
+        body: {
+          name: 'a'.repeat(256),
+        } as ListCreateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+
+      response = await supertest.post('/toledo/lists', {
+        body: {
+          name: 'Apples',
+          icon: '',
+        } as ListCreateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+
+      response = await supertest.post('/toledo/lists', {
+        body: {
+          name: 'Apples',
+          icon: 'a'.repeat(256),
+        } as ListCreateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+    });
+
     it('should return 401', async () => {
       const response = await supertest.post('/toledo/lists');
       expect(response.statusCode).toBe(401);
@@ -221,10 +255,200 @@ describe('ListsCrudController', () => {
 
     it('should return 403', async () => {
       const response = await supertest.post('/toledo/lists', {
-        session: {
-          sub: '123',
-          groups: [],
-        },
+        session: sessionMockData.unprivileged,
+      });
+      expect(response.statusCode).toBe(403);
+    });
+  });
+
+  describe('update', () => {
+    it('should successfully update a list', async () => {
+      // Create a new list
+      let response = await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(201);
+      const originalList: ListReadResource = response.body;
+      const { id } = originalList;
+
+      // Update name
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          name: 'Food',
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+      let updatedList: ListReadResource = response.body;
+      expect(updatedList).toEqual({
+        ...originalList,
+        name: 'Food',
+        updatedAt: updatedList.updatedAt,
+      });
+
+      // Update icon
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          icon: 'food',
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+      updatedList = response.body;
+      expect(updatedList).toEqual({
+        ...originalList,
+        name: 'Food',
+        icon: 'food',
+        updatedAt: updatedList.updatedAt,
+      });
+
+      // Toggle all flags
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          requiresDeleteConfirmation: true,
+          usesCheckboxes: false,
+          usesQuantities: false,
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+      updatedList = response.body;
+      expect(updatedList).toEqual({
+        ...originalList,
+        name: 'Food',
+        icon: 'food',
+        requiresDeleteConfirmation: true,
+        usesCheckboxes: false,
+        usesQuantities: false,
+        updatedAt: updatedList.updatedAt,
+      });
+
+      // Revert to original state
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          ...listCreateMockData.groceries,
+          requiresDeleteConfirmation: false,
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+      updatedList = response.body;
+      expect(updatedList).toEqual({
+        ...originalList,
+        updatedAt: updatedList.updatedAt,
+      });
+    });
+
+    it('should fail input validation', async () => {
+      // Create a new list
+      let response = await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(201);
+      const originalList: ListReadResource = response.body;
+      const { id } = originalList;
+
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          name: '',
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          name: 'a'.repeat(256),
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          icon: '',
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        body: {
+          icon: 'a'.repeat(256),
+        } as ListUpdateResource,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(400);
+    });
+
+    it('should return 401', async () => {
+      const response = await supertest.patch('/toledo/lists/123');
+      expect(response.statusCode).toBe(401);
+    });
+
+    it('should return 403', async () => {
+      const response = await supertest.patch('/toledo/lists/123', {
+        session: sessionMockData.unprivileged,
+      });
+      expect(response.statusCode).toBe(403);
+    });
+
+    it('should return 404 if list does not exist', async () => {
+      const response = await supertest.patch('/toledo/lists/123', {
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(404);
+    });
+
+    it('should return 404 if the user does not have access to the list', async () => {
+      // Create a new list
+      let response = await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(201);
+      const { id } = response.body;
+
+      response = await supertest.patch(`/toledo/lists/${id}`, {
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(404);
+    });
+  });
+
+  describe('delete', () => {
+    it('should successfully delete the list', async () => {
+      // Create a new list
+      let response = await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(201);
+      const { id } = response.body;
+
+      response = await supertest.delete(`/toledo/lists/${id}`, {
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+    });
+
+    it('should return 200 for a non-existing list', async () => {
+      const response = await supertest.delete(`/toledo/lists/123`, {
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+    });
+
+    it('should return 401', async () => {
+      const response = await supertest.delete('/toledo/lists/123');
+      expect(response.statusCode).toBe(401);
+    });
+
+    it('should return 403', async () => {
+      const response = await supertest.delete('/toledo/lists/123', {
+        session: sessionMockData.unprivileged,
       });
       expect(response.statusCode).toBe(403);
     });

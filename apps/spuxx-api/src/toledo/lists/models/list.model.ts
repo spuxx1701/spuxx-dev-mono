@@ -10,7 +10,6 @@ import {
   BelongsToMany,
   HasMany,
   DefaultScope,
-  BeforeCreate,
 } from 'sequelize-typescript';
 import { ListItem } from './list-item.model';
 import { ListGuest } from './list-guest.model';

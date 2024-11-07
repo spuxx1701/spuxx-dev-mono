@@ -21,7 +21,7 @@ main:
       login: Anmelden via auth.spuxx.dev
     settings:
       title: Einstellungen
-      signed-in-as: "Du bist angemeldet als:"
+      signed-in-as: 'Du bist angemeldet als:'
       logout: Abmelden
 
 lists:

@@ -1,4 +1,8 @@
-import { ForbiddenException, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  InternalServerErrorException,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 export const appExceptions = {
   open: {

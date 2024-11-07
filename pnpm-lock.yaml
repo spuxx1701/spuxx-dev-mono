@@ -105,8 +105,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.24.0)(vite@5.4.10(@types/node@22.7.4)(terser@5.34.1)))
       '@spuxx/nest-utils':
-        specifier: 2.4.0
-        version: 2.4.0(6m6slq6kxfwy3yutf6wcicjh7y)
+        specifier: 2.4.1
+        version: 2.4.1(6m6slq6kxfwy3yutf6wcicjh7y)
       class-transformer:
         specifier: 0.5.1
         version: 0.5.1
@@ -165,9 +165,6 @@ importers:
 
   apps/spuxx-astro:
     dependencies:
-      '@astrojs/check':
-        specifier: ^0.9.4
-        version: 0.9.4(prettier@3.3.3)(typescript@5.6.3)
       '@astrojs/mdx':
         specifier: 3.1.7
         version: 3.1.7(astro@4.15.11(@types/node@22.7.4)(rollup@4.24.0)(terser@5.34.1)(typescript@5.6.3))
@@ -177,13 +174,19 @@ importers:
       astro:
         specifier: 4.15.11
         version: 4.15.11(@types/node@22.7.4)(rollup@4.24.0)(terser@5.34.1)(typescript@5.6.3)
-      astro-icon:
-        specifier: 1.1.1
-        version: 1.1.1
     devDependencies:
+      '@astrojs/check':
+        specifier: 0.9.4
+        version: 0.9.4(prettier@3.3.3)(typescript@5.6.3)
       '@iconify-json/mdi':
         specifier: ^1.2.0
         version: 1.2.0
+      astro-icon:
+        specifier: 1.1.1
+        version: 1.1.1
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
 
   apps/toledo:
     dependencies:
@@ -1307,8 +1310,8 @@ packages:
       '@modyfi/vite-plugin-yaml':
         optional: true
 
-  '@spuxx/nest-utils@2.4.0':
-    resolution: {integrity: sha512-FpNoFcBu9yxH7gSF/CKLWgR9rqGPQ8CJuU1O23GauwDjo9jEh55iVRBZdTUjXZHWOP6oLZbVk1PI76PUc5SAIA==}
+  '@spuxx/nest-utils@2.4.1':
+    resolution: {integrity: sha512-KxeLdxeOSGBQR0RF7FuwN7EpxSeY5jNqZqxuKaoE4zul0Z5RkH+27uGTT3ZTcsYGHPsSBrkhojLwhSE6hvoyQA==}
     peerDependencies:
       '@nanogiants/nestjs-swagger-api-exception-decorator': ^1.6.0
       '@nestjs/common': ^10.4.0
@@ -6106,7 +6109,7 @@ snapshots:
       '@astrojs/yaml2ts': 0.2.1
       '@jridgewell/sourcemap-codec': 1.5.0
       '@volar/kit': 2.4.5(typescript@5.6.3)
-      '@volar/language-core': 2.4.5
+      '@volar/language-core': 2.4.8
       '@volar/language-server': 2.4.5
       '@volar/language-service': 2.4.5
       fast-glob: 3.3.2
@@ -7238,7 +7241,7 @@ snapshots:
     optionalDependencies:
       '@modyfi/vite-plugin-yaml': 1.1.0(rollup@4.24.0)(vite@5.4.10(@types/node@22.7.4)(terser@5.34.1))
 
-  '@spuxx/nest-utils@2.4.0(6m6slq6kxfwy3yutf6wcicjh7y)':
+  '@spuxx/nest-utils@2.4.1(6m6slq6kxfwy3yutf6wcicjh7y)':
     dependencies:
       '@nanogiants/nestjs-swagger-api-exception-decorator': 1.6.11(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/swagger@7.4.0(@nestjs/common@10.4.1(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.1)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2))
       '@nestjs/common': 10.4.1(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)

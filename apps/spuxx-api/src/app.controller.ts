@@ -18,7 +18,9 @@ export class AppController {
       application: process.env.npm_package_name,
       version: process.env.npm_package_version,
       rootUrl: EnvModule.get('APP_BASE_URL'),
-      session: isAuthenticated(request) ? `Logged in as ${getSession(request).preferred_username}.` : 'Not logged in.',
+      session: isAuthenticated(request)
+        ? `Logged in as ${getSession(request).preferred_username}.`
+        : 'Not logged in.',
       author: appConfig.author,
       repository: 'https://github.com/spuxx1701/spuxx-dev-mono',
       auth: {

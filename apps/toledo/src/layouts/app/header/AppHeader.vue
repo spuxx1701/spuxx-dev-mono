@@ -12,7 +12,13 @@ const { session } = SessionManager;
 <template>
   <VAppBar v-if="session" class="header" height="60" color="background">
     <template v-slot:prepend>
-      <VBtn class="sidebar" icon variant="text" :title="intl('app.header.sidebar')" :onclick="toggleSidebar">
+      <VBtn
+        class="sidebar"
+        icon
+        variant="text"
+        :title="intl('app.header.sidebar')"
+        :onclick="toggleSidebar"
+      >
         <Icon icon="mdi:menu" />
       </VBtn>
       <RouterLink class="brand" to="/">

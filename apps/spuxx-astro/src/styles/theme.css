@@ -6,7 +6,11 @@
   --color-body-background: transparent;
 
   --color-code-background: #202020;
-  --gradient-quote-background: linear-gradient(135deg, rgb(103, 82, 219, 0.3), rgb(231, 94, 255, 0.1));
+  --gradient-quote-background: linear-gradient(
+    135deg,
+    rgb(103, 82, 219, 0.3),
+    rgb(231, 94, 255, 0.1)
+  );
 
   --color-text-default: #f1f1f1;
   --color-text-highlight: white;

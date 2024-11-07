@@ -24,7 +24,7 @@ import { Request } from 'express';
 import { listItemProperties } from '../config/list-item.properties';
 import { ListItemUpdateResource } from '../dtos/list-item.update.resource';
 
-const requiredRoles = [AuthRole.toledoUser];
+const requiredRoles = [AuthRole.toledo];
 
 @Controller('toledo/lists')
 @ApiTags('Toledo - Lists')

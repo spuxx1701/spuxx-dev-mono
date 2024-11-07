@@ -96,7 +96,7 @@ describe('ListItemsController', () => {
       // Try to add the item without access
       response = await supertest.post(`/toledo/lists/${listId}/items`, {
         body: listItemCreateMockData.apples,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(404);
 
@@ -107,14 +107,14 @@ describe('ListItemsController', () => {
       expect(response.statusCode).toBe(201);
       const { code }: { code: string } = response.body;
       response = await supertest.put(`/toledo/lists/${listId}/accept-invite?code=${code}`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
 
       // Try to add item again
       response = await supertest.post(`/toledo/lists/${listId}/items`, {
         body: listItemCreateMockData.apples,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(201);
     });
@@ -203,7 +203,7 @@ describe('ListItemsController', () => {
 
       response = await supertest.post(`/toledo/lists/${listId}/items`, {
         body: listItemCreateMockData.apples,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(404);
     });
@@ -361,7 +361,7 @@ describe('ListItemsController', () => {
 
     it('should return 404 if the list does not exist', async () => {
       const response = await supertest.patch(`/toledo/lists/123/items/123`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(404);
     });
@@ -385,7 +385,7 @@ describe('ListItemsController', () => {
 
       // Attempt to delete the list item
       response = await supertest.delete(`/toledo/lists/${listId}/items/${item.id}`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(404);
     });
@@ -396,7 +396,7 @@ describe('ListItemsController', () => {
       // Create a new empty list
       let response = await supertest.post('/toledo/lists', {
         body: listCreateMockData.groceries,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(201);
       const listId = response.body.id;
@@ -404,42 +404,42 @@ describe('ListItemsController', () => {
       // Create two new list items
       response = await supertest.post(`/toledo/lists/${listId}/items`, {
         body: listItemCreateMockData.apples,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(201);
       const firstItem: ListItemReadResource = response.body;
       response = await supertest.post(`/toledo/lists/${listId}/items`, {
         body: listItemCreateMockData.bananas,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(201);
       const secondItem: ListItemReadResource = response.body;
 
       // Verify list item number
       response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
       expect(response.body.items.length).toBe(2);
 
       // Delete first item
       response = await supertest.delete(`/toledo/lists/${listId}/items/${firstItem.id}`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
       response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
       expect(response.body.items.length).toBe(1);
 
       // Delete second item
       response = await supertest.delete(`/toledo/lists/${listId}/items/${secondItem.id}`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
       response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
       expect(response.body.items.length).toBe(0);
@@ -449,14 +449,14 @@ describe('ListItemsController', () => {
       // Create a new empty list
       let response = await supertest.post('/toledo/lists', {
         body: listCreateMockData.groceries,
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(201);
       const listId = response.body.id;
 
       // Delete non-existing item
       response = await supertest.delete(`/toledo/lists/${listId}/items/123`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(200);
     });
@@ -475,7 +475,7 @@ describe('ListItemsController', () => {
 
     it('should return 404 if the list does not exist', async () => {
       const response = await supertest.delete(`/toledo/lists/123/items/123`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(404);
     });
@@ -499,7 +499,7 @@ describe('ListItemsController', () => {
 
       // Attempt to delete the list item
       response = await supertest.delete(`/toledo/lists/${listId}/items/${item.id}`, {
-        session: sessionMockData.toledoUser,
+        session: sessionMockData.toledo,
       });
       expect(response.statusCode).toBe(404);
     });

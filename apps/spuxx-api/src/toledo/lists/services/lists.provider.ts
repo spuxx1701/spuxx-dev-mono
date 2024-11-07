@@ -86,7 +86,9 @@ export class ListsProvider {
     });
     this.accessManager.checkOwnership(list, request);
     for (const key in resource) {
-      list.set(key, resource[key as keyof typeof resource]);
+      const value = resource[key as keyof typeof resource];
+      if (value === undefined || value === null) continue;
+      list.set(key, value);
     }
     const updatedList = await list.save();
     Logger.log(

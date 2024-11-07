@@ -3,7 +3,7 @@ import { EnvModule } from '../env/env.module';
 
 export const AuthRole = {
   toledoParent: 'toledo_parent',
-  toledoUser: 'toledo_user',
+  toledo: 'toledo_user',
 } as const;
 export type AuthRole = (typeof AuthRole)[keyof typeof AuthRole];
 export const authRoles = Object.values(AuthRole);
