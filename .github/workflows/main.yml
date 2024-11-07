@@ -23,8 +23,8 @@ jobs:
     - run_checks
     - run_unit_tests
     with:
-      path: ./apps/spuxx-api
       tag: branch
+      dockerfile: ./apps/spuxx-api/Dockerfile
       dockerhub_repository: spuxx-api
     secrets:
       dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -36,8 +36,8 @@ jobs:
     - run_checks
     - run_unit_tests
     with:
-      path: ./apps/toledo
       tag: branch
+      dockerfile: ./apps/toledo/Dockerfile
       dockerhub_repository: toledo
     secrets:
       dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
