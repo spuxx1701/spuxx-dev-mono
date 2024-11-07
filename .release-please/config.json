@@ -1,6 +1,7 @@
 {
   "packages": {
     "apps/spuxx-astro": {},
-    "apps/spuxx-api": {}
+    "apps/spuxx-api": {},
+    "apps/toledo": {}
   }
 }
