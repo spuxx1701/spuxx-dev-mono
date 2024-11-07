@@ -13,12 +13,9 @@ RUN pnpm install
 RUN pnpm build
 
 # Production stage
-FROM node:22
+FROM gcr.io/distroless/nodejs20-debian12
 WORKDIR /app
 COPY --from=build-env /project/apps/spuxx-api/dist ./dist
-COPY --from=build-env /project/apps/spuxx-api/package.json ./package.json
-# Having issues with copying node_modules so we install them manually
-RUN npm install -g pnpm
-RUN pnpm install
+COPY --from=build-env /project/node_modules ./node_modules
 USER 9999
 CMD [ "node", "dist/main.mjs" ]
