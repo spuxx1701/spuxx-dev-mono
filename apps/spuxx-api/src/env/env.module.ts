@@ -10,7 +10,10 @@ class Env {
   APP_BASE_URL: string = 'https://api.spuxx.dev';
 
   @IsString()
-  ALLOWED_CORS_ORIGINS: string;
+  APP_PORT: string = '8080';
+
+  @IsString()
+  ALLOWED_CORS_ORIGINS: string = 'https://toledo.spuxx.dev';
 
   @IsUrl()
   AUTH_ISSUER_URL: string = 'https://auth.spuxx.dev/realms/main';
@@ -25,7 +28,7 @@ class Env {
   AUTH_COOKIE_SECRET: string;
 
   @IsString()
-  DATABASE_HOST: string;
+  DATABASE_HOST: string = 'mariadb.database.svc.cluster.local';
 
   @IsNumber()
   DATABASE_PORT: number = 3306;

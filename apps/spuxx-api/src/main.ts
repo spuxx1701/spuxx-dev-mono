@@ -24,8 +24,11 @@ async function bootstrap() {
 
   await AuthModule.bootstrap(app, authConfig);
 
-  await app.listen(3000);
-  Logger.log(`Application is running on: http://localhost:3000`, 'Bootstrap');
+  await app.listen(EnvModule.get('APP_PORT'));
+  Logger.log(
+    `Application is running on: http://localhost:${EnvModule.get('APP_PORT')}`,
+    'Bootstrap',
+  );
   Logger.verbose('Verbose logging is enabled.', 'Bootstrap');
 }
 
