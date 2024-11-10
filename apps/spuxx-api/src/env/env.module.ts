@@ -40,7 +40,7 @@ class Env {
   DATABASE_PASSWORD: string;
 
   @IsString()
-  DATABASE_DB: string = 'spuxx-api';
+  DATABASE_DB: string = 'spuxx-api-production';
 
   @TransformBooleanString()
   @IsBoolean()
