@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import { authConfig } from './auth/auth.config';
 import { EnvModule } from './env/env.module';
 import { bootstrapOpenApi } from './docs/open-api.bootstrap';
+import { auth } from 'express-openid-connect';
 
 async function bootstrap() {
   const logger = new CustomLogger({
@@ -22,7 +23,7 @@ async function bootstrap() {
 
   bootstrapOpenApi(app);
 
-  await AuthModule.bootstrap(app, authConfig);
+  await AuthModule.bootstrap(app, auth, authConfig);
 
   await app.listen(EnvModule.get('APP_PORT'));
   Logger.log(

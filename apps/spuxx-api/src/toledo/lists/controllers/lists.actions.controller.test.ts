@@ -1,19 +1,19 @@
 import { TestOrmModule } from '@spuxx-api/tests/database/test-orm-module';
-import { Supertest, TestContainer } from '@spuxx/nest-utils';
+import { Supertest, TestContainer } from '@spuxx/nest-testing';
 import { ListsModule } from '../lists.module';
 import { authConfig } from '@spuxx-api/src/auth/auth.config';
 import { listCreateMockData } from '@mock-data/list.mock-data';
 import { sessionMockData } from '@mock-data/session.mock-data';
 import { ListReadResource } from '../dtos/list.read.resource';
+import { AuthModule } from '@spuxx/nest-utils';
 
 describe('ListsActionsController', () => {
   let supertest: Supertest;
 
   beforeEach(async () => {
     const container = await TestContainer.create({
-      imports: [TestOrmModule, ListsModule],
+      imports: [AuthModule.forRoot(authConfig), TestOrmModule, ListsModule],
       enableEndToEnd: true,
-      authOptions: { ...authConfig },
     });
     supertest = container.supertest;
   });
