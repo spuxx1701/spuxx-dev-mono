@@ -59,6 +59,15 @@ export const listsEndpoints = {
       return list;
     },
   }),
+  deleteList: defineEndpoint({
+    function: async (id: string): Promise<void> => {
+      const { API_URL } = Config.getConfig<AppConfig>();
+      await fetch(`${API_URL}/toledo/lists/${id}`, {
+        ...Api.requestOptions,
+        method: 'DELETE',
+      });
+    },
+  }),
   createListItem: defineEndpoint({
     function: async (listId: string, item: NewListItem): Promise<Response> => {
       const body = JSON.stringify(item);

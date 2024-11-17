@@ -2,7 +2,6 @@
 import type { List } from '@/services/api/lists/lists.types';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { intl } from '@spuxx/js-utils';
-import type { Ref } from 'vue';
 import { VBtn } from 'vuetify/components';
 
 const { list } = defineProps<{

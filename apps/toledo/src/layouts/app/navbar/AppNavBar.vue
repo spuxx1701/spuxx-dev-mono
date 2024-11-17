@@ -5,9 +5,15 @@ import { RouterLink } from 'vue-router';
 import { intl } from '@spuxx/js-utils';
 import { Interface } from '@/services/interface';
 import { SessionManager } from '@/services/session';
+import { computed } from 'vue';
 
 const { toggleSidebar } = Interface;
 const { session } = SessionManager;
+
+const sidebarToggleIcon = computed(() => {
+  const { sidebarExpanded } = Interface;
+  return sidebarExpanded.value ? 'mdi:menu-open' : 'mdi:menu';
+});
 </script>
 <template>
   <VAppBar v-if="session" height="60" color="surface">
@@ -16,19 +22,18 @@ const { session } = SessionManager;
         class="sidebar"
         icon
         variant="text"
-        :title="intl('app.header.sidebar')"
+        color="text"
+        :title="intl('app.navbar.toggle-sidebar')"
         :onclick="toggleSidebar"
       >
-        <Icon icon="mdi:menu" />
+        <Icon :icon="sidebarToggleIcon" />
       </VBtn>
       <RouterLink class="brand" to="/">
         <!-- <AppLogo class="logo" :size="40" /> -->
         <p class="title">{{ intl('app.title') }}</p>
       </RouterLink>
     </template>
-    <template v-slot:title>
-      <!-- <AppNavigation /> -->
-    </template>
+    <template v-slot:title> </template>
   </VAppBar>
 </template>
 

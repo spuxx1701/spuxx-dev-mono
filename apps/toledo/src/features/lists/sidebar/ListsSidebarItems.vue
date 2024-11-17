@@ -1,18 +1,15 @@
 <script lang="ts" setup>
 import { Resource } from '@/reactivity/resource';
 import type { List } from '@/services/api/lists/lists.types';
-import { onMounted, type Ref } from 'vue';
 import { VListItem } from 'vuetify/components';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { ListsProvider } from '../services/lists.provider';
+import { SessionManager } from '@/services/session';
 
-const lists = new Resource<Ref<List[]>>(async () => {
+const lists = new Resource<List[]>(async () => {
   return ListsProvider.findMany();
 }, 'lists');
-
-onMounted(() => {
-  lists.load();
-});
+lists.load();
 </script>
 
 <template>
@@ -27,5 +24,10 @@ onMounted(() => {
       <Icon :icon="`mdi:${list.icon}`" />
     </template>
     {{ list.name }}
+    <Icon
+      v-if="list.owner.id === SessionManager.session.value?.sub"
+      class="ml-2 text-subtitle-2"
+      icon="mdi:crown"
+    />
   </VListItem>
 </template>

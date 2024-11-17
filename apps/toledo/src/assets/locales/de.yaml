@@ -1,7 +1,7 @@
 app:
   title: Toledo
-  header:
-    sidebar: Sidebar
+  navbar:
+    toggle-sidebar: Sidebar ein/ausblenden
 
 misc:
   yes: Ja
@@ -41,7 +41,8 @@ lists:
       create: Neue Liste
       collection:
         owned: Deine Listen
-        shared: Fremde Listen
+        shared: Andere Listen
+        empty: 🦗 Hier gibt es noch nichts zu sehen.
     list:
       item:
         text:

@@ -6,7 +6,7 @@
 }
 
 .v-container {
-  max-width: 1440px;
+  box-sizing: border-box;
 }
 
 .v-btn,
@@ -20,9 +20,12 @@
   gap: 4px;
 }
 
-.v-btn .iconify--mdi,
-.v-btn-toggle .iconify--mdi {
-  font-size: x-large;
+.v-btn,
+.v-btn-toggle,
+.v-card {
+  .iconify--mdi {
+    font-size: x-large;
+  }
 }
 
 .v-field__input::-webkit-outer-spin-button,

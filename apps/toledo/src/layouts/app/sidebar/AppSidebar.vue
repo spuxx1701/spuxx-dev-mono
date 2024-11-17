@@ -31,5 +31,9 @@ import { Interface } from '@/services/interface';
   .v-list-item__prepend {
     margin-right: 0.5rem;
   }
+
+  .v-list-item__content {
+    align-items: center;
+  }
 }
 </style>

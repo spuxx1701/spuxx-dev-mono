@@ -2,8 +2,7 @@
 import { ListsProvider } from '../services/lists.provider';
 import { Resource } from '@/reactivity/resource';
 import ContentHeader from '@/components/content/ContentHeader.vue';
-import ListShareButton from './list-view/ListShareButton.vue';
-import ListSettings from './list-view/ListSettings.vue';
+import ListSettings from './list-view/settings/ListSettings.vue';
 import PageLoader from '@/components/common/PageLoader.vue';
 import ListItemTemplate from './list-view/ListItemTemplate.vue';
 import ListItems from './list-view/ListItems.vue';
@@ -24,7 +23,6 @@ list.load(props.id);
   <div class="w-100" v-if="list.data.value">
     <ListItems :list="list.data.value" />
     <ListItemTemplate class="mb-2" :list="list.data.value" />
-    <ListShareButton class="mb-2" :list="list.data.value" />
     <ListSettings :list="list.data" />
   </div>
 </template>

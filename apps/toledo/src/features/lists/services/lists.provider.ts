@@ -58,6 +58,15 @@ export class ListsProvider extends ServiceMixin<ListsProvider>() {
     return updatedList;
   }
 
+  static async delete(list: List): Promise<void> {
+    const { id } = list;
+    await Api.deleteList(id);
+    const index = this.lists.value.findIndex((element) => element.id === id);
+    this.lists.value.splice(index, 1);
+    this.sort();
+    Logger.debug(`Deleted list '${id}'.`, ListsProvider.name);
+  }
+
   private static sort = () => {
     this.lists.value.sort((a: List, b: List) => a.name.localeCompare(b.name));
   };

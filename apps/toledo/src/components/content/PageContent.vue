@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { useRoute } from 'vue-router';
-import { VScrollXTransition } from 'vuetify/components';
+import { VContainer, VScrollXTransition } from 'vuetify/components';
 import ContentHeader from './ContentHeader.vue';
 
 const props = defineProps<{
   icon?: string;
   title?: string;
   align?: 'start' | 'center';
+  noPadding?: boolean;
 }>();
 
 const route = useRoute();
@@ -16,23 +17,16 @@ const route = useRoute();
 <template>
   <Teleport to="#main-content">
     <VScrollXTransition appear hide-on-leave>
-      <div
+      <VContainer
         :key="route.path"
-        :class="`content pa-2 pa-sm-4 pa-md-8 justify-${props.align ?? 'start'}`"
+        :class="`text-center justify-${props.align ?? 'start'} ${noPadding ? 'pa-0' : ''}`"
+        :bind="$attrs"
       >
         <ContentHeader v-if="title" :icon :title />
         <slot></slot>
-      </div>
+      </VContainer>
     </VScrollXTransition>
   </Teleport>
 </template>
 
-<style scoped>
-.content {
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>
+<style scoped></style>
