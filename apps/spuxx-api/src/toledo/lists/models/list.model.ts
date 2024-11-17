@@ -13,6 +13,7 @@ import {
 } from 'sequelize-typescript';
 import { ListItem } from './list-item.model';
 import { ListGuest } from './list-guest.model';
+import { listProperties } from '../config/list.properties';
 
 @DefaultScope(() => ({
   include: ['owner'],
@@ -29,7 +30,7 @@ export class List extends Model {
   @Map()
   declare name: string;
 
-  @Column
+  @Column({ defaultValue: listProperties.icon.default })
   @Map()
   declare icon?: string;
 
