@@ -25,8 +25,8 @@ import { List } from '../models/list.model';
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 import { listsExceptions } from '../config/lists.exceptions';
 import { ListUpdateResource } from '../dtos/list.update.resource';
-import { ListsFindManyQuery } from './queries/lists.find-many.query';
 import { transformQueryToFindOptions } from '@spuxx-api/src/orm/orm.utils';
+import { ListsFindByIdQuery, ListsFindManyQuery, ListsUpdateQuery } from './queries';
 
 const requiredRoles = [AuthRole.toledo];
 
@@ -96,7 +96,7 @@ export class ListsCrudController {
   @ApiException(() => Object.values(listsExceptions.findById))
   async findById(
     @Param('id') id: string,
-    @Query() query: ListsFindManyQuery,
+    @Query() query: ListsFindByIdQuery,
     @Req() request: Request,
   ): Promise<ListReadResource> {
     const list = await this.provider.findById(id, request, transformQueryToFindOptions(query));
@@ -117,10 +117,16 @@ export class ListsCrudController {
   @ApiException(() => Object.values(listsExceptions.update))
   async update(
     @Param('id') id: string,
+    @Query() query: ListsUpdateQuery,
     @Body() resource: ListUpdateResource,
     @Req() request: Request,
   ): Promise<ListReadResource> {
-    const list = await this.provider.update(id, resource, request);
+    const list = await this.provider.update(
+      id,
+      resource,
+      request,
+      transformQueryToFindOptions(query),
+    );
     return this.mapper.map(list, List, ListReadResource);
   }
 

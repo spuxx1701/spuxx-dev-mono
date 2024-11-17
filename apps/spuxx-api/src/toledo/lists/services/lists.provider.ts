@@ -41,7 +41,7 @@ export class ListsProvider {
   /**
    * Returns a specific list by id.
    * @param id The id of the list.
-   * @param options {@link Request}
+   * @param request {@link Request}
    * @param options (optional) {@link FindOptions}
    * @returns The list.
    */
@@ -77,12 +77,18 @@ export class ListsProvider {
    * @param id The id of the list.
    * @param resource The resource.
    * @param request {@link Request}
+   * @param options (optional) {@link FindOptions}
    * @returns The updated list.
    */
-  async update(id: string, resource: ListUpdateResource, request: Request): Promise<List> {
+  async update(
+    id: string,
+    resource: ListUpdateResource,
+    request: Request,
+    options?: FindOptions<List>,
+  ): Promise<List> {
     const { preferred_username } = getSession(request);
     const list = await this.findById(id, request, {
-      include: ['owner'],
+      include: options.include,
     });
     this.accessManager.checkOwnership(list, request);
     for (const key in resource) {
