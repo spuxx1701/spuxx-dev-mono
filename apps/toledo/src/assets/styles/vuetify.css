@@ -1,9 +1,5 @@
 @import 'vuetify/styles';
 
-:root {
-  --v-toolbar-image-opacity: 0.5;
-}
-
 .v-app-bar {
   height: var(--header-height);
   box-sizing: content-box;
@@ -13,30 +9,20 @@
   max-width: 1440px;
 }
 
-.v-btn {
+.v-btn,
+.v-btn-toggle {
   text-transform: unset;
+  align-items: center;
 }
 
-.v-btn__content {
+.v-btn__content,
+.v-btn-toggle__content {
   gap: 4px;
 }
 
-.v-btn .iconify--mdi {
+.v-btn .iconify--mdi,
+.v-btn-toggle .iconify--mdi {
   font-size: x-large;
-}
-
-.v-skeleton-loader {
-  opacity: 0.3;
-}
-
-.v-skeleton-loader__bone {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.v-btn--active > .v-btn__overlay,
-.v-field__overlay:not(:hover) {
-  opacity: 0;
 }
 
 .v-field__input::-webkit-outer-spin-button,

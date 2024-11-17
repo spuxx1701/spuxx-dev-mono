@@ -4,7 +4,6 @@
 
 :root {
   --accent-bar-height: 2px;
-  --bg-color-container: color-mix(in srgb, rgb(var(--v-theme-background)) 70%, black 30%);
 }
 
 html {

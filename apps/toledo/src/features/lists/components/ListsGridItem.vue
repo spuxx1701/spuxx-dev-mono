@@ -15,7 +15,7 @@ const props = defineProps<{
 <template>
   <VCol class="col">
     <Loader v-if="state" class="card" type="card-avatar" :state />
-    <VCard v-if="list" class="card" color="primary" v-bind="$attrs" link>
+    <VCard v-if="list" class="card" color="primary-darken-1" v-bind="$attrs" link>
       <template v-slot:prepend>
         <Icon class="icon" :icon="`mdi:${list.icon}`" />
       </template>

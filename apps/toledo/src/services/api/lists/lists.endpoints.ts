@@ -2,7 +2,7 @@ import type { AppConfig } from '@/config/app.config';
 import { Config } from '@spuxx/browser-utils';
 import { defineEndpoint } from '@spuxx/js-utils';
 import { Api } from '../api.service';
-import type { List, NewList } from './lists.types';
+import type { List, ListItem, NewList, NewListItem } from './lists.types';
 
 export const listsEndpoints = {
   findManyLists: defineEndpoint({
@@ -47,7 +47,7 @@ export const listsEndpoints = {
     function: async (list: List): Promise<Response> => {
       const body = JSON.stringify(list);
       const { API_URL } = Config.getConfig<AppConfig>();
-      return fetch(`${API_URL}/toledo/lists/${list.id}`, {
+      return fetch(`${API_URL}/toledo/lists/${list.id}?include=guests,items`, {
         ...Api.requestOptions,
         method: 'PATCH',
         body,
@@ -57,6 +57,47 @@ export const listsEndpoints = {
       const json = await response.json();
       const list: List = { ...json };
       return list;
+    },
+  }),
+  createListItem: defineEndpoint({
+    function: async (listId: string, item: NewListItem): Promise<Response> => {
+      const body = JSON.stringify(item);
+      const { API_URL } = Config.getConfig<AppConfig>();
+      return fetch(`${API_URL}/toledo/lists/${listId}/items`, {
+        ...Api.requestOptions,
+        method: 'POST',
+        body,
+      });
+    },
+    transformer: async (response): Promise<ListItem> => {
+      const json = await response.json();
+      const list: ListItem = { ...json };
+      return list;
+    },
+  }),
+  updateListItem: defineEndpoint({
+    function: async (item: ListItem): Promise<Response> => {
+      const body = JSON.stringify(item);
+      const { API_URL } = Config.getConfig<AppConfig>();
+      return fetch(`${API_URL}/toledo/lists/${item.listId}/items/${item.id}`, {
+        ...Api.requestOptions,
+        method: 'PATCH',
+        body,
+      });
+    },
+    transformer: async (response): Promise<ListItem> => {
+      const json = await response.json();
+      const list: ListItem = { ...json };
+      return list;
+    },
+  }),
+  deleteListItem: defineEndpoint({
+    function: async (listId: string, itemId: string): Promise<void> => {
+      const { API_URL } = Config.getConfig<AppConfig>();
+      await fetch(`${API_URL}/toledo/lists/${listId}/items/${itemId}`, {
+        ...Api.requestOptions,
+        method: 'DELETE',
+      });
     },
   }),
 };

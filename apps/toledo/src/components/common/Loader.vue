@@ -2,13 +2,23 @@
 import type { ResourceState } from '@/reactivity/resource';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { intl } from '@spuxx/js-utils';
+import { computed, type Ref } from 'vue';
 import { VSkeletonLoader } from 'vuetify/components';
 export type LoaderType = VProp<typeof VSkeletonLoader, 'type'> | 'spinner';
 
-const { state, type = 'spinner' } = defineProps<{
-  state?: ResourceState;
+const props = defineProps<{
+  state?: ResourceState | Ref<ResourceState>;
   type?: LoaderType;
 }>();
+
+const state = computed(() => {
+  if (!props.state) {
+    return undefined;
+  } else if (typeof props.state === 'object') {
+    return props.state.value;
+  }
+  return props.state;
+});
 </script>
 <template>
   <span v-if="state === 'pending'" class="loader" :aria-label="intl('misc.loading')" :bind="$attrs">

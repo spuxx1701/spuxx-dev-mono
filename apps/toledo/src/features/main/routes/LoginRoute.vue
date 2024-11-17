@@ -22,8 +22,7 @@ const handleLogin = () => {
   <PageContent align="center">
     <h1 class="magelove">{{ intl('main.route.login.title') }}</h1>
     <VBtn
-      variant="elevated"
-      color="primary"
+      color="primary-darken-1"
       class="my-4"
       :title="intl('main.route.login.login')"
       @click="handleLogin"

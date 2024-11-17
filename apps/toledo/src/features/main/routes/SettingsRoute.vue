@@ -26,8 +26,7 @@ const handleLogout = () => {
       {{ intl('main.route.settings.signed-in-as') }} <b>{{ session.given_name }}</b>
     </p>
     <VBtn
-      variant="elevated"
-      color="primary"
+      color="primary-darken-1"
       class="my-4"
       :title="intl('main.route.settings.logout')"
       @click="handleLogout"

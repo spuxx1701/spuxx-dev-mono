@@ -10,7 +10,7 @@ const { toggleSidebar } = Interface;
 const { session } = SessionManager;
 </script>
 <template>
-  <VAppBar v-if="session" class="header" height="60" color="background">
+  <VAppBar v-if="session" height="60" color="surface">
     <template v-slot:prepend>
       <VBtn
         class="sidebar"
@@ -33,10 +33,6 @@ const { session } = SessionManager;
 </template>
 
 <style scoped>
-.header {
-  background-color: var(--bg-color-container) !important;
-}
-
 .brand {
   display: flex;
   align-items: center;

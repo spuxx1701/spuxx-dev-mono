@@ -11,6 +11,16 @@ misc:
   back: Zurück
   loading: Lade...
 
+error:
+  403:
+    title: Zugriff verweigert
+    description: Hoppla! Es sieht so aus, als fehle Dir die Zugangsberechtigung zu Toledo. Wenn Du findest, dass hier ein Fehler vorliegt, melde Dich bitte bei mir.
+    suggestion: Hier kannst Du Dich abmelden.
+  404:
+    title: Seite nicht gefunden
+    description: Hoppla! Wie bist Du denn hier gelandet?
+    suggestion: Hier kommst Du wieder zurück.
+
 main:
   route:
     index:
@@ -33,6 +43,15 @@ lists:
         owned: Deine Listen
         shared: Fremde Listen
     list:
+      item:
+        text:
+          label: Neuer Eintrag
+          placeholder: Text
+        quantity:
+          label: Menge
+        create: Hinzufügen
+        delete: Löschen
+        toggle: Erledigt
       share: Liste teilen
       settings:
         title: Listeneinstellungen
@@ -40,6 +59,10 @@ lists:
           label: Name
         icon:
           label: Icon
+        uses-quantities:
+          label: Zeige Mengen
+        uses-checkboxes:
+          label: Zeige Check-Boxen
         delete:
           label: Löschen
           confirm: Löschen

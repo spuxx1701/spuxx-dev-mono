@@ -5,9 +5,9 @@ export const toledoTheme: ThemeDefinition = {
   colors: {
     text: colors.grey.lighten5,
     background: colors.grey.darken4,
-    surface: colors.grey.darken3,
-    accent: colors.teal.accent4,
-    primary: colors.teal.darken1,
-    secondary: colors.grey.darken3,
+    surface: '#151515',
+    primary: colors.teal.accent4,
+    'primary-darken-1': colors.teal.darken2,
+    secondary: '#151515',
   },
 };

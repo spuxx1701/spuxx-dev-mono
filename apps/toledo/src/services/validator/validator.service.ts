@@ -7,4 +7,6 @@ export class Validator extends ServiceMixin<Validator>() {
     v.length >= min || intl('validation.min-length', { min: min.toString() });
   static maxLength: (v: string, max: number) => boolean | string = (v, max) =>
     v.length <= max || intl('validation.max-length', { max: max.toString() });
+  static min: (v: string, min: number) => boolean | string = (v, min) => parseInt(v) >= min;
+  static max: (v: string, max: number) => boolean | string = (v, max) => parseInt(v) <= max;
 }

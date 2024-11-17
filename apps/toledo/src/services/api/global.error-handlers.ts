@@ -8,4 +8,10 @@ export const globalErrorHandlers: ErrorHandler[] = [
       router.replace('/login');
     },
   },
+  {
+    statusFilter: (status) => status === 403,
+    function: () => {
+      router.replace('/forbidden');
+    },
+  },
 ];

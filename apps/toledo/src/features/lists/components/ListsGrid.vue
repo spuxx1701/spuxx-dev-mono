@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ListsProvider } from '../services/lists-provider.service';
+import { ListsProvider } from '../services/lists.provider';
 import { Resource, ResourceState } from '@/reactivity/resource';
 import type { List, NewList } from '@/services/api/lists/lists.types';
 import { VRow } from 'vuetify/components';
@@ -40,7 +40,6 @@ const handleCreate = async () => {
       :key="list.id"
       :list="list"
       :to="`/lists/${list.id}`"
-      variant="flat"
     />
     <ListsGridItemCreate
       v-if="props.collection === 'owned'"

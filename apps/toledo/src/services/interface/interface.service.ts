@@ -18,4 +18,11 @@ export class Interface extends ServiceMixin<Interface>() {
     Interface.instance._sidebarExpanded.value = open;
     Logger.debug(`Sidebar has been ${open ? 'expanded' : 'collapsed'}.`, Interface.name);
   }
+
+  static unfocusActiveElement() {
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  }
 }

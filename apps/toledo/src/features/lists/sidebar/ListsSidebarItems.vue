@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { Resource } from '@/reactivity/resource';
 import type { List } from '@/services/api/lists/lists.types';
-import { computed, onMounted, type Ref } from 'vue';
+import { onMounted, type Ref } from 'vue';
 import { VListItem } from 'vuetify/components';
-import { ListsProvider } from '../services/lists-provider.service';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import { ListsProvider } from '../services/lists.provider';
 
 const lists = new Resource<Ref<List[]>>(async () => {
   return ListsProvider.findMany();
