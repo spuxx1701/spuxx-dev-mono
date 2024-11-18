@@ -4,6 +4,7 @@
   "description": "A collection of libraries a maintain for my personal web stack.",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "author": {
     "name": "spuxx",
     "email": "hi@spuxx.dev",
@@ -45,7 +46,7 @@
     "vite": "5.4.8",
     "vite-plugin-dts": "4.2.3",
     "vite-plugin-externalize-deps": "^0.8.0",
-    "vite-tsconfig-paths": "4.3.2",
+    "vite-tsconfig-paths": "5.1.2",
     "vitest": "2.0.5"
   }
 }
