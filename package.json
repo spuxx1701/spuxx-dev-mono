@@ -4,6 +4,7 @@
   "description": "A collection of libraries a maintain for my personal web stack.",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "author": {
     "name": "spuxx",
     "email": "hi@spuxx.dev",
