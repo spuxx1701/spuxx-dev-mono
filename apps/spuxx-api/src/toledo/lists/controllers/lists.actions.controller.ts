@@ -42,8 +42,8 @@ export class ListsActionsController {
   })
   @ApiParam(listProperties.id)
   @ApiOkResponse({
-    status: 201,
     type: InviteLinkResource,
+    description: 'The generated invite link.',
   })
   @ApiException(() => Object.values(listsExceptions.generateInvite))
   async generateInvite(
@@ -62,7 +62,7 @@ export class ListsActionsController {
   })
   @ApiParam(listProperties.id)
   @ApiOkResponse({
-    status: 200,
+    description: 'The invite was accepted.',
   })
   @ApiException(() => Object.values(listsExceptions.acceptInvite))
   async acceptInvite(
