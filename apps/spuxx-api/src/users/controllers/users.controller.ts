@@ -28,6 +28,7 @@ export class UsersController {
   @ApiOkResponse({
     type: UserReadResource,
     isArray: true,
+    description: 'The list of users.',
   })
   @ApiException(() => Object.values(usersExceptions.findMany))
   async findMany(): Promise<UserReadResource[]> {
@@ -45,7 +46,7 @@ export class UsersController {
   @ApiParam(userProperties.id)
   @ApiOkResponse({
     type: UserReadResource,
-    isArray: true,
+    description: 'The user.',
   })
   @ApiException(() => Object.values(usersExceptions.findById))
   async findById(@Param('id') id: string): Promise<UserReadResource> {
