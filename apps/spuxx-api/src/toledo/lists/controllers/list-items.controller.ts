@@ -48,7 +48,6 @@ export class ListItemsController {
   @ApiParam(listItemProperties.listId)
   @ApiOkResponse({
     description: 'The created list item.',
-    status: 201,
     type: ListItemReadResource,
   })
   @ApiException(() => Object.values(listItemsExceptions.create))
@@ -71,7 +70,6 @@ export class ListItemsController {
   @ApiParam(listItemProperties.listId)
   @ApiOkResponse({
     description: 'The updated list item.',
-    status: 200,
     type: ListItemReadResource,
   })
   @ApiException(() => Object.values(listItemsExceptions.update))
@@ -95,7 +93,6 @@ export class ListItemsController {
   @ApiParam(listItemProperties.listId)
   @ApiOkResponse({
     description: 'The list item was deleted.',
-    status: 200,
   })
   @ApiException(() => Object.values(listItemsExceptions.delete))
   async delete(
