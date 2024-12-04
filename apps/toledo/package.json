@@ -27,7 +27,7 @@
     "@modyfi/vite-plugin-yaml": "1.1.0",
     "@vue/tsconfig": "0.5.1",
     "npm-run-all2": "7.0.1",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "vite": "5.4.10",
     "vue-tsc": "2.1.6",
     "vite-plugin-dts": "4.2.3",
