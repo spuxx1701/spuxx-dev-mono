@@ -52,6 +52,7 @@ export class ListsCrudController {
   @ApiOkResponse({
     type: ListReadResource,
     isArray: true,
+    description: 'The lists.',
   })
   @ApiException(() => Object.values(listsExceptions.findMany))
   async findMany(
@@ -70,8 +71,8 @@ export class ListsCrudController {
     🔒 Role access (${requiredRoles})`,
   })
   @ApiOkResponse({
-    status: 201,
     type: ListReadResource,
+    description: 'The created list.',
   })
   @ApiException(() => Object.values(listsExceptions.create))
   async create(
@@ -92,6 +93,7 @@ export class ListsCrudController {
   @ApiParam(listProperties.id)
   @ApiOkResponse({
     type: ListReadResource,
+    description: 'The found list.',
   })
   @ApiException(() => Object.values(listsExceptions.findById))
   async findById(
@@ -113,6 +115,7 @@ export class ListsCrudController {
   @ApiParam(listProperties.id)
   @ApiOkResponse({
     type: ListReadResource,
+    description: 'The updated list.',
   })
   @ApiException(() => Object.values(listsExceptions.update))
   async update(
@@ -138,7 +141,9 @@ export class ListsCrudController {
     🔒 Role access (${requiredRoles})`,
   })
   @ApiParam(listProperties.id)
-  @ApiOkResponse()
+  @ApiOkResponse({
+    description: 'The list has been deleted.',
+  })
   @ApiException(() => Object.values(listsExceptions.delete))
   async delete(@Param('id') id: string, @Req() request: Request): Promise<void> {
     return this.provider.delete(id, request);
