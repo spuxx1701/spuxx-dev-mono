@@ -22,7 +22,6 @@ const sidebarToggleIcon = computed(() => {
         class="sidebar"
         icon
         variant="text"
-        color="text"
         :title="intl('app.navbar.toggle-sidebar')"
         :onclick="toggleSidebar"
       >

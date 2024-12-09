@@ -13,12 +13,15 @@ export const vuetify = createVuetify({
   defaults: {
     VBtn: {
       variant: 'flat',
-      color: 'secondary',
     },
     VSwitch: {
       color: 'primary',
     },
     VTextField: {
+      variant: 'underlined',
+      color: 'primary',
+    },
+    VTextarea: {
       variant: 'underlined',
       color: 'primary',
     },

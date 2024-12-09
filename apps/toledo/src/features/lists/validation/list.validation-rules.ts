@@ -14,7 +14,7 @@ export const listValidationRules = {
     ],
   },
   item: {
-    text: [(v: string) => Validator.maxLength(v, 255)],
+    text: [(v: string) => Validator.minLength(v, 1), (v: string) => Validator.maxLength(v, 255)],
     quantity: [(v: string) => Validator.min(v, 1), (v: string) => Validator.max(v, 99)],
   },
 };

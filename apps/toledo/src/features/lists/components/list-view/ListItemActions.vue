@@ -10,7 +10,11 @@
 .actions {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
+  align-items: end;
+
+  :global(> .v-btn:not(:last-child)) {
+    margin-right: 0.5rem;
+  }
 }
 </style>

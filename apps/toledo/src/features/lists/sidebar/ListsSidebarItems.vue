@@ -26,7 +26,7 @@ lists.load();
     {{ list.name }}
     <Icon
       v-if="list.owner.id === SessionManager.session.value?.sub"
-      class="ml-2 text-subtitle-2"
+      class="text-subtitle-2"
       icon="mdi:crown"
     />
   </VListItem>

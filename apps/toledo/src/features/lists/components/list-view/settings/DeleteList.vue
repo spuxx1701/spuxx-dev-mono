@@ -28,7 +28,7 @@ const handleDeleteConfirm = async () => {
 
 <template>
   <div v-if="dialog" class="d-flex w-100 ga-4">
-    <VBtn class="flex-grow-1" color="text" variant="text" @click.stop="handleDeleteCancel">
+    <VBtn class="flex-grow-1" variant="text" @click.stop="handleDeleteCancel">
       <Icon icon="mdi:cancel" />
       {{ intl('lists.route.list.settings.delete.cancel') }}
     </VBtn>
@@ -37,7 +37,7 @@ const handleDeleteConfirm = async () => {
       {{ intl('lists.route.list.settings.delete.confirm') }}
     </VBtn>
   </div>
-  <VBtn v-else class="w-100" color="text" variant="text" @click.stop="handleDeleteClick">
+  <VBtn v-else class="w-100" variant="text" @click.stop="handleDeleteClick">
     <Icon icon="mdi:delete" />
     {{ intl('lists.route.list.settings.delete.label') }}
   </VBtn>

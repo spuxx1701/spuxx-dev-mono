@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { type List, type NewListItem } from '@/services/api/lists/lists.types';
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { intl, isEmptyOrWhitespace } from '@spuxx/js-utils';
-import { computed, ref, useTemplateRef } from 'vue';
+import { intl } from '@spuxx/js-utils';
+import { ref, useTemplateRef } from 'vue';
 import { VBtn, VCard, VForm } from 'vuetify/components';
 import { ListItemsProvider } from '../../services/list-items.provider';
 import ListItemQuantity from './input/ListItemQuantity.vue';
@@ -22,17 +22,15 @@ function getInitialState(): NewListItem {
 }
 const item = ref<NewListItem>(getInitialState());
 
-const isValid = computed(() => {
-  return !isEmptyOrWhitespace(item.value.text) && form.value?.isValid;
-});
-
 async function handleSubmit() {
-  if (!isValid) return;
-  await ListItemsProvider.create(list.id, item.value);
-  resetForm();
+  if ((await form.value?.validate())?.valid) {
+    await ListItemsProvider.create(list.id, item.value);
+    resetForm();
+    form.value?.scrollIntoView({ behavior: 'instant' });
+  }
 }
 
-function resetForm() {
+async function resetForm() {
   form.value?.resetValidation();
   item.value = getInitialState();
 }
@@ -43,13 +41,22 @@ function resetForm() {
     <VCard variant="flat" color="surface" density="compact">
       <template v-slot:title>
         <ListItemActions>
-          <ListItemQuantity :list :item :label="intl('lists.route.list.item.quantity.label')" />
-          <ListItemText :item :label="intl('lists.route.list.item.text.label')" />
+          <ListItemQuantity
+            :list
+            :item
+            :label="intl('lists.route.list.item.quantity.label')"
+            use-number-input
+          />
+          <ListItemText
+            :item
+            :label="intl('lists.route.list.item.text.label')"
+            :on-submit="handleSubmit"
+          />
         </ListItemActions>
       </template>
       <template v-slot:item>
         <ListItemActions>
-          <VBtn type="submit" variant="text" color="text" :disabled="!isValid">
+          <VBtn type="submit" variant="text" :disabled="form?.isValid ? false : true">
             <Icon icon="mdi:plus" />
             <p>{{ intl('lists.route.list.item.create.label') }}</p>
           </VBtn>

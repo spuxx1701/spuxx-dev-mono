@@ -52,7 +52,7 @@ lists:
           label: Menge
         create: Hinzufügen
         delete: Löschen
-        toggle: Erledigt
+        checked: Erledigt
       share: Liste teilen
       settings:
         title: Listeneinstellungen
@@ -64,6 +64,8 @@ lists:
           label: Zeige Mengen
         uses-checkboxes:
           label: Zeige Check-Boxen
+        requires-delete-confirmation:
+          label: Löschen erfordert Bestätigung
         delete:
           label: Löschen
           confirm: Löschen
