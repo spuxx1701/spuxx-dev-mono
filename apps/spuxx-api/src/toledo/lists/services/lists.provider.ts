@@ -7,7 +7,7 @@ import { ListCreateResource } from '../dtos/list.create.resource';
 import { listsExceptions } from '../config/lists.exceptions';
 import { UsersRegistrar } from '@spuxx-api/src/users/services/users.registrar';
 import { ListUpdateResource } from '../dtos/list.update.resource';
-import { FindOptions } from 'sequelize';
+import { FindOptions, Op } from 'sequelize';
 import { UsersProvider } from '@spuxx-api/src/users/services/users.provider';
 import { ListsAccessManager } from './lists.access-manager';
 
@@ -33,7 +33,7 @@ export class ListsProvider {
     return this.model.findAll({
       ...options,
       where: {
-        ownerId: sub,
+        [Op.or]: [{ ownerId: sub }, { '$guests.id$': { [Op.ne]: null } }],
       },
     });
   }

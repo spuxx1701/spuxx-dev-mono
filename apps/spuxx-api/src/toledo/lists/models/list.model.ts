@@ -16,7 +16,7 @@ import { ListGuest } from './list-guest.model';
 import { listProperties } from '../config/list.properties';
 
 @DefaultScope(() => ({
-  include: ['owner'],
+  include: ['owner', 'guests'],
 }))
 @Table({
   tableName: 'Toledo_Lists',

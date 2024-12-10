@@ -8,9 +8,13 @@ import { ListReadResource } from '../dtos/list.read.resource';
 import { ListCreateResource } from '../dtos/list.create.resource';
 import { ListUpdateResource } from '../dtos/list.update.resource';
 import { AuthModule } from '@spuxx/nest-utils';
+import { INestApplication } from '@nestjs/common';
+import { ListsAccessManager } from '../services/lists.access-manager';
+import { List } from '../models/list.model';
 
 describe('ListsCrudController', () => {
   let supertest: Supertest;
+  let app: INestApplication;
 
   beforeEach(async () => {
     const container = await TestContainer.create({
@@ -18,6 +22,7 @@ describe('ListsCrudController', () => {
       enableEndToEnd: true,
     });
     supertest = container.supertest;
+    app = container.app;
   });
 
   describe('findMany', () => {
@@ -37,7 +42,48 @@ describe('ListsCrudController', () => {
       expect(response.body.length).toBe(2);
       expect(response.body[0].owner).toBeDefined();
       expect(response.body[0].items).toBeUndefined();
-      expect(response.body[0].guests).toBeUndefined();
+      expect(response.body[0].guests).toEqual([]);
+    });
+
+    it('should also include shared lists', async () => {
+      const firstList = (
+        await supertest.post('/toledo/lists', {
+          body: listCreateMockData.groceries,
+          session: sessionMockData.toledo,
+        })
+      ).body;
+      const secondList = (
+        await supertest.post('/toledo/lists', {
+          body: listCreateMockData.toDos,
+          session: sessionMockData.privileged,
+        })
+      ).body;
+
+      // First response should not include second list since it hasn't been shared yet
+      let response = await supertest.get(`/toledo/lists`, {
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBe(1);
+      expect(response.body[0]).toEqual(firstList);
+
+      // Now share the second list
+      const accessManager = app.get(ListsAccessManager);
+      await accessManager.grantGuestAccess(
+        {
+          id: secondList.id,
+        } as List,
+        sessionMockData.toledo.sub,
+      );
+
+      // Second response should also include second list
+      response = await supertest.get(`/toledo/lists`, {
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBe(2);
+      expect(response.body[0]).toEqual(firstList);
+      expect(response.body[1]).toEqual({ ...secondList, guests: response.body[1].guests });
     });
 
     it('should include the specified relationships', async () => {
@@ -100,8 +146,45 @@ describe('ListsCrudController', () => {
       expect(expected.name).toBe(actual.name);
       expect(expected.icon).toBe(actual.icon);
       expect(expected.owner.id).toBe(actual.owner.id);
-      expect(actual.guests).toBeUndefined();
+      expect(actual.guests).toEqual([]);
       expect(actual.items).toBeUndefined();
+    });
+
+    it('should return the specific list after guest access has been granted', async () => {
+      const list: ListReadResource = (
+        await supertest.post('/toledo/lists', {
+          body: listCreateMockData.groceries,
+          session: sessionMockData.privileged,
+        })
+      ).body;
+      // Create another list for our user to get them registered
+      await supertest.post('/toledo/lists', {
+        body: listCreateMockData.toDos,
+        session: sessionMockData.toledo,
+      });
+
+      // First response should return 404 since the list hasn't been shared yet
+      let response = await supertest.get(`/toledo/lists/${list.id}`, {
+        session: sessionMockData.toledo,
+      });
+      expect(response.statusCode).toBe(404);
+
+      // Now share the second list
+      const accessManager = app.get(ListsAccessManager);
+      await accessManager.grantGuestAccess(
+        {
+          id: list.id,
+        } as List,
+        sessionMockData.toledo.sub,
+      );
+
+      // Second response should return 200
+      response = await supertest.get(`/toledo/lists/${list.id}`, {
+        session: sessionMockData.toledo,
+      });
+      const actual: ListReadResource = list;
+      expect(response.statusCode).toBe(200);
+      expect(actual).toEqual({ ...list, guests: actual.guests });
     });
 
     it('should include the specified relationships', async () => {
@@ -110,7 +193,7 @@ describe('ListsCrudController', () => {
         session: sessionMockData.privileged,
       });
       const response = await supertest.get(
-        `/toledo/lists/${createResponse.body.id}?include=guests,items`,
+        `/toledo/lists/${createResponse.body.id}?include=items`,
         {
           session: sessionMockData.privileged,
         },
