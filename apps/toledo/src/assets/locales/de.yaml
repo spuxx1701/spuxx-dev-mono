@@ -6,8 +6,9 @@ app:
 misc:
   yes: Ja
   no: Nein
-  ok: OK
+  confirm: OK
   cancel: Abbrechen
+  close: Schließen
   back: Zurück
   loading: Lade...
 
@@ -72,6 +73,9 @@ lists:
           label: Löschen
           confirm: Löschen
           cancel: Abbrechen
+          dialog:
+            title: Liste löschen
+            text: Bist Du sicher, dass Du diese Liste löschen möchtest?
   create:
     default-name: Neue Liste
   sidebar:
