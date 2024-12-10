@@ -6,12 +6,10 @@ import { VContainer } from 'vuetify/components';
 import { intl, type HttpError } from '@spuxx/js-utils';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
-const { resource, loaderType } = withDefaults(
-  defineProps<{ resource: Resource<any, any>; loaderType?: LoaderType }>(),
-  {
-    loaderType: 'spinner',
-  },
-);
+const { resource, loaderType = 'spinner' } = defineProps<{
+  resource: Resource<any, any>;
+  loaderType?: LoaderType;
+}>();
 
 const showContent = computed(() => resource.state.value === ResourceState.success);
 const error = computed(() => resource.error.value as HttpError);
