@@ -54,7 +54,11 @@ lists:
         quantity:
           label: Menge
         create: Hinzufügen
-        delete: Löschen
+        delete:
+          label: Löschen
+          dialog:
+            title: Eintrag löschen
+            text: Möchtest Du diesen Eintrag wirklich löschen?
         checked: Erledigt
       share: Liste teilen
       settings:

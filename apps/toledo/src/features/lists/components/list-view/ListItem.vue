@@ -14,6 +14,8 @@ import HorizontalTouchActions, {
 import { intl } from '@spuxx/js-utils';
 import { useDisplay } from 'vuetify';
 import { useActiveListStore } from '../../stores/active-list.store';
+import { Dialog } from '@/services/dialog';
+import ConfirmDialog, { type ConfirmDialogOptions } from '@/components/dialog/ConfirmDialog.vue';
 
 const store = useActiveListStore();
 const { mobile } = useDisplay();
@@ -27,6 +29,24 @@ async function handleUpdate() {
   if ((await form.value?.validate())?.valid) {
     await store.updateItem(item);
     Interface.unfocusActiveElement();
+  }
+}
+
+async function handleDelete() {
+  if (list.requiresDeleteConfirmation) {
+    Dialog.open<ConfirmDialogOptions>(ConfirmDialog, {
+      title: intl('lists.route.list.item.delete.dialog.title'),
+      text: intl('lists.route.list.item.delete.dialog.text'),
+      icon: 'mdi:trash',
+      confirmLabel: intl('lists.route.list.item.delete.label'),
+      confirmColor: 'error',
+      onConfirm: async () => {
+        await store.deleteItem(item);
+        Dialog.close();
+      },
+    });
+  } else {
+    await store.deleteItem(item);
   }
 }
 
@@ -44,11 +64,9 @@ const leftTouchAction = computed<HorizontalTouchAction>(() => {
 
 const rightTouchAction: HorizontalTouchAction = {
   icon: 'mdi:trash',
-  label: intl('lists.route.list.item.delete'),
+  label: intl('lists.route.list.item.delete.label'),
   color: 'error',
-  onFinish: async () => {
-    await store.deleteItem(item);
-  },
+  onFinish: handleDelete,
 };
 </script>
 
@@ -65,7 +83,7 @@ const rightTouchAction: HorizontalTouchAction = {
         <template v-slot:title>
           <ListItemActions class="hide-label">
             <ListItemToggle :list :item />
-            <ListItemDelete :item />
+            <ListItemDelete @click="handleDelete" />
             <ListItemQuantity
               :list
               :item

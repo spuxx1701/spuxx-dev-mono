@@ -17,6 +17,7 @@ const handleDelete = () => {
     text: intl('lists.route.list.settings.delete.dialog.text'),
     icon: 'mdi:trash',
     confirmLabel: intl('lists.route.list.settings.delete.label'),
+    confirmColor: 'error',
     onConfirm: async () => {
       await store.delete(list.id);
       Dialog.close();

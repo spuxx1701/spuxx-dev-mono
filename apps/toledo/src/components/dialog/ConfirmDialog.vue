@@ -11,6 +11,7 @@ export interface ConfirmDialogOptions extends DialogOptions {
   onConfirm: () => void;
   icon?: string;
   confirmLabel?: string;
+  confirmColor?: string;
   cancelLabel?: string;
   onCancel?: () => void;
 }
@@ -25,6 +26,7 @@ const handleCancel = () => {
 };
 
 const confirmLabel = options.confirmLabel || intl('misc.confirm');
+const confirmColor = options.confirmColor || 'primary-darken-1';
 const cancelLabel = options.cancelLabel || intl('misc.cancel');
 </script>
 
@@ -38,7 +40,7 @@ const cancelLabel = options.cancelLabel || intl('misc.cancel');
     </template>
     <template v-slot:actions>
       <VBtn variant="text" @click="handleCancel">{{ cancelLabel }}</VBtn>
-      <VBtn color="primary-darken-1" variant="flat" @click="handleConfirm">{{ confirmLabel }}</VBtn>
+      <VBtn :color="confirmColor" variant="flat" @click="handleConfirm">{{ confirmLabel }}</VBtn>
     </template>
   </VCard>
 </template>
