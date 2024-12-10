@@ -94,6 +94,8 @@ async function handleUpdate() {
                 @change="handleUpdate"
                 hide-details
               />
+            </VCol>
+            <VCol>
               <VSwitch
                 :label="intl('lists.route.list.settings.requires-delete-confirmation.label')"
                 v-model="list.requiresDeleteConfirmation"
