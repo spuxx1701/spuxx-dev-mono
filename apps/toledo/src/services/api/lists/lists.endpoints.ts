@@ -2,7 +2,14 @@ import type { AppConfig } from '@/config/app.config';
 import { Config } from '@spuxx/browser-utils';
 import { defineEndpoint } from '@spuxx/js-utils';
 import { Api } from '../api.service';
-import type { List, ListItem, NewList, NewListItem, UpdatedList } from './lists.types';
+import type {
+  List,
+  ListInviteLink,
+  ListItem,
+  NewList,
+  NewListItem,
+  UpdatedList,
+} from './lists.types';
 
 export const listsEndpoints = {
   findManyLists: defineEndpoint({
@@ -19,7 +26,7 @@ export const listsEndpoints = {
   findListById: defineEndpoint({
     function: async (id: string): Promise<Response> => {
       const { API_URL } = Config.getConfig<AppConfig>();
-      return fetch(`${API_URL}/toledo/lists/${id}?include=guests,items`, Api.requestOptions);
+      return fetch(`${API_URL}/toledo/lists/${id}?include=items`, Api.requestOptions);
     },
     transformer: async (response): Promise<List> => {
       const json = await response.json();
@@ -47,7 +54,7 @@ export const listsEndpoints = {
     function: async (list: UpdatedList): Promise<Response> => {
       const body = JSON.stringify(list);
       const { API_URL } = Config.getConfig<AppConfig>();
-      return fetch(`${API_URL}/toledo/lists/${list.id}?include=guests,items`, {
+      return fetch(`${API_URL}/toledo/lists/${list.id}?include=items`, {
         ...Api.requestOptions,
         method: 'PATCH',
         body,
@@ -65,6 +72,29 @@ export const listsEndpoints = {
       await fetch(`${API_URL}/toledo/lists/${id}`, {
         ...Api.requestOptions,
         method: 'DELETE',
+      });
+    },
+  }),
+  generateListInvite: defineEndpoint({
+    function: async (id: string): Promise<Response> => {
+      const { API_URL } = Config.getConfig<AppConfig>();
+      return fetch(`${API_URL}/toledo/lists/${id}/generate-invite`, {
+        ...Api.requestOptions,
+        method: 'POST',
+      });
+    },
+    transformer: async (response): Promise<ListInviteLink> => {
+      const json = await response.json();
+      const inviteLink: ListInviteLink = { ...json };
+      return inviteLink;
+    },
+  }),
+  acceptListInvite: defineEndpoint({
+    function: async (id: string, code: string): Promise<Response> => {
+      const { API_URL } = Config.getConfig<AppConfig>();
+      return fetch(`${API_URL}/toledo/lists/${id}/accept-invite?code=${code}`, {
+        ...Api.requestOptions,
+        method: 'PUT',
       });
     },
   }),

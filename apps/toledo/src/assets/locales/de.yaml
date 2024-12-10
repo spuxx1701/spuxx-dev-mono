@@ -22,7 +22,7 @@ error:
     description: Hoppla! Wie bist Du denn hier gelandet?
     suggestion: Hier kommst Du wieder zurück.
   resource:
-    text: Hoppla! Hier ist etwas schiefgelaufen. Die Daten konnten nicht geladen werden. Bitte probiere es später erneut oder gib mir Bescheid.
+    text: Hoppla! Hier ist etwas schiefgelaufen. Bitte probiere es später erneut oder gib mir Bescheid.
 
 main:
   route:
@@ -73,6 +73,15 @@ lists:
           label: Zeige Check-Boxen
         requires-delete-confirmation:
           label: Löschen erfordert Bestätigung
+        share:
+          label: Liste teilen
+          confirm:
+            title: Liste teilen
+            text: Wenn Du fortfährst, wird ein neuer Einladungslink für diese Liste generiert. Links, die Du bisher generiert hast, werden dadurch ungültig.
+          dialog:
+            title: Liste teilen
+            text: |
+              Über den folgenden kannst Du diese Liste mit anderen teilen. Sende den Link einfach an die Person, mit der Du die Liste teilen möchtest.
         delete:
           label: Löschen
           confirm: Löschen
@@ -80,6 +89,9 @@ lists:
           dialog:
             title: Liste löschen
             text: Bist Du sicher, dass Du diese Liste löschen möchtest?
+    list-invite:
+      success: Prima! Du hast die Einladung angenommen.
+      to-list: Zur Liste gehen
   create:
     default-name: Neue Liste
   sidebar:
@@ -100,3 +112,7 @@ validation:
   required: Bitte fülle dieses Feld aus.
   min-length: Bitte gib mindestens {min} Zeichen ein.
   max-length: Bitte gib höchstens {max} Zeichen ein.
+
+dialog:
+  share:
+    input-label: Link kopieren

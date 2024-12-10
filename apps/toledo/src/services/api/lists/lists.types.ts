@@ -42,3 +42,8 @@ export interface ListItem {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ListInviteLink {
+  link: string;
+  code: string;
+}
