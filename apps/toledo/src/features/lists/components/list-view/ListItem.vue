@@ -4,7 +4,6 @@ import { VForm, VCard } from 'vuetify/components';
 import { computed, useTemplateRef } from 'vue';
 import ListItemText from './input/ListItemText.vue';
 import ListItemQuantity from './input/ListItemQuantity.vue';
-import { ListItemsProvider } from '../../services/list-items.provider';
 import { Interface } from '@/services/interface';
 import ListItemActions from './ListItemActions.vue';
 import ListItemDelete from './actions/ListItemDelete.vue';
@@ -14,7 +13,9 @@ import HorizontalTouchActions, {
 } from '@/components/touch/HorizontalTouchActions.vue';
 import { intl } from '@spuxx/js-utils';
 import { useDisplay } from 'vuetify';
+import { useActiveListStore } from '../../stores/active-list.store';
 
+const store = useActiveListStore();
 const { mobile } = useDisplay();
 const { item, list } = defineProps<{
   list: List;
@@ -24,7 +25,7 @@ const form = useTemplateRef<VForm>('form');
 
 async function handleUpdate() {
   if ((await form.value?.validate())?.valid) {
-    await ListItemsProvider.update(item);
+    await store.updateItem(item);
     Interface.unfocusActiveElement();
   }
 }
@@ -46,7 +47,7 @@ const rightTouchAction: HorizontalTouchAction = {
   label: intl('lists.route.list.item.delete'),
   color: 'error',
   onFinish: async () => {
-    await ListItemsProvider.delete(item);
+    await store.deleteItem(item);
   },
 };
 </script>

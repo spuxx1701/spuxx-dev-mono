@@ -20,6 +20,8 @@ error:
     title: Seite nicht gefunden
     description: Hoppla! Wie bist Du denn hier gelandet?
     suggestion: Hier kommst Du wieder zurück.
+  resource:
+    text: Hoppla! Hier ist etwas schiefgelaufen. Die Daten konnten nicht geladen werden. Bitte probiere es später erneut oder gib mir Bescheid.
 
 main:
   route:

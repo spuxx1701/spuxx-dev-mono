@@ -1,25 +1,15 @@
 <script lang="ts" setup>
-import { Resource } from '@/reactivity/resource';
-import type { List } from '@/services/api/lists/lists.types';
 import { VListItem } from 'vuetify/components';
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { ListsProvider } from '../services/lists.provider';
 import { SessionManager } from '@/services/session';
+import { useListsStore } from '../stores/lists.store';
 
-const lists = new Resource<List[]>(async () => {
-  return ListsProvider.findMany();
-}, 'lists');
-lists.load();
+const store = useListsStore();
+store.fetch();
 </script>
 
 <template>
-  <VListItem
-    v-if="lists.data"
-    v-for="list in lists.data.value"
-    :key="list.id"
-    link
-    :to="`/lists/${list.id}`"
-  >
+  <VListItem v-for="list in store.all" :key="list.id" link :to="`/lists/${list.id}`">
     <template v-slot:prepend>
       <Icon :icon="`mdi:${list.icon}`" />
     </template>

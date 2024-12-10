@@ -1,30 +1,32 @@
 <script lang="ts" setup>
-import { ListsProvider } from '../services/lists.provider';
 import { Resource } from '@/reactivity/resource';
 import ContentHeader from '@/components/content/ContentHeader.vue';
 import ListSettings from './list-view/settings/ListSettings.vue';
-import PageLoader from '@/components/common/PageLoader.vue';
 import ListItemTemplate from './list-view/ListItemTemplate.vue';
 import ListItems from './list-view/ListItems.vue';
+import { useActiveListStore } from '../stores/active-list.store';
+import ResourceView from '@/components/common/ResourceView.vue';
+import { computed } from 'vue';
 
-const props = defineProps<{
+const { id } = defineProps<{
   id: string;
 }>();
 
-const list = new Resource(async (id: string) => {
-  return ListsProvider.findById(id);
-}, 'list');
-list.load(props.id);
+const store = useActiveListStore();
+const list = computed(() => store.list);
+const resource = new Resource((id: string) => {
+  return store.fetch(id);
+}, 'active-list');
+resource.load(id);
 </script>
 
 <template>
-  <ContentHeader :title="list.data.value?.name" :icon="`mdi:${list.data.value?.icon}`" />
-  <PageLoader :state="list.state.value" />
-  <div class="w-100" v-if="list.data.value">
-    <ListItems :list="list.data.value" />
-    <ListItemTemplate class="mb-2" :list="list.data.value" />
-    <ListSettings :list="list.data" />
-  </div>
+  <ContentHeader v-if="list" :title="list.name" :icon="`mdi:${list.icon}`" />
+  <ResourceView :resource>
+    <ListItems />
+    <ListItemTemplate v-if="list" :list="list" class="mb-2" />
+    <ListSettings v-if="list" :list="list" :update="store.update" />
+  </ResourceView>
 </template>
 
 <style scoped>

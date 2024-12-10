@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ListItemsProvider } from '@/features/lists/services/list-items.provider';
 import type { List, ListItem } from '@/services/api/lists/lists.types';
 import { useDisplay } from 'vuetify';
 import { VBtn } from 'vuetify/components';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { intl } from '@spuxx/js-utils';
+import { useActiveListStore } from '@/features/lists/stores/active-list.store';
 
+const store = useActiveListStore();
 const { mobile } = useDisplay();
-
 const { list, item } = defineProps<{
   list: List;
   item: ListItem;
@@ -15,7 +15,7 @@ const { list, item } = defineProps<{
 
 async function handleToggle() {
   item.checked = !item.checked;
-  await ListItemsProvider.update(item);
+  await store.updateItem(item);
 }
 </script>
 

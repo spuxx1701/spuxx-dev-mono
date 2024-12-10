@@ -4,14 +4,12 @@ import { Icon } from '@iconify/vue/dist/iconify.js';
 import { intl } from '@spuxx/js-utils';
 import { ref, useTemplateRef } from 'vue';
 import { VBtn, VCard, VForm } from 'vuetify/components';
-import { ListItemsProvider } from '../../services/list-items.provider';
 import ListItemQuantity from './input/ListItemQuantity.vue';
 import ListItemText from './input/ListItemText.vue';
 import ListItemActions from './ListItemActions.vue';
+import { useActiveListStore } from '../../stores/active-list.store';
 
-const { list } = defineProps<{
-  list: List;
-}>();
+const store = useActiveListStore();
 const form = useTemplateRef<VForm>('form');
 
 function getInitialState(): NewListItem {
@@ -24,7 +22,7 @@ const item = ref<NewListItem>(getInitialState());
 
 async function handleSubmit() {
   if ((await form.value?.validate())?.valid) {
-    await ListItemsProvider.create(list.id, item.value);
+    await store.addItem(item.value);
     resetForm();
     form.value?.scrollIntoView({ behavior: 'instant' });
   }
@@ -41,12 +39,7 @@ async function resetForm() {
     <VCard variant="flat" color="surface" density="compact">
       <template v-slot:title>
         <ListItemActions>
-          <ListItemQuantity
-            :list
-            :item
-            :label="intl('lists.route.list.item.quantity.label')"
-            use-number-input
-          />
+          <ListItemQuantity :item use-number-input />
           <ListItemText
             :item
             :label="intl('lists.route.list.item.text.label')"

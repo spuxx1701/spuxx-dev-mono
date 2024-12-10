@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { useActiveListStore } from '@/features/lists/stores/active-list.store';
 import { listValidationRules } from '@/features/lists/validation/list.validation-rules';
 import type { List, ListItem, NewListItem } from '@/services/api/lists/lists.types';
 import { intl } from '@spuxx/js-utils';
 import { VTextField } from 'vuetify/components';
 import { VNumberInput } from 'vuetify/labs/components';
 
-const { list, item } = defineProps<{
-  list: List;
+const store = useActiveListStore();
+const { item } = defineProps<{
   item: ListItem | NewListItem;
   useNumberInput?: boolean;
   hideDetails?: boolean;
@@ -21,7 +22,7 @@ function handleChange() {
 
 <template>
   <VTextField
-    v-if="list.usesQuantities && !useNumberInput"
+    v-if="store.activeList.usesQuantities && !useNumberInput"
     type="number"
     class="text-field flex-grow-0 align-content-end"
     :placeholder="intl('lists.route.list.item.quantity.label')"
@@ -35,7 +36,7 @@ function handleChange() {
   >
   </VTextField>
   <VNumberInput
-    v-if="list.usesQuantities && useNumberInput"
+    v-if="store.activeList.usesQuantities && useNumberInput"
     class="number-input flex-grow-0 align-content-end"
     control-variant="split"
     :placeholder="intl('lists.route.list.item.quantity.label')"

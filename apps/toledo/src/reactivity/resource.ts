@@ -16,6 +16,7 @@ export class Resource<T, Args extends unknown[] = []> {
   private _name: string;
   private _data = ref<T | null>(null);
   private _state = ref<ResourceState>(ResourceState.initial);
+  private _error = ref<unknown>(null);
   private _loader: (...args: Args) => Promise<T>;
 
   /**
@@ -38,6 +39,7 @@ export class Resource<T, Args extends unknown[] = []> {
       return this;
     } catch (error) {
       this.state.value = ResourceState.failed;
+      this._error.value = error;
       throw error;
     }
   }
@@ -54,5 +56,12 @@ export class Resource<T, Args extends unknown[] = []> {
    */
   get state() {
     return this._state;
+  }
+
+  /**
+   * The error of the resource. Will be null unless the resource has failed to load.
+   */
+  get error() {
+    return this._error;
   }
 }

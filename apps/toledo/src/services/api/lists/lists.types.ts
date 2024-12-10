@@ -18,6 +18,15 @@ export interface NewList {
   name: string;
 }
 
+export interface UpdatedList {
+  id: string;
+  name?: string;
+  icon?: string;
+  usesCheckboxes?: boolean;
+  requiresDeleteConfirmation?: boolean;
+  usesQuantities?: boolean;
+}
+
 export interface NewListItem {
   text: string;
   quantity?: number;

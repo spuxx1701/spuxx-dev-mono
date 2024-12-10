@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import type { NewList } from '@/services/api/lists/lists.types';
 import { intl } from '@spuxx/js-utils';
-import { ListsProvider } from '../../services/lists.provider';
 import CardGridElement from '@/components/content/card-grid/CardGridElement.vue';
+import { useListsStore } from '../../stores/lists.store';
+
+const store = useListsStore();
 
 const handleCreate = async () => {
   const newList: NewList = {
     name: intl('lists.create.default-name'),
   };
-  await ListsProvider.create(newList);
+  await store.create(newList);
 };
 </script>
 

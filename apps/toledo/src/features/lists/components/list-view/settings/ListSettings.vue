@@ -11,22 +11,23 @@ import {
 } from 'vuetify/components';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import ValidatedTextField from '@/components/input/ValidatedTextField.vue';
-import { computed, ref, type Ref } from 'vue';
+import { computed, ref, useTemplateRef, type Ref } from 'vue';
 import { Api } from '@/services/api';
 import { SessionManager } from '@/services/session';
-import type { List } from '@/services/api/lists/lists.types';
-import { ListsProvider } from '../../../services/lists.provider';
+import type { List, UpdatedList } from '@/services/api/lists/lists.types';
 import { listValidationRules } from '../../../validation/list.validation-rules';
 import { Interface } from '@/services/interface';
 import DeleteList from './DeleteList.vue';
 import ShareList from './ShareList.vue';
 
-const { list } = defineProps<{
-  list: Ref<List | null>;
+const { list, update } = defineProps<{
+  list: List;
+  update: (updateList: UpdatedList) => Promise<List>;
 }>();
+const form = useTemplateRef('form');
 
 const isOwned = computed(() => {
-  return list.value?.owner.id === SessionManager.session.value?.sub;
+  return list.owner.id === SessionManager.session.value?.sub;
 });
 const icons = ref<string[]>([]);
 
@@ -36,14 +37,15 @@ async function handleIconSearch(value: string) {
 }
 
 async function handleUpdate() {
-  if (!list.value || !list.value.icon) return;
-  list.value = await ListsProvider.update(list.value);
-  Interface.unfocusActiveElement();
+  if ((await form.value?.validate())?.valid) {
+    await update(list);
+    Interface.unfocusActiveElement();
+  }
 }
 </script>
 
 <template>
-  <VExpansionPanels v-if="isOwned && list.value" color="surface">
+  <VExpansionPanels v-if="isOwned && list" color="surface">
     <VExpansionPanel class="settings">
       <template v-slot:title>
         <h3>
@@ -52,12 +54,12 @@ async function handleUpdate() {
         </h3>
       </template>
       <template v-slot:text>
-        <VForm @submit.prevent="handleUpdate">
+        <VForm ref="form" @submit.prevent="handleUpdate">
           <VRow no-gutters>
             <VCol>
               <ValidatedTextField
                 :label="intl('lists.route.list.settings.name.label')"
-                v-model="list.value.name"
+                v-model="list.name"
                 :rules="listValidationRules.settings.name"
                 validate-on="input eager"
                 @change="handleUpdate"
@@ -67,12 +69,12 @@ async function handleUpdate() {
               <VAutocomplete
                 :label="intl('lists.route.list.settings.icon.label')"
                 :items="icons"
-                v-model="list.value.icon"
+                v-model="list.icon"
                 :rules="listValidationRules.settings.icon"
                 validate-on="input eager"
                 auto-select-first="exact"
                 @update:search.self="handleIconSearch"
-                @change="handleUpdate"
+                @update:model-value="handleUpdate"
               />
             </VCol>
           </VRow>
@@ -80,21 +82,21 @@ async function handleUpdate() {
             <VCol>
               <VSwitch
                 :label="intl('lists.route.list.settings.uses-quantities.label')"
-                v-model="list.value.usesQuantities"
-                @change="handleUpdate"
+                v-model="list.usesQuantities"
+                @update:model-value="handleUpdate"
                 hide-details
               />
             </VCol>
             <VCol>
               <VSwitch
                 :label="intl('lists.route.list.settings.uses-checkboxes.label')"
-                v-model="list.value.usesCheckboxes"
+                v-model="list.usesCheckboxes"
                 @change="handleUpdate"
                 hide-details
               />
               <VSwitch
                 :label="intl('lists.route.list.settings.requires-delete-confirmation.label')"
-                v-model="list.value.requiresDeleteConfirmation"
+                v-model="list.requiresDeleteConfirmation"
                 @change="handleUpdate"
                 hide-details
               />
@@ -102,10 +104,10 @@ async function handleUpdate() {
           </VRow>
           <VRow>
             <VCol>
-              <ShareList :list="list.value" />
+              <ShareList :list="list" />
             </VCol>
             <VCol>
-              <DeleteList :list="list.value" />
+              <DeleteList :list="list" />
             </VCol>
           </VRow>
           <button type="submit" hidden></button>
@@ -117,6 +119,8 @@ async function handleUpdate() {
 
 <style scoped>
 .settings {
+  text-align: initial;
+
   :global(.v-col) {
     min-width: 12rem;
   }

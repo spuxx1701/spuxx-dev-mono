@@ -21,4 +21,13 @@ declare global {
    * A color is a string that represents a color in the Vuetify theme.
    */
   export type Color = 'primary' | 'primary-darken-1' | 'secondary' | 'surface';
+  /**
+   * A set of options to provide when fetching data through a store.
+   */
+  export interface StoreFetchOptions {
+    /**
+     * When enabled, will force a reload and overwrite any cached data.
+     */
+    reload?: boolean;
+  }
 }

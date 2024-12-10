@@ -1,21 +1,23 @@
 <script lang="ts" setup>
-import { ListsProvider } from '../services/lists.provider';
 import { Resource } from '@/reactivity/resource';
 import type { List } from '@/services/api/lists/lists.types';
 import OwnedLists from './lists-view/OwnedLists.vue';
-import PageLoader from '@/components/common/PageLoader.vue';
 import SharedLists from './lists-view/SharedLists.vue';
+import { useListsStore } from '../stores/lists.store';
+import ResourceView from '@/components/common/ResourceView.vue';
 
-const lists = new Resource<List[]>(async () => {
-  return ListsProvider.findMany();
+const store = useListsStore();
+const resource = new Resource<List[]>(() => {
+  return store.fetch();
 }, 'lists');
-lists.load();
+resource.load();
 </script>
 
 <template>
-  <PageLoader :state="lists.state" />
-  <OwnedLists v-if="lists.data.value" :lists="lists.data.value" />
-  <SharedLists v-if="lists.data.value" :lists="lists.data.value" />
+  <ResourceView :resource="resource">
+    <OwnedLists />
+    <SharedLists />
+  </ResourceView>
 </template>
 
 <style scoped>

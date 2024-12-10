@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import type { List } from '@/services/api/lists/lists.types';
 import ListItem from './ListItem.vue';
+import { useActiveListStore } from '../../stores/active-list.store';
 
-const { list } = defineProps<{
-  list: List;
-}>();
+const store = useActiveListStore();
 </script>
 
 <template>
-  <ListItem v-for="item in list.items" :list :item />
+  <ListItem v-for="item in store.items" :list="store.activeList!" :item />
 </template>
 
 <style scoped></style>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ListsProvider } from '@/features/lists/services/lists.provider';
+import { useListsStore } from '@/features/lists/stores/lists.store';
 import router from '@/router';
 import type { List } from '@/services/api/lists/lists.types';
 import { Icon } from '@iconify/vue/dist/iconify.js';
@@ -7,11 +7,10 @@ import { intl } from '@spuxx/js-utils';
 import { ref } from 'vue';
 import { VBtn } from 'vuetify/components';
 
-const { list } = defineProps<{
-  list: List;
-}>();
-
+const { list } = defineProps<{ list: List }>();
+const store = useListsStore();
 const dialog = ref(false);
+
 const handleDeleteClick = () => {
   dialog.value = true;
 };
@@ -21,7 +20,7 @@ const handleDeleteCancel = () => {
 };
 
 const handleDeleteConfirm = async () => {
-  await ListsProvider.delete(list);
+  await store.delete(list.id);
   router.replace('/lists');
 };
 </script>

@@ -2,7 +2,7 @@ import type { AppConfig } from '@/config/app.config';
 import { Config } from '@spuxx/browser-utils';
 import { defineEndpoint } from '@spuxx/js-utils';
 import { Api } from '../api.service';
-import type { List, ListItem, NewList, NewListItem } from './lists.types';
+import type { List, ListItem, NewList, NewListItem, UpdatedList } from './lists.types';
 
 export const listsEndpoints = {
   findManyLists: defineEndpoint({
@@ -44,7 +44,7 @@ export const listsEndpoints = {
     },
   }),
   updateList: defineEndpoint({
-    function: async (list: List): Promise<Response> => {
+    function: async (list: UpdatedList): Promise<Response> => {
       const body = JSON.stringify(list);
       const { API_URL } = Config.getConfig<AppConfig>();
       return fetch(`${API_URL}/toledo/lists/${list.id}?include=guests,items`, {
