@@ -1,4 +1,9 @@
-import { EnvModuleMixin, ApplicationLogLevel, TransformBooleanString } from '@spuxx/nest-utils';
+import {
+  EnvModuleMixin,
+  ApplicationLogLevel,
+  TransformBooleanString,
+  TransformArrayString,
+} from '@spuxx/nest-utils';
 import { IsBoolean, IsIn, IsNumber, IsString, IsUrl } from 'class-validator';
 
 class Env {
@@ -12,8 +17,9 @@ class Env {
   @IsString()
   APP_PORT: string = '8080';
 
+  @TransformArrayString()
   @IsString()
-  ALLOWED_CORS_ORIGINS: string = 'https://toledo.spuxx.dev';
+  ALLOWED_CORS_ORIGINS: string[] = ['https://toledo.spuxx.dev'];
 
   @IsUrl()
   AUTH_ISSUER_URL: string = 'https://auth.spuxx.dev/realms/main';
