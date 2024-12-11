@@ -10,7 +10,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/mdx": "3.1.7",
+    "@astrojs/mdx": "4.0.2",
     "@astrojs/sitemap": "3.2.1",
     "astro": "4.16.13"
   },
