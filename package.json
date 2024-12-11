@@ -26,12 +26,10 @@
     "types": "pnpm -r types",
     "lint": "eslint . --ext ts,tsx",
     "prettier-check": "prettier --check ./apps",
-    "format": "prettier --write ./apps"
+    "format": "prettier --write ./apps",
+    "build": "pnpm -r build"
   },
   "devDependencies": {
-    "@nestjs/cli": "10.4.5",
-    "@swc/cli": "0.4.0",
-    "@swc/core": "1.10.1",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@vitest/coverage-v8": "2.0.5",
@@ -40,13 +38,6 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "prettier": "3.3.3",
-    "release-please": "16.12.0",
-    "typescript": "5.7.2",
-    "unplugin-swc": "1.5.1",
-    "vite": "5.4.8",
-    "vite-plugin-dts": "4.2.3",
-    "vite-plugin-externalize-deps": "^0.8.0",
-    "vite-tsconfig-paths": "5.1.4",
-    "vitest": "2.0.5"
+    "release-please": "16.12.0"
   }
 }

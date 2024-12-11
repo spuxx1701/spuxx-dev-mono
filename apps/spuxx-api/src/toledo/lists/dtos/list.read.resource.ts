@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { listProperties } from '../config/list.properties';
 import { Map } from '@spuxx/nest-utils';
-import { UserReadResource } from '@spuxx-api/src/users/dtos/user.read.resource';
+import { UserReadResource } from '@src/users/dtos/user.read.resource';
 import { ListItemReadResource } from './list-item.read.resource';
 
 export class ListReadResource {

@@ -11,6 +11,7 @@
       "@api/*": ["./src/services/api/*"],
       "@main/*": ["./src/features/main/*"],
       "@lists/*": ["./src/features/lists/*"]
-    }
+    },
+    "types": ["@modyfi/vite-plugin-yaml/modules"]
   }
 }

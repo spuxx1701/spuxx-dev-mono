@@ -1,5 +1,5 @@
 import { ApiParamOptions, ApiPropertyOptions } from '@nestjs/swagger';
-import { UserReadResource } from '@spuxx-api/src/users/dtos/user.read.resource';
+import { UserReadResource } from '@src/users/dtos/user.read.resource';
 import { ListItemReadResource } from '../dtos/list-item.read.resource';
 
 export const listProperties = {

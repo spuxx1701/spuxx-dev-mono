@@ -5,10 +5,10 @@ import { type Request } from 'express';
 import { getSession, Mapper } from '@spuxx/nest-utils';
 import { ListCreateResource } from '../dtos/list.create.resource';
 import { listsExceptions } from '../config/lists.exceptions';
-import { UsersRegistrar } from '@spuxx-api/src/users/services/users.registrar';
+import { UsersRegistrar } from '@src/users/services/users.registrar';
 import { ListUpdateResource } from '../dtos/list.update.resource';
 import { FindOptions, Op } from 'sequelize';
-import { UsersProvider } from '@spuxx-api/src/users/services/users.provider';
+import { UsersProvider } from '@src/users/services/users.provider';
 import { ListsAccessManager } from './lists.access-manager';
 
 @Injectable()

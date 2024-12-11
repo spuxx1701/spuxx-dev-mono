@@ -1,5 +1,5 @@
 import { NotFoundException } from '@nestjs/common';
-import { appExceptions } from '@spuxx-api/src/config/app.exceptions';
+import { appExceptions } from '@src/config/app.exceptions';
 
 export const usersExceptions = {
   findMany: {

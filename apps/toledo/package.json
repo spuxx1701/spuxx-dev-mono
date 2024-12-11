@@ -21,7 +21,6 @@
     "vuetify": "3.7.3"
   },
   "devDependencies": {
-    "@modyfi/vite-plugin-yaml": "1.1.0",
     "@playwright/test": "1.48.1",
     "@tsconfig/node20": "20.1.4",
     "@types/node": "20.17.0",
@@ -33,6 +32,7 @@
     "vite": "5.4.10",
     "vite-plugin-dts": "4.2.3",
     "vite-tsconfig-paths": "5.1.4",
+    "@modyfi/vite-plugin-yaml": "1.1.0",
     "vue-tsc": "https://pkg.pr.new/vuejs/language-tools/vue-tsc@3fb59af"
   }
 }

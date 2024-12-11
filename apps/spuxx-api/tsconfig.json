@@ -1,13 +1,27 @@
 {
-  "extends": "../../tsconfig.nest.json",
-  "include": ["./src/**/*", "./tests/**/*", "../../tests/vitest"],
   "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2021",
     "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "baseUrl": "./",
     "paths": {
-      "@spuxx-api/*": ["apps/spuxx-api/*"],
-      "@src/*": ["apps/spuxx-api/src/*"],
-      "@tests/*": ["apps/spuxx-api/tests/*"],
-      "@mock-data/*": ["mock-data/*"]
-    }
+      "@src/*": ["src/*"],
+      "@tests/*": ["tests/*"],
+      "@mock-data/*": ["tests/mock-data/*"]
+    },
+    "types": ["vite/client", "vitest/globals"]
   }
 }

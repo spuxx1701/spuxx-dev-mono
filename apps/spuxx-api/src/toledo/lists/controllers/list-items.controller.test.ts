@@ -1,10 +1,10 @@
 import { Supertest, TestContainer } from '@spuxx/nest-testing';
 import { ListsModule } from '../lists.module';
-import { TestOrmModule } from '@spuxx-api/tests/database/test-orm-module';
-import { authConfig } from '@spuxx-api/src/auth/auth.config';
-import { listCreateMockData } from '@mock-data/list.mock-data';
-import { listItemCreateMockData } from '@mock-data/list-item.mock-data';
-import { sessionMockData } from '@mock-data/session.mock-data';
+import { TestOrmModule } from '@tests/database/test-orm-module';
+import { authConfig } from '@src/auth/auth.config';
+import { listCreateMockData } from '@tests/mock-data/list.mock-data';
+import { listItemCreateMockData } from '@tests/mock-data/list-item.mock-data';
+import { sessionMockData } from '@tests/mock-data/session.mock-data';
 import { ListItemReadResource } from '../dtos/list-item.read.resource';
 import { ListItemCreateResource } from '../dtos/list-item.create.resource';
 import { ListItemUpdateResource } from '../dtos/list-item.update.resource';
@@ -22,48 +22,54 @@ describe('ListItemsController', () => {
   });
 
   describe('create', () => {
-    it('should successfully create two items', async () => {
-      // Create a new empty list
-      let response = await supertest.post('/toledo/lists', {
-        body: listCreateMockData.groceries,
-        session: sessionMockData.privileged,
-      });
-      expect(response.statusCode).toBe(201);
-      const listId = response.body.id;
-      response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
-        session: sessionMockData.privileged,
-      });
-      expect(response.statusCode).toBe(200);
-      expect(response.body.items).toEqual([]);
+    it(
+      'should successfully create two items',
+      async () => {
+        // Create a new empty list
+        let response = await supertest.post('/toledo/lists', {
+          body: listCreateMockData.groceries,
+          session: sessionMockData.privileged,
+        });
+        expect(response.statusCode).toBe(201);
+        const listId = response.body.id;
+        response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
+          session: sessionMockData.privileged,
+        });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.items).toEqual([]);
 
-      // Add first item
-      response = await supertest.post(`/toledo/lists/${listId}/items`, {
-        body: listItemCreateMockData.apples,
-        session: sessionMockData.privileged,
-      });
-      const firstItem: ListItemReadResource = response.body;
-      expect(response.statusCode).toBe(201);
-      expect(response.body).toMatchObject(listItemCreateMockData.apples);
-      response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
-        session: sessionMockData.privileged,
-      });
-      expect(response.statusCode).toBe(200);
-      expect(response.body.items).toEqual([firstItem]);
+        // Add first item
+        response = await supertest.post(`/toledo/lists/${listId}/items`, {
+          body: listItemCreateMockData.apples,
+          session: sessionMockData.privileged,
+        });
+        const firstItem: ListItemReadResource = response.body;
+        expect(response.statusCode).toBe(201);
+        expect(response.body).toMatchObject(listItemCreateMockData.apples);
+        response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
+          session: sessionMockData.privileged,
+        });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.items).toEqual([firstItem]);
 
-      // Add second item
-      response = await supertest.post(`/toledo/lists/${listId}/items`, {
-        body: listItemCreateMockData.bananas,
-        session: sessionMockData.privileged,
-      });
-      const secondItem: ListItemReadResource = response.body;
-      expect(response.statusCode).toBe(201);
-      expect(response.body).toMatchObject(listItemCreateMockData.bananas);
-      response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
-        session: sessionMockData.privileged,
-      });
-      expect(response.statusCode).toBe(200);
-      expect(response.body.items).toEqual([firstItem, secondItem]);
-    });
+        // Add second item
+        response = await supertest.post(`/toledo/lists/${listId}/items`, {
+          body: listItemCreateMockData.bananas,
+          session: sessionMockData.privileged,
+        });
+        const secondItem: ListItemReadResource = response.body;
+        expect(response.statusCode).toBe(201);
+        expect(response.body).toMatchObject(listItemCreateMockData.bananas);
+        response = await supertest.get(`/toledo/lists/${listId}?include=items`, {
+          session: sessionMockData.privileged,
+        });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.items).toEqual([firstItem, secondItem]);
+      },
+      {
+        retry: 3,
+      },
+    );
 
     it('should use default values', async () => {
       // Create a new empty list

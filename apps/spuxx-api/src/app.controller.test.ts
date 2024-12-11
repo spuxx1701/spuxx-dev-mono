@@ -1,7 +1,7 @@
 import { AppController } from './app.controller';
 import { TestContainer, Supertest } from '@spuxx/nest-testing';
 import { authConfig } from './auth/auth.config';
-import { sessionMockData } from '@mock-data/session.mock-data';
+import { sessionMockData } from '@tests/mock-data/session.mock-data';
 import { AuthModule } from '@spuxx/nest-utils';
 
 describe('AppController', () => {

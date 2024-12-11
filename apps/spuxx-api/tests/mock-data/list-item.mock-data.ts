@@ -1,5 +1,5 @@
-import { ListItemCreateResource } from '@spuxx-api/src/toledo/lists/dtos/list-item.create.resource';
-import { ListItemUpdateResource } from '@spuxx-api/src/toledo/lists/dtos/list-item.update.resource';
+import { ListItemCreateResource } from '@src/toledo/lists/dtos/list-item.create.resource';
+import { ListItemUpdateResource } from '@src/toledo/lists/dtos/list-item.update.resource';
 
 export const listItemCreateMockData = {
   apples: {

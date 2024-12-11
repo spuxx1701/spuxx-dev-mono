@@ -11,8 +11,8 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
-import { AuthRole } from '@spuxx-api/src/auth/auth.config';
-import { defaultValidationPipe } from '@spuxx-api/src/validation/default-validation.pipe';
+import { AuthRole } from '@src/auth/auth.config';
+import { defaultValidationPipe } from '@src/validation/default-validation.pipe';
 import { AuthGuard, HttpLoggingInterceptor, Mapper, Roles } from '@spuxx/nest-utils';
 import { ListItemReadResource } from '../dtos/list-item.read.resource';
 import { ListItemCreateResource } from '../dtos/list-item.create.resource';

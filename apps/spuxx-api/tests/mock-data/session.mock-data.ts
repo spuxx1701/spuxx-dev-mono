@@ -1,5 +1,5 @@
-import { AuthRole } from '@spuxx-api/src/auth/auth.config';
-import { SessionResource } from '@spuxx-api/tests/auth/session-resource';
+import { AuthRole } from '@src/auth/auth.config';
+import { SessionResource } from '@tests/auth/session-resource';
 
 export const sessionMockData = {
   privileged: {

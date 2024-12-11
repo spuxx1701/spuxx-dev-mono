@@ -1,9 +1,9 @@
-import { TestOrmModule } from '@spuxx-api/tests/database/test-orm-module';
+import { TestOrmModule } from '@tests/database/test-orm-module';
 import { Supertest, TestContainer } from '@spuxx/nest-testing';
 import { ListsModule } from '../lists.module';
-import { authConfig } from '@spuxx-api/src/auth/auth.config';
-import { listCreateMockData } from '@mock-data/list.mock-data';
-import { sessionMockData } from '@mock-data/session.mock-data';
+import { authConfig } from '@src/auth/auth.config';
+import { listCreateMockData } from '@tests/mock-data/list.mock-data';
+import { sessionMockData } from '@tests/mock-data/session.mock-data';
 import { ListReadResource } from '../dtos/list.read.resource';
 import { AuthModule } from '@spuxx/nest-utils';
 

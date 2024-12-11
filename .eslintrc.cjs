@@ -4,14 +4,9 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
-  },
   plugins: ['prettier', '@typescript-eslint'],
   rules: {
-    // Miscellanous
+    // Miscellaneous
     'no-console': ['error'],
     'no-debugger': ['error'],
     '@typescript-eslint/triple-slash-reference': 'off',

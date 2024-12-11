@@ -2,14 +2,14 @@ import { Injectable, Logger } from '@nestjs/common';
 import { type Request } from 'express';
 import { getSession } from '@spuxx/nest-utils';
 import { listsExceptions } from '../config/lists.exceptions';
-import { EnvModule } from '@spuxx-api/src/env/env.module';
-import { generateInviteCode } from '@spuxx-api/src/utils/invite-links/invite-links.utils';
-import { InviteLinkResource } from '@spuxx-api/src/utils/invite-links/invite-link.resource';
+import { EnvModule } from '@src/env/env.module';
+import { generateInviteCode } from '@src/utils/invite-links/invite-links.utils';
+import { InviteLinkResource } from '@src/utils/invite-links/invite-link.resource';
 import { ListsProvider } from './lists.provider';
 import { ListsAccessManager } from './lists.access-manager';
 import { InjectModel } from '@nestjs/sequelize';
 import { List } from '../models/list.model';
-import { UsersRegistrar } from '@spuxx-api/src/users/services/users.registrar';
+import { UsersRegistrar } from '@src/users/services/users.registrar';
 
 @Injectable()
 export class ListsInviteManager {

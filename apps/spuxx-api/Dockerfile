@@ -1,6 +1,8 @@
 # Build stage
 FROM node:22-alpine AS build-env
-RUN npm install -g pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
 # Set the working directory to /project
 WORKDIR /project
@@ -10,18 +12,13 @@ COPY . .
 
 # Install dependencies and build
 WORKDIR /project/apps/spuxx-api
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 RUN pnpm build
+RUN pnpm deploy --filter=spuxx-api --prod out
 
 # Production stage
-FROM node:22-alpine
-WORKDIR /app
-COPY --from=build-env /project/apps/spuxx-api/dist ./dist
-COPY --from=build-env /project/apps/spuxx-api/package.json ./package.json
-# Having issues with copying node_modules so we install them manually
-# TODO: Get this to work at some point so we can use distroless
-RUN npm install -g pnpm
-RUN pnpm install
-RUN pnpm prune --prod
+FROM gcr.io/distroless/nodejs22-debian12
+WORKDIR /usr/app
+COPY --from=build-env /project/apps/spuxx-api/out ./
 USER 9999
-CMD [ "node", "dist/main.mjs" ]
+CMD ["dist/main.mjs"]

@@ -11,15 +11,15 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
-import { AuthRole } from '@spuxx-api/src/auth/auth.config';
-import { InviteLinkResource } from '@spuxx-api/src/utils/invite-links/invite-link.resource';
-import { defaultValidationPipe } from '@spuxx-api/src/validation/default-validation.pipe';
+import { AuthRole } from '@src/auth/auth.config';
+import { InviteLinkResource } from '@src/utils/invite-links/invite-link.resource';
+import { defaultValidationPipe } from '@src/validation/default-validation.pipe';
 import { AuthGuard, HttpLoggingInterceptor, Roles } from '@spuxx/nest-utils';
 import { type Request } from 'express';
 import { listProperties } from '../config/list.properties';
 import { listsExceptions } from '../config/lists.exceptions';
 import { ListsInviteManager } from '../services/lists.invite-manager';
-import { AcceptInviteQuery } from '@spuxx-api/src/utils/invite-links/accept-invite.query';
+import { AcceptInviteQuery } from '@src/utils/invite-links/accept-invite.query';
 
 const requiredRoles = [AuthRole.toledo];
 

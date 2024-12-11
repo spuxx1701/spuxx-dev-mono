@@ -1,20 +1,10 @@
 {
-  "compilerOptions": {
-    /* Compilation */
-    "skipLibCheck": true,
-    "useDefineForClassFields": true,
-    /* Resolution */
-    "resolveJsonModule": true,
-    "types": ["vite/client", "vitest/globals", "@modyfi/vite-plugin-yaml/modules"],
-    "baseUrl": ".",
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@spuxx-api/*": ["apps/spuxx-api/*"],
-      "@mock-data/*": ["mock-data/*"]
+  "references": [
+    {
+      "path": "./apps/spuxx-api/tsconfig.json"
+    },
+    {
+      "path": "./apps/toledo/tsconfig.json"
     }
-  }
+  ]
 }

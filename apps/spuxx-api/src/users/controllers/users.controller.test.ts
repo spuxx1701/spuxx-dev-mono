@@ -1,7 +1,7 @@
-import { sessionMockData } from '@mock-data/session.mock-data';
-import { authConfig } from '@spuxx-api/src/auth/auth.config';
-import { ListsModule } from '@spuxx-api/src/toledo/lists/lists.module';
-import { TestOrmModule } from '@spuxx-api/tests/database/test-orm-module';
+import { sessionMockData } from '@tests/mock-data/session.mock-data';
+import { authConfig } from '@src/auth/auth.config';
+import { ListsModule } from '@src/toledo/lists/lists.module';
+import { TestOrmModule } from '@tests/database/test-orm-module';
 import { AuthModule, SessionResource } from '@spuxx/nest-utils';
 import { UserReadResource } from '../dtos/user.read.resource';
 import { Supertest, TestContainer } from '@spuxx/nest-testing';

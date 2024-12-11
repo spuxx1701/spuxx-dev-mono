@@ -25,7 +25,7 @@ import { List } from '../models/list.model';
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 import { listsExceptions } from '../config/lists.exceptions';
 import { ListUpdateResource } from '../dtos/list.update.resource';
-import { transformQueryToFindOptions } from '@spuxx-api/src/orm/orm.utils';
+import { transformQueryToFindOptions } from '@src/orm/orm.utils';
 import { ListsFindByIdQuery, ListsFindManyQuery, ListsUpdateQuery } from './queries';
 
 const requiredRoles = [AuthRole.toledo];

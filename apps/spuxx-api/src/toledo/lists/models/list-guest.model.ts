@@ -1,6 +1,6 @@
 import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { List } from './list.model';
-import { User } from '@spuxx-api/src/users/models/user.model';
+import { User } from '@src/users/models/user.model';
 
 @Table({ tableName: 'Toledo_ListGuests' })
 export class ListGuest extends Model {
