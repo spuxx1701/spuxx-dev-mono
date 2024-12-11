@@ -18,7 +18,7 @@ class Env {
   APP_PORT: string = '8080';
 
   @TransformArrayString()
-  @IsString()
+  @IsString({ each: true })
   ALLOWED_CORS_ORIGINS: string[] = ['https://toledo.spuxx.dev'];
 
   @IsUrl()
