@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
 import { intl } from '@spuxx/js-utils';
 import { VBtn } from 'vuetify/components';
 import PageContent from '@/components/content/PageContent.vue';
-import { SessionManager } from '@/services/session';
 import { Config } from '@spuxx/browser-utils';
 import type { AppConfig } from '@/config/app.config';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import { SessionManager } from '@/services/session';
+import { useRouter } from 'vue-router';
 
-const route = useRoute();
-const { session } = SessionManager;
+const router = useRouter();
+const { isAuthenticated } = SessionManager;
+if (isAuthenticated()) {
+  router.replace('/');
+}
 
 const handleLogin = () => {
   const { API_URL } = Config.getConfig<AppConfig>();
