@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { VContainer, VScrollXTransition } from 'vuetify/components';
 import ContentHeader from './ContentHeader.vue';
 
-const props = defineProps<{
+const { align = 'start' } = defineProps<{
   icon?: string;
   title?: string;
   align?: 'start' | 'center';
@@ -19,7 +19,8 @@ const route = useRoute();
     <VScrollXTransition appear hide-on-leave>
       <VContainer
         :key="route.path"
-        :class="`text-center justify-${props.align ?? 'start'} ${noPadding ? 'pa-0' : ''}`"
+        :class="`text-center ${noPadding ? 'pa-0' : ''}`"
+        :style="{ alignContent: align }"
         :bind="$attrs"
       >
         <ContentHeader v-if="title" :icon :title />
