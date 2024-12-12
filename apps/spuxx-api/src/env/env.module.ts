@@ -19,7 +19,7 @@ class Env {
 
   @TransformArrayString()
   @IsString({ each: true })
-  ALLOWED_CORS_ORIGINS: string[] = ['https://toledo.spuxx.dev'];
+  CORS_ALLOWED_ORIGINS: string[] = ['https://toledo.spuxx.dev'];
 
   @IsUrl()
   AUTH_ISSUER_URL: string = 'https://auth.spuxx.dev/realms/main';

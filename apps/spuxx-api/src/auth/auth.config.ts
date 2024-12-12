@@ -12,7 +12,7 @@ export const authRoles = Object.values(AuthRole);
 export const authConfig: AuthOptions = {
   disable: false,
   roles: AuthRole,
-  allowedRedirectHostnames: removeProtocol(EnvModule.get('ALLOWED_CORS_ORIGINS')),
+  allowedRedirectHostnames: removeProtocol(EnvModule.get('CORS_ALLOWED_ORIGINS')),
   oidc: {
     baseURL: EnvModule.get('APP_BASE_URL'),
     issuerBaseURL: EnvModule.get('AUTH_ISSUER_URL'),
