@@ -24,7 +24,6 @@ async function handleSubmit() {
   if ((await form.value?.validate())?.valid) {
     await store.addItem(item.value);
     resetForm();
-    form.value?.scrollIntoView({ behavior: 'instant' });
   }
 }
 
@@ -36,9 +35,9 @@ async function resetForm() {
 
 <template>
   <VForm ref="form" @submit.prevent="handleSubmit" block>
-    <VCard variant="flat" color="surface" density="compact">
+    <VCard variant="flat" color="surface">
       <template v-slot:title>
-        <ListItemActions>
+        <ListItemActions class="pt-2">
           <ListItemQuantity :item use-number-input />
           <ListItemText
             :item

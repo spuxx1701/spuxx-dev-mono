@@ -48,10 +48,8 @@ async function handleUpdate() {
   <VExpansionPanels v-if="isOwned && list" color="surface">
     <VExpansionPanel class="settings">
       <template v-slot:title>
-        <h3>
-          <Icon icon="mdi:cog" />
-          {{ intl('lists.route.list.settings.title') }}
-        </h3>
+        <Icon icon="mdi:cog" class="mr-2" />
+        {{ intl('lists.route.list.settings.title') }}
       </template>
       <template v-slot:text>
         <VForm ref="form" @submit.prevent="handleUpdate">

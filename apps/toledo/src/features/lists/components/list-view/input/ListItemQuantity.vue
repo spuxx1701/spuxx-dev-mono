@@ -33,6 +33,7 @@ function handleChange() {
     :bind="$attrs"
     :hide-details
     @change="handleChange"
+    density="compact"
   >
   </VTextField>
   <VNumberInput
@@ -47,22 +48,16 @@ function handleChange() {
     v-model="item.quantity"
     :bind="$attrs"
     :hide-details
+    density="compact"
     @update:modelValue="handleChange"
   />
 </template>
 
 <style scoped>
-.number-input,
-.text-field {
-  :global(button[name='increment-btn']) {
-    margin-right: 0.5rem;
-  }
-}
-
 .text-field {
   :global(input) {
     text-align: center;
-    width: 2.5rem;
+    width: 3.2rem;
   }
 }
 </style>

@@ -27,6 +27,7 @@ function handleKeydownEnter(event: KeyboardEvent) {
     v-model="item.text"
     rows="1"
     auto-grow
+    density="compact"
     @keydown.enter="handleKeydownEnter"
     :bind="$attrs"
   />

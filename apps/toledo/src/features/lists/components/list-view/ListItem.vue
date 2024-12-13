@@ -73,15 +73,9 @@ const rightTouchAction: HorizontalTouchAction = {
 <template>
   <VForm ref="form" @submit.prevent="handleUpdate" validate-on="blur" block>
     <HorizontalTouchActions :left="leftTouchAction" :right="rightTouchAction">
-      <VCard
-        class="card mb-2"
-        variant="flat"
-        color="surface"
-        density="compact"
-        :data-checked="item.checked"
-      >
+      <VCard class="card mb-2" variant="flat" color="surface" :data-checked="item.checked">
         <template v-slot:title>
-          <ListItemActions class="hide-label">
+          <ListItemActions>
             <ListItemToggle :list :item />
             <ListItemDelete @click="handleDelete" />
             <ListItemQuantity
@@ -119,9 +113,5 @@ const rightTouchAction: HorizontalTouchAction = {
   :global(.v-card__underlay) {
     opacity: 0.5 !important;
   }
-}
-
-.hide-label {
-  margin-top: -12px;
 }
 </style>

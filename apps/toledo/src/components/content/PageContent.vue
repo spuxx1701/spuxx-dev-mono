@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue/dist/iconify.js';
 import { useRoute } from 'vue-router';
 import { VContainer, VScrollXTransition } from 'vuetify/components';
 import ContentHeader from './ContentHeader.vue';

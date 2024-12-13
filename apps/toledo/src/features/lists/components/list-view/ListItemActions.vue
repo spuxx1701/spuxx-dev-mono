@@ -11,9 +11,9 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: end;
+  align-items: center;
 
-  :global(> .v-btn:not(:last-child)) {
+  :global(> *:not(:last-child)) {
     margin-right: 0.5rem;
   }
 }

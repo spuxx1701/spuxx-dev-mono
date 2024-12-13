@@ -18,19 +18,19 @@ export const vuetify = createVuetify({
       color: 'primary',
     },
     VTextField: {
-      variant: 'underlined',
+      variant: 'outlined',
       color: 'primary',
     },
     VTextarea: {
-      variant: 'underlined',
+      variant: 'outlined',
       color: 'primary',
     },
     VAutocomplete: {
-      variant: 'underlined',
+      variant: 'outlined',
       color: 'primary',
     },
     VNumberInput: {
-      variant: 'underlined',
+      variant: 'outlined',
       color: 'primary',
     },
     VListItem: {

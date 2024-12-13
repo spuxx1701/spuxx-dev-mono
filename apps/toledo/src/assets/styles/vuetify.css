@@ -40,6 +40,6 @@
 
 @media only screen and (max-width: 960px) {
   .v-number-input__control > button {
-    max-width: 24px;
+    max-width: 2rem;
   }
 }

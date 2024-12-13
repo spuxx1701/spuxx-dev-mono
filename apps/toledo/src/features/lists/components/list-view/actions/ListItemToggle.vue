@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { List, ListItem } from '@/services/api/lists/lists.types';
 import { useDisplay } from 'vuetify';
-import { VBtn } from 'vuetify/components';
+import { VBtn, VCheckbox } from 'vuetify/components';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { intl } from '@spuxx/js-utils';
 import { useActiveListStore } from '@/features/lists/stores/active-list.store';
@@ -20,15 +20,18 @@ async function handleToggle() {
 </script>
 
 <template>
-  <VBtn
+  <VCheckbox
     v-if="list.usesCheckboxes"
     :model-value="item.checked"
     @click="handleToggle"
     :title="intl(`lists.route.list.item.checked`)"
+    hide-details
+    density="compact"
   >
-    <Icon :icon="item.checked ? 'mdi:checkbox-marked' : 'mdi:checkbox-blank-outline'" />
-    <p v-if="!mobile">{{ intl(`lists.route.list.item.checked`) }}</p>
-  </VBtn>
+    <template v-slot:label v-if="!mobile">
+      {{ intl(`lists.route.list.item.checked`) }}
+    </template>
+  </VCheckbox>
 </template>
 
 <style scoped></style>
