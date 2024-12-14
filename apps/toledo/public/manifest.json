@@ -1,0 +1,13 @@
+{
+  "name": "Toledo",
+  "short_name": "Toledo",
+  "description": "The Toledo client application.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#151515",
+  "theme_color": "#151515",
+  "ms": {
+    "tileColor": "#151515"
+  }
+}
