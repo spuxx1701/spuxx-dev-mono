@@ -21,7 +21,7 @@ const { left, right } = defineProps<{
   right: HorizontalTouchAction;
 }>();
 
-const xMin = 10;
+const xMin = 30;
 
 const deltaX = ref(0);
 const absoluteDeltaX = computed(() => Math.abs(deltaX.value));
@@ -36,9 +36,9 @@ const controls: TouchControls = {
     if (absoluteDeltaX.value < xMin) return;
     Interface.registerTouchGesture();
     containerRef.value.style.setProperty('--offset-x', `${deltaX.value}px`);
+    containerRef.value.style.setProperty('--move-delay', '0');
   },
   end: () => {
-    console.log(event);
     if (!containerRef.value) return;
     const threshold = containerRef.value.clientWidth / 2;
     if (deltaX.value < 0 && absoluteDeltaX.value > threshold) {
@@ -48,6 +48,7 @@ const controls: TouchControls = {
     }
     deltaX.value = 0;
     containerRef.value.style.setProperty('--offset-x', '0px');
+    containerRef.value.style.setProperty('--move-delay', '200ms');
   },
 };
 </script>
@@ -73,6 +74,7 @@ const controls: TouchControls = {
 <style scoped>
 .touch-control-horizontal {
   --offset-x: 0px;
+  --move-delay: 0;
   --overlay-left-color: none;
   --overlay-right-color: none;
   position: relative;
@@ -81,7 +83,7 @@ const controls: TouchControls = {
 .content {
   position: static;
   transform: translateX(var(--offset-x));
-  transition: transform 100ms;
+  transition: transform var(--move-delay);
 }
 
 .underlay {
