@@ -4,6 +4,7 @@ import { computed, ref, useTemplateRef } from 'vue';
 import { VCard } from 'vuetify/components';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import type { TouchControls } from './types';
+import { Interface } from '@/services/interface';
 
 const vTouch = Touch;
 const containerRef = useTemplateRef<HTMLElement>('container');
@@ -21,25 +22,23 @@ const { left, right } = defineProps<{
 }>();
 
 const xMin = 10;
-const yMax = 50;
 
 const deltaX = ref(0);
-const deltaY = ref(0);
 const absoluteDeltaX = computed(() => Math.abs(deltaX.value));
-const absoluteDeltaY = computed(() => Math.abs(deltaY.value));
 const leftUnderlayVisible = computed(() => deltaX.value < 0);
 const rightUnderlayVisible = computed(() => deltaX.value > 0);
 
 const controls: TouchControls = {
   move: (event) => {
     if (!containerRef.value) return;
-    const { touchstartX, touchmoveX, touchstartY, touchmoveY } = event;
+    const { touchstartX, touchmoveX } = event;
     deltaX.value = touchmoveX - touchstartX;
-    deltaY.value = touchmoveY - touchstartY;
-    if (absoluteDeltaX.value < xMin || absoluteDeltaY.value > yMax) return;
+    if (absoluteDeltaX.value < xMin) return;
+    Interface.registerTouchGesture();
     containerRef.value.style.setProperty('--offset-x', `${deltaX.value}px`);
   },
   end: () => {
+    console.log(event);
     if (!containerRef.value) return;
     const threshold = containerRef.value.clientWidth / 2;
     if (deltaX.value < 0 && absoluteDeltaX.value > threshold) {

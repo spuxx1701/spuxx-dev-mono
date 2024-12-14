@@ -4,9 +4,15 @@
 
 :root {
   --accent-bar-height: 2px;
+  /* May change at runtime */
+  --document-overflow-y: aut;
 }
 
 html {
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: var(--document-overflow-y);
+}
+
+body {
+  overflow: hidden;
 }
