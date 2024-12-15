@@ -28,7 +28,7 @@ export class ListItemsProvider {
   ): Promise<ListItem> {
     const { preferred_username } = getSession(request);
     const list = await this.listsProvider.findById(listId, request, {
-      include: ['guests', 'items'],
+      include: ['items'],
     });
     await this.accessManager.checkAccess(list, request);
     const newItem = this.mapper.map(resource, ListItemCreateResource, ListItem);
@@ -56,7 +56,7 @@ export class ListItemsProvider {
   ): Promise<ListItem> {
     const { preferred_username } = getSession(request);
     const list = await this.listsProvider.findById(listId, request, {
-      include: ['guests', 'items'],
+      include: ['items'],
     });
     await this.accessManager.checkAccess(list, request);
     const item = list.items.find((element) => element.id === itemId);
@@ -83,7 +83,7 @@ export class ListItemsProvider {
   async delete(listId: string, itemId: string, request: Request): Promise<void> {
     const { preferred_username } = getSession(request);
     const list = await this.listsProvider.findById(listId, request, {
-      include: ['guests', 'items'],
+      include: ['items'],
     });
     await this.accessManager.checkAccess(list, request);
     const item = list.items.find((element) => element.id === itemId);

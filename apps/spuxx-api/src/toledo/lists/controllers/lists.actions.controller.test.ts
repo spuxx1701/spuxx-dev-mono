@@ -88,7 +88,7 @@ describe('ListsActionsController', () => {
       });
       expect(response.statusCode).toBe(200);
       // Check that the user was added to the list as a guest
-      let getResponse = await supertest.get(`/toledo/lists/${id}?include=guests`, {
+      let getResponse = await supertest.get(`/toledo/lists/${id}`, {
         session: sessionMockData.toledo,
       });
       expect(getResponse.statusCode).toBe(200);
@@ -100,7 +100,7 @@ describe('ListsActionsController', () => {
       await supertest.put(`/toledo/lists/${id}/accept-invite?code=${code}`, {
         session: sessionMockData.toledo,
       });
-      getResponse = await supertest.get(`/toledo/lists/${id}?include=guests`, {
+      getResponse = await supertest.get(`/toledo/lists/${id}`, {
         session: sessionMockData.toledo,
       });
       expect(getResponse.statusCode).toBe(200);

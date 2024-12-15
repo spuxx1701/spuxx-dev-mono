@@ -51,9 +51,7 @@ export class ListsInviteManager {
   async acceptInvite(listId: string, code: string, request: Request): Promise<void> {
     this.usersRegistrar.registerUserVisit(request);
     const { sub, preferred_username } = getSession(request);
-    const list = await this.model.findByPk(listId, {
-      include: ['guests', 'owner'],
-    });
+    const list = await this.model.findByPk(listId);
     if (!list || code !== list.inviteCode) throw listsExceptions.acceptInvite.notFound;
     await this.accessManager.grantGuestAccess(list, sub);
     Logger.log(

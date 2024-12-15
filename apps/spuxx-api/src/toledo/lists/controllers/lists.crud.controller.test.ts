@@ -95,7 +95,7 @@ describe('ListsCrudController', () => {
         body: listCreateMockData.toDos,
         session: sessionMockData.privileged,
       });
-      const response = await supertest.get(`/toledo/lists?include=items,guests`, {
+      const response = await supertest.get(`/toledo/lists?include=items`, {
         session: sessionMockData.privileged,
       });
       expect(response.statusCode).toBe(200);

@@ -16,7 +16,7 @@ export class ListItem extends Model {
   @Map()
   declare listId: string;
 
-  @Column
+  @Column({ allowNull: false })
   @Map()
   declare text: string;
 

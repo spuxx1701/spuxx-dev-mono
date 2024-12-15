@@ -26,13 +26,13 @@ export class List extends Model {
   @Map()
   declare id: string;
 
-  @Column
+  @Column({ allowNull: false })
   @Map()
   declare name: string;
 
   @Column({ defaultValue: listProperties.icon.default })
   @Map()
-  declare icon?: string;
+  declare icon: string;
 
   @ForeignKey(() => User)
   @Column({ type: DataType.UUID })
@@ -46,15 +46,15 @@ export class List extends Model {
   @Map()
   declare guests?: User[];
 
-  @Column
+  @Column({ defaultValue: listProperties.usesCheckboxes.default })
   @Map()
   declare usesCheckboxes: boolean;
 
-  @Column
+  @Column({ defaultValue: listProperties.requiresDeleteConfirmation.default })
   @Map()
   declare requiresDeleteConfirmation: boolean;
 
-  @Column
+  @Column({ defaultValue: listProperties.usesQuantities.default })
   @Map()
   declare usesQuantities: boolean;
 
@@ -62,8 +62,8 @@ export class List extends Model {
   @Map()
   declare items?: ListItem[];
 
-  @Column
-  declare inviteCode: string;
+  @Column({ allowNull: true })
+  declare inviteCode?: string;
 
   @Map()
   declare createdAt: Date;
