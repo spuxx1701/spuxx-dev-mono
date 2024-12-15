@@ -21,9 +21,9 @@ export class ListReadResource {
   @Map()
   owner: UserReadResource;
 
-  @ApiPropertyOptional(listProperties.guests)
+  @ApiProperty(listProperties.guests)
   @Map()
-  guests?: UserReadResource[];
+  guests: UserReadResource[];
 
   @ApiProperty(listProperties.usesCheckboxes)
   @Map()
