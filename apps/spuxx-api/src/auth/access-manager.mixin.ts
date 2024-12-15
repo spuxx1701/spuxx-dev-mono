@@ -7,15 +7,15 @@ import { Model, ModelCtor } from 'sequelize-typescript';
 
 /**
  * A mixin that provides access management functionalities for certain model repositories.
- * @param model The model.
+ * @param modelClass The model class.
  * @returns The model-specific access manager.
  */
 export function AccessManagerMixin<
   TModel extends Model<TModel> & { ownerId: string; owner: User; guests?: User[] },
->(model: ModelCtor<TModel>) {
+>(modelClass: ModelCtor<TModel>) {
   @Injectable()
   class AccessManager {
-    constructor(@InjectModel(model) readonly model: ModelCtor<TModel>) {}
+    constructor(@InjectModel(modelClass) readonly model: ModelCtor<TModel>) {}
 
     /**
      * Checks whether the signed in user has access to the resource.
