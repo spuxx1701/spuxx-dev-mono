@@ -1,4 +1,6 @@
-import { toledoTheme } from '@/assets/themes/toledo.theme';
+import { darkTheme } from '@/assets/themes/dark.theme';
+import { lightTheme } from '@/assets/themes/light.theme';
+import { pinkTheme } from '@/assets/themes/pink.theme';
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg';
 
@@ -45,9 +47,11 @@ export const vuetify = createVuetify({
     },
   },
   theme: {
-    defaultTheme: 'toledo',
+    defaultTheme: 'dark',
     themes: {
-      toledo: toledoTheme,
+      dark: darkTheme,
+      light: lightTheme,
+      pink: pinkTheme,
     },
   },
 });

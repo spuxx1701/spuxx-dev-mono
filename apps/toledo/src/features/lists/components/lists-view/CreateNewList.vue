@@ -16,7 +16,8 @@ const handleCreate = async () => {
 
 <template>
   <CardGridElement
-    variant="outlined"
+    variant="text"
+    color="on-surface"
     icon="mdi:plus"
     :text="intl('lists.route.index.create')"
     @click.stop="handleCreate"

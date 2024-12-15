@@ -10,7 +10,7 @@ const { icon, text } = defineProps<{
 
 <template>
   <VCol class="col">
-    <VCard class="card" color="primary-darken-1" v-bind="$attrs">
+    <VCard class="card" v-bind="$attrs">
       <template v-slot:actions>
         <Icon :icon />
         <b>{{ text }}</b>
