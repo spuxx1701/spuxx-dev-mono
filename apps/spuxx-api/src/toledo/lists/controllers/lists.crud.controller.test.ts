@@ -45,6 +45,22 @@ describe('ListsCrudController', () => {
       expect(response.body[0].guests).toEqual([]);
     });
 
+    it('should not include foreign lists', async () => {
+      await supertest.post('/toledo/lists', {
+        body: listCreateMockData.groceries,
+        session: sessionMockData.privileged,
+      });
+      await supertest.post('/toledo/lists', {
+        body: listCreateMockData.toDos,
+        session: sessionMockData.toledo,
+      });
+      const response = await supertest.get(`/toledo/lists`, {
+        session: sessionMockData.privileged,
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBe(1);
+    });
+
     it('should also include shared lists', async () => {
       const firstList = (
         await supertest.post('/toledo/lists', {
