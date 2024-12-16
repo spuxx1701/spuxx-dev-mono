@@ -188,8 +188,8 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(vue@3.5.12(typescript@5.7.2))
       '@spuxx/browser-utils':
-        specifier: 1.2.0
-        version: 1.2.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))
+        specifier: 1.3.0
+        version: 1.3.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))
       '@spuxx/js-utils':
         specifier: 1.2.0
         version: 1.2.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))
@@ -1415,16 +1415,8 @@ packages:
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
     engines: {node: '>=10'}
 
-  '@spuxx/browser-utils@1.2.0':
-    resolution: {integrity: sha512-qnt4bbnd0K0JDuAlg6NMbi4pb4boeuGu8zuAncA4Ftavicqw7MW2JZjOA9aXvWjIQCK2NVTyxNYeQbi5MlTUig==}
-
-  '@spuxx/js-utils@1.0.0':
-    resolution: {integrity: sha512-xG1V1YwvPB25SA2ES/QlfmhRZ6lFnf2fSY/jbfoH1yYzIUuwREJ+bu33AGJNB0yY1fLSfcNMDQylFvernanpaQ==}
-    peerDependencies:
-      '@modyfi/vite-plugin-yaml': ^1.1.0
-    peerDependenciesMeta:
-      '@modyfi/vite-plugin-yaml':
-        optional: true
+  '@spuxx/browser-utils@1.3.0':
+    resolution: {integrity: sha512-OWrFyve9AaIiCMt8xrCzSjnJTPEHUf1FcUvefjUhqZmhK0Jp+Slx5fJm4uY2SYVXIlOC39T7vJv+v5ov2hrG4g==}
 
   '@spuxx/js-utils@1.2.0':
     resolution: {integrity: sha512-2uG+8FRJI3sdhHPJwNnef0lkm7uHAnmf4Yde9tzDn5aGUo0HMbnsEssS5Zf9Zi7oKbnosS5Jd2SKQzOHN9N2sw==}
@@ -7543,15 +7535,11 @@ snapshots:
 
   '@sindresorhus/is@4.6.0': {}
 
-  '@spuxx/browser-utils@1.2.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))':
+  '@spuxx/browser-utils@1.3.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))':
     dependencies:
-      '@spuxx/js-utils': 1.0.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))
+      '@spuxx/js-utils': 1.2.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))
     transitivePeerDependencies:
       - '@modyfi/vite-plugin-yaml'
-
-  '@spuxx/js-utils@1.0.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))':
-    optionalDependencies:
-      '@modyfi/vite-plugin-yaml': 1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1))
 
   '@spuxx/js-utils@1.2.0(@modyfi/vite-plugin-yaml@1.1.0(rollup@4.28.1)(vite@5.4.10(@types/node@20.17.0)(terser@5.34.1)))':
     optionalDependencies:

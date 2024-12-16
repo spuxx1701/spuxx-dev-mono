@@ -1,6 +1,9 @@
+import { blueTheme } from '@/assets/themes/blue.theme';
 import { darkTheme } from '@/assets/themes/dark.theme';
+import { greenTheme } from '@/assets/themes/green.theme';
 import { lightTheme } from '@/assets/themes/light.theme';
 import { pinkTheme } from '@/assets/themes/pink.theme';
+import { LocalStorage } from '@/services/local-storage/local-storage.service';
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg';
 
@@ -47,11 +50,13 @@ export const vuetify = createVuetify({
     },
   },
   theme: {
-    defaultTheme: 'dark',
+    defaultTheme: LocalStorage.loadTheme(),
     themes: {
       dark: darkTheme,
       light: lightTheme,
       pink: pinkTheme,
+      green: greenTheme,
+      blue: blueTheme,
     },
   },
 });

@@ -8,6 +8,7 @@ import { VBtn } from 'vuetify/components';
 import MainSidebar from '../sidebar/MainSidebar.vue';
 import { Config } from '@spuxx/browser-utils';
 import type { AppConfig } from '@/config/app.config';
+import ThemeSelect from '../components/settings/ThemeSelect.vue';
 
 useProtection();
 const { session } = SessionManager;
@@ -23,7 +24,8 @@ const handleLogout = () => {
   <MainSidebar />
   <PageContent v-if="session" :title="intl('main.route.settings.title')" icon="mdi:settings">
     <p>
-      {{ intl('main.route.settings.signed-in-as') }} <b>{{ session.given_name }}</b>
+      {{ intl('main.route.settings.signed-in-as') }}
+      <b>{{ session.given_name }} ({{ session.preferred_username }})</b>
     </p>
     <VBtn
       color="primary-darken-1"
@@ -34,6 +36,7 @@ const handleLogout = () => {
       <Icon icon="mdi:logout" />
       <p>{{ intl('main.route.settings.logout') }}</p>
     </VBtn>
+    <ThemeSelect />
   </PageContent>
 </template>
 

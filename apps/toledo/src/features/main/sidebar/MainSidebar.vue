@@ -30,12 +30,12 @@ import SidebarTeleport from '@/components/sidebar/SidebarTeleport.vue';
         <Icon icon="mdi:forum" />
       </template>
       {{ intl('chatbot.route.index.title') }}
-    </VListItem>
+    </VListItem> -->
     <VListItem link to="/settings">
       <template v-slot:prepend>
         <Icon icon="mdi:gear" />
       </template>
       {{ intl('main.route.settings.title') }}
-    </VListItem> -->
+    </VListItem>
   </SidebarTeleport>
 </template>

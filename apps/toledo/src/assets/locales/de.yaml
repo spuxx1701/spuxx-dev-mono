@@ -36,6 +36,8 @@ main:
       title: Einstellungen
       signed-in-as: 'Du bist angemeldet als:'
       logout: Abmelden
+      theme:
+        title: Farbschema
 
 lists:
   route:
