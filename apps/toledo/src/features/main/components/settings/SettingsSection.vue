@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VCard } from 'vuetify/components';
+import { VCard, VContainer } from 'vuetify/components';
 
 const { title } = defineProps<{
   title: string;
@@ -7,12 +7,14 @@ const { title } = defineProps<{
 </script>
 
 <template>
-  <VCard class="mb-2 pb-4 px-4">
+  <VCard class="mb-2 px-4">
     <template v-slot:title>
       <h3>{{ title }}</h3>
     </template>
     <template v-slot:default>
-      <slot></slot>
+      <VContainer class="pt-0">
+        <slot></slot>
+      </VContainer>
     </template>
   </VCard>
 </template>

@@ -4,7 +4,7 @@ import { SessionManager } from '@/services/session';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { Config } from '@spuxx/browser-utils';
 import { intl } from '@spuxx/js-utils';
-import { VBtn } from 'vuetify/components';
+import { VBtn, VRow } from 'vuetify/components';
 import SettingsSection from './SettingsSection.vue';
 
 const { session } = SessionManager;
@@ -18,7 +18,7 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <SettingsSection v-if="session" :title="intl('main.route.settings.session.title')">
+  <SettingsSection v-if="session" :title="intl('main.route.settings.session.title')" style>
     <p>{{ intl('main.route.settings.session.text') }}</p>
     <p>
       {{ intl('main.route.settings.session.name') }}
@@ -28,14 +28,18 @@ const handleLogout = () => {
       {{ intl('main.route.settings.session.username') }}
       <b>{{ session.preferred_username }}</b>
     </p>
-    <VBtn color="primary-darken-1" class="mt-2" :href="ACCOUNT_SERVICE_URL" target="_blank">
-      <Icon icon="mdi:account" />
-      <p>{{ intl('main.route.settings.session.account-service') }}</p>
-    </VBtn>
-    <VBtn color="primary-darken-1" class="mt-2" @click="handleLogout">
-      <Icon icon="mdi:logout" />
-      <p>{{ intl('main.route.settings.session.logout') }}</p>
-    </VBtn>
+    <VRow justify="center" class="my-2">
+      <VBtn color="primary-darken-1" :href="ACCOUNT_SERVICE_URL" target="_blank">
+        <Icon icon="mdi:account" />
+        <p>{{ intl('main.route.settings.session.account-service') }}</p>
+      </VBtn>
+    </VRow>
+    <VRow justify="center" class="mt-2 mb-0">
+      <VBtn color="primary-darken-1" @click="handleLogout">
+        <Icon icon="mdi:logout" />
+        <p>{{ intl('main.route.settings.session.logout') }}</p>
+      </VBtn>
+    </VRow>
   </SettingsSection>
 </template>
 
