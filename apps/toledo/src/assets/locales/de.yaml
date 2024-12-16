@@ -37,14 +37,14 @@ main:
       session:
         title: Sitzung
         text: Du bist angemeldet.
-        name: "Vorname:"
-        username: "Username:"
+        name: 'Vorname:'
+        username: 'Username:'
         logout: Abmelden
       theme:
         title: Farbschema
       about:
         title: Über die Anwendung
-        version: "Version:"
+        version: 'Version:'
 
 lists:
   route:
