@@ -34,10 +34,17 @@ main:
       login: Anmelden via auth.spuxx.dev
     settings:
       title: Einstellungen
-      signed-in-as: 'Du bist angemeldet als:'
-      logout: Abmelden
+      session:
+        title: Sitzung
+        text: Du bist angemeldet.
+        name: "Vorname:"
+        username: "Username:"
+        logout: Abmelden
       theme:
         title: Farbschema
+      about:
+        title: Über die Anwendung
+        version: "Version:"
 
 lists:
   route:

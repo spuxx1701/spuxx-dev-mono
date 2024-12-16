@@ -7,6 +7,9 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [vue(), ViteYaml(), tsconfigPaths()],
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

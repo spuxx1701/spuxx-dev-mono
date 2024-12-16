@@ -3,6 +3,7 @@ import type { ExtractPublicPropTypes } from 'vue';
 export {};
 
 declare global {
+  declare const APP_VERSION: string;
   /**
    * Unwraps the type of the properties of a Vuetify component.
    */

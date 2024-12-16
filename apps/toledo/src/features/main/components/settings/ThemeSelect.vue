@@ -6,6 +6,7 @@ import { computed, type Ref } from 'vue';
 import { intl } from '@spuxx/js-utils';
 import { LocalStorage } from '@/services/local-storage/local-storage.service';
 import { Renderer } from '@/services/renderer/renderer.service';
+import SettingsSection from './SettingsSection.vue';
 
 const themeInstance = useTheme();
 const { global, themes } = themeInstance;
@@ -21,17 +22,18 @@ function handleSelect(index: number) {
 </script>
 
 <template>
-  <h3>{{ intl('main.route.settings.theme.title') }}</h3>
-  <VBtnToggle
-    class="theme-select"
-    variant="elevated"
-    v-model="currentThemeIndex"
-    @update:model-value="handleSelect"
-  >
-    <VBtn v-for="name in themeNames" :theme="name" :title="name">
-      <Icon v-if="currentThemeName === name" icon="mdi:check-bold"></Icon>
-    </VBtn>
-  </VBtnToggle>
+  <SettingsSection :title="intl('main.route.settings.theme.title')">
+    <VBtnToggle
+      class="theme-select"
+      variant="elevated"
+      v-model="currentThemeIndex"
+      @update:model-value="handleSelect"
+    >
+      <VBtn v-for="name in themeNames" :theme="name" :title="name">
+        <Icon v-if="currentThemeName === name" icon="mdi:check-bold"></Icon>
+      </VBtn>
+    </VBtnToggle>
+  </SettingsSection>
 </template>
 
 <style scoped>
