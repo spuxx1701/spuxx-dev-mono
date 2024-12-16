@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { getSession } from '@spuxx/nest-utils';
 import { User } from '@src/users/models/user.model';
 import { Request } from 'express';
-import { Model, ModelCtor } from 'sequelize-typescript';
+import { Model, type ModelCtor } from 'sequelize-typescript';
 
 /**
  * A mixin that provides access management functionalities for certain model repositories.
