@@ -8,6 +8,7 @@ import { VBtn } from 'vuetify/components';
 import SettingsSection from './SettingsSection.vue';
 
 const { session } = SessionManager;
+const { ACCOUNT_SERVICE_URL, API_URL } = Config.getConfig<AppConfig>();
 
 const handleLogout = () => {
   const { API_URL } = Config.getConfig<AppConfig>();
@@ -27,6 +28,10 @@ const handleLogout = () => {
       {{ intl('main.route.settings.session.username') }}
       <b>{{ session.preferred_username }}</b>
     </p>
+    <VBtn color="primary-darken-1" class="mt-2" :href="ACCOUNT_SERVICE_URL" target="_blank">
+      <Icon icon="mdi:account" />
+      <p>{{ intl('main.route.settings.session.account-service') }}</p>
+    </VBtn>
     <VBtn color="primary-darken-1" class="mt-2" @click="handleLogout">
       <Icon icon="mdi:logout" />
       <p>{{ intl('main.route.settings.session.logout') }}</p>

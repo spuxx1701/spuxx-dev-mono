@@ -6,6 +6,10 @@ export interface AppConfig {
    */
   API_URL: string;
   /**
+   * The URL of the IDP's account service page.
+   */
+  ACCOUNT_SERVICE_URL: string;
+  /**
    * The default locale of the application.
    */
   DEFAULT_LOCALE: string;
@@ -17,6 +21,7 @@ export interface AppConfig {
 
 export const appConfig: AppConfig = {
   API_URL: 'https://api.spuxx.dev',
+  ACCOUNT_SERVICE_URL: 'https://auth.spuxx.dev/realms/main/account',
   DEFAULT_LOCALE: 'de',
   LOG_LEVEL: 'debug',
 };

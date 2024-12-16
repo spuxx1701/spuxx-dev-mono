@@ -39,6 +39,7 @@ main:
         text: Du bist angemeldet.
         name: 'Vorname:'
         username: 'Username:'
+        account-service: Account Service
         logout: Abmelden
       theme:
         title: Farbschema
