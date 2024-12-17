@@ -33,7 +33,7 @@
     "@nestjs/sequelize": "10.0.1",
     "@nestjs/swagger": "8.1.0",
     "@spuxx/js-utils": "1.2.0",
-    "@spuxx/nest-utils": "3.0.0",
+    "@spuxx/nest-utils": "3.1.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.1",
     "express-openid-connect": "2.17.1",
