@@ -29,7 +29,7 @@
     "npm-run-all2": "7.0.1",
     "playwright": "1.47.2",
     "typescript": "5.7.2",
-    "vite": "5.4.10",
+    "vite": "6.0.5",
     "vite-plugin-dts": "4.2.3",
     "vite-tsconfig-paths": "5.1.4",
     "@modyfi/vite-plugin-yaml": "1.1.0",
