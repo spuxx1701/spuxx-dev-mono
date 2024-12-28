@@ -100,6 +100,14 @@ describe('ListsCrudController', () => {
       expect(response.body.length).toBe(2);
       expect(response.body[0]).toEqual(firstList);
       expect(response.body[1]).toEqual({ ...secondList, guests: response.body[1].guests });
+
+      // Requesting lists with a totally different user should not include the shared list,
+      // since lists are only shared with specific users
+      response = await supertest.get(`/toledo/lists`, {
+        session: sessionMockData.toledo_2,
+      });
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBe(0);
     });
 
     it('should include the specified relationships', async () => {

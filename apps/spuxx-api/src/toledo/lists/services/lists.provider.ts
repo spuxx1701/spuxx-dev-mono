@@ -33,7 +33,7 @@ export class ListsProvider {
     return this.model.findAll({
       ...options,
       where: {
-        [Op.or]: [{ ownerId: sub }, { '$guests.id$': { [Op.ne]: null } }],
+        [Op.or]: [{ ownerId: sub }, { '$guests.id$': sub }],
       },
     });
   }
