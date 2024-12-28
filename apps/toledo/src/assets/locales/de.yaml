@@ -55,7 +55,7 @@ lists:
       collection:
         owned: Deine Listen
         shared: Andere Listen
-        empty: 🦗 Hier gibt es noch nichts zu sehen.
+        empty: Listen, die jemand mit Dir geteilt hat, tauchen hier auf.
     list:
       item:
         text:
