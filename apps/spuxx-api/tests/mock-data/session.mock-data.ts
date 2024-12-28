@@ -26,6 +26,18 @@ export const sessionMockData = {
     groups: [AuthRole.toledo],
     locale: 'en',
   },
+  toledo_2: {
+    sub: 'e89e97f3-0a76-4fd2-82c1-caccc5ad0b36',
+    sid: '85412a94-6896-4b74-ac9b-d46a730c8453',
+    name: 'Luigi Mario',
+    given_name: 'Luigi',
+    family_name: 'Mario',
+    email: 'luigi@nintendo.com',
+    preferred_username: 'Luigi',
+    email_verified: true,
+    groups: [AuthRole.toledo],
+    locale: 'en',
+  } as SessionResource,
   unprivileged: {
     sub: '2ccc1832-c988-4df9-b464-9c02705feaf8',
     sid: 'd8b901cb-6199-450f-ad85-1cba837870a5',
