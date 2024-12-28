@@ -7,9 +7,11 @@ import { ListsAccessManager } from './lists.access-manager';
 import { getSession, Mapper } from '@spuxx/nest-utils';
 import { ListItemUpdateResource } from '../dtos/list-item.update.resource';
 import { listItemsExceptions } from '../config/list-items.exceptions';
+import { InjectModel } from '@nestjs/sequelize';
 @Injectable()
 export class ListItemsProvider {
   constructor(
+    @InjectModel(ListItem) private model: typeof ListItem,
     private readonly listsProvider: ListsProvider,
     private readonly accessManager: ListsAccessManager,
     private readonly mapper: Mapper,
@@ -82,14 +84,11 @@ export class ListItemsProvider {
    */
   async delete(listId: string, itemId: string, request: Request): Promise<void> {
     const { preferred_username } = getSession(request);
-    const list = await this.listsProvider.findById(listId, request, {
-      include: ['items'],
-    });
+    const list = await this.listsProvider.findById(listId, request);
     await this.accessManager.checkAccess(list, request);
-    const item = list.items.find((element) => element.id === itemId);
+    const item = await this.model.findByPk(itemId);
     if (!item) return;
-    await list.$remove<ListItem>('items', item);
-    await list.save();
+    await item.destroy();
     Logger.log(
       `User '${preferred_username}' has deleted list item '${item.id}'.`,
       ListsProvider.name,
