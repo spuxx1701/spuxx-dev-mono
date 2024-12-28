@@ -10,9 +10,13 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const { isAuthenticated } = SessionManager;
-if (isAuthenticated()) {
-  router.replace('/');
-}
+
+const checkAuthentication = async () => {
+  if (await isAuthenticated()) {
+    router.replace('/');
+  }
+};
+checkAuthentication();
 
 const handleLogin = () => {
   const { API_URL } = Config.getConfig<AppConfig>();

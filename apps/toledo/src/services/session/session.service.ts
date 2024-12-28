@@ -11,12 +11,14 @@ export class SessionManager extends ServiceMixin<SessionManager>() {
     return this.instance._session;
   }
 
-  static isAuthenticated() {
-    return !!SessionManager.getSession();
+  static async isAuthenticated() {
+    const session = await SessionManager.getSession();
+    return !!session;
   }
 
-  static isNotAuthenticated() {
-    return !SessionManager.getSession();
+  static async isNotAuthenticated() {
+    const session = await SessionManager.getSession();
+    return !session;
   }
 
   static async getSession() {

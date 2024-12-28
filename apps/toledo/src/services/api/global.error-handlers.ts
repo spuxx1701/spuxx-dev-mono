@@ -5,7 +5,7 @@ export const globalErrorHandlers: ErrorHandler[] = [
   {
     statusFilter: (status) => status === 401,
     function: () => {
-      router.replace('/login');
+      if (router.currentRoute.value.name !== 'login') router.replace('/login');
     },
   },
   {
