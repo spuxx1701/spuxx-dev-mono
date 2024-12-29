@@ -42,7 +42,7 @@ const handleCancel = () => {
           <template v-slot:label>
             <span class="d-inline-flex"
               ><Icon class="mr-1" icon="mdi:link" height="20px"></Icon>
-              {{ intl('dialog.share.input-label') }}</span
+              {{ intl('component.dialog.share.input-label') }}</span
             >
           </template>
         </VTextField>

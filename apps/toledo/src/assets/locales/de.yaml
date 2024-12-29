@@ -123,6 +123,10 @@ validation:
   min-length: Bitte gib mindestens {min} Zeichen ein.
   max-length: Bitte gib höchstens {max} Zeichen ein.
 
-dialog:
-  share:
-    input-label: Link kopieren
+component:
+  common:
+    user-select:
+      label: Nutzer:in
+  dialog:
+    share:
+      input-label: Link kopieren
