@@ -1,5 +1,6 @@
 app:
   title: Toledo
+  description: Toledo ist Dein täglicher Begleiter. Entwickelt mit ❤️.
   navbar:
     toggle-sidebar: Sidebar ein/ausblenden
 
@@ -31,9 +32,11 @@ main:
       greeting: Hallo {name}!
     login:
       title: Toledo
+      description: Melde Dich an, um Toledo zu nutzen.
       login: Anmelden via auth.spuxx.dev
     settings:
       title: Einstellungen
+      description: Verwalte Deine Einstellungen.
       session:
         title: Sitzung
         text: Du bist angemeldet.
@@ -51,12 +54,15 @@ lists:
   route:
     index:
       title: Listen
+      description: Sieh Dir Deine Listen an und verwalte sie.
       create: Neue Liste
       collection:
         owned: Deine Listen
         shared: Andere Listen
         empty: Listen, die jemand mit Dir geteilt hat, tauchen hier auf.
     list:
+      title: Liste
+      description: Sieh Dir Deine Liste an und verwalte sie.
       item:
         text:
           label: Neuer Eintrag
@@ -100,6 +106,8 @@ lists:
             title: Liste löschen
             text: Bist Du sicher, dass Du diese Liste löschen möchtest?
     list-invite:
+      title: Listen-Einladung
+      description: Jemand hat Dich eingeladen, an einer Liste teilzunehmen. Öffne den Link, um die Einladung anzunehmen.
       success: Prima! Du hast die Einladung angenommen.
       to-list: Zur Liste gehen
   create:
@@ -112,6 +120,9 @@ recipes:
   route:
     index:
       title: Rezepte
+  sidebar:
+    home: Startseite
+    recipes: Alle Rezepte
 
 chatbot:
   route:
