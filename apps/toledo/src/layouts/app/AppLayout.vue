@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import AppNavBar from './navbar/AppNavBar.vue';
-import AppMainContent from './main-content/AppMainContent.vue';
-import AppSidebar from './sidebar/AppSidebar.vue';
-import AppDialog from './dialog/AppDialog.vue';
+import AppNavBar from './AppNavBar.vue';
+import AppMainContent from './AppMainContent.vue';
+import AppSidebar from './AppSidebar.vue';
+import AppDialog from './AppDialog.vue';
+import AppMeta from './AppMeta.vue';
 </script>
 
 <template>
+  <AppMeta />
   <AppNavBar />
   <AppSidebar />
   <AppDialog />
