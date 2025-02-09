@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/spuxx1701/spuxx-dev-mono/compare/spuxx-astro-v1.3.0...spuxx-astro-v1.3.1) (2025-02-09)
+
+
+### Bug Fixes
+
+* Remove console.log ([201d77c](https://github.com/spuxx1701/spuxx-dev-mono/commit/201d77c79fb366e85f5d59d27d56053a6ac45c27))
+
 ## [1.3.0](https://github.com/spuxx1701/spuxx-dev-mono/compare/spuxx-astro-v1.2.0...spuxx-astro-v1.3.0) (2024-10-06)
 
 
